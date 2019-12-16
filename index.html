@@ -1091,7 +1091,7 @@
 								<h1 class="port_heading">Recent News</h1>
 							</div>
 						</div>
-						<div id="content" class="row">Blog details</div>
+						<div id="content" class="row"></div>
 					</div>
 				</div>
 			</div>
@@ -2030,30 +2030,40 @@
 		<script type="text/javascript">
 			$(function () {
 				var $content = $('#content');
-				var data = {
-					rss_url: 'https://medium.com/feed/@arun.ranush'
-				};
-				$.get('https://api.rss2json.com/v1/api.json', data, function (response) {
-					if (response.status == 'ok') {
-						var output = ''
-						debugger
-						$.each(response.items, function (k, item) {
-							if (item.categories.length) {
-								output += '<div class="col-sm-12 col-lg-4"><div class="port_blog_mainbox vertical_content">' +
-									'<div class="port_blog_imgbox">' +
-									'<img src="' + item.thumbnail + '" alt="blog-image" class="img-fluid" /></div>' +
-									'<div class="port_blog_contentbox">' + '<span class="date_span">' +
-									new Date(item.pubDate).toDateString() + '</span>' +
-									'<h4 class="blog_heading" style=""><a href="' + item.guid + '">' + 
+				var blogSpotUrl = 'https://jak-ruby.blogspot.com/feeds/posts/default';
+				var urls = ['https://medium.com/feed/@arun.ranush', blogSpotUrl]
+				var output = ''
+
+				$.each(urls, function (k, url) {
+					$.get('https://api.rss2json.com/v1/api.json', {
+						rss_url: url
+					}, function (response) {
+						if (response.status == 'ok') {
+							$.each(response.items, function (k, item) {
+								if (item.categories.length) {
+									var thumbUrl = item.thumbnail;
+									var authorName = item.author
+									if (response.feed.url == blogSpotUrl) {
+										thumbUrl = 'assets/images/rp.jpg'
+										authorName = 'Arun Kumar'
+									}
+									output +=
+										'<div class="col-sm-12 col-lg-4"><div class="port_blog_mainbox vertical_content">' +
+										'<div class="port_blog_imgbox">' +
+										'<img src="' + thumbUrl + '" alt="blog-image" class="img-fluid" /></div>' +
+										'<div class="port_blog_contentbox">' + '<span class="date_span">' +
+										new Date(item.pubDate).toDateString() + '</span>' +
+										'<h4 class="blog_heading" style=""><a href="' + item.link + '">' +
 										item.title.substring(0, 20) + '...' + '</a></h4>' +
-									'<div class="blog_info"><ul><li><i class="fas fa-user-edit"></i><a href="">' + item.author +
-									'</a></li><li><a href="' + item.guid +
-									'" class="readmore_btn">Read More <i class="fas fa-long-arrow-alt-right"></i></a></li></ul></div>' +
-									'</div></div></div><div class="blog_readmore"></div>'
-							}
-						});
-						$content.html(output);
-					}
+										'<div class="blog_info"><ul><li><i class="fas fa-user-edit"></i><a href="">' +
+										authorName + '</a></li><li><a href="' + item.link +
+										'" class="readmore_btn">Read More <i class="fas fa-long-arrow-alt-right"></i></a></li></ul></div>' +
+										'</div></div></div><div class="blog_readmore"></div>'
+								}
+							});
+							$content.append(output);
+						}
+					});
 				});
 			});
 		</script>
