@@ -2294,11 +2294,10 @@ h2.project_heading:after {
     -ms-transform: scale(0.9);
     -o-transform: scale(0.9);
 	cursor: pointer;
-	width:120px;
-	height:120px;
+	width:150px;
+	height:150px;
 }
 .port_swipper_responsor svg path {
-    fill: #ffffffb3;
 	-webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;
@@ -2306,7 +2305,7 @@ h2.project_heading:after {
     transition: all 0.3s ease-in-out;
 }
 .port_swipper_responsor svg:hover path {
-    fill: #ffffff;
+    fill: #E3EAEF;
 }
 .port_swipper_responsor svg:hover{
     transform: scale(1);
