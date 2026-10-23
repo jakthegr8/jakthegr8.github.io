@@ -581,6 +581,25 @@
   listEl.addEventListener("click", e => { if (e.target.closest("[data-i]")) runSel(); });
   dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
 
+  /* ---------- back to top: appears after the first screen, ring shows how far down you are ---------- */
+  const toTop = $("[data-to-top]");
+  if (toTop) {
+    toTop.hidden = false;
+    const sync = () => {
+      const max = root.scrollHeight - innerHeight;
+      toTop.classList.toggle("is-on", scrollY > innerHeight * 0.9);
+      toTop.style.setProperty("--done", ((scrollY / (max || 1)) * 100).toFixed(1));
+    };
+    addEventListener("scroll", () => requestAnimationFrame(sync), { passive: true });
+    toTop.addEventListener("click", () => {
+      scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+      const name = $(".hero__title");   // the name is what's visible at the top (the logo is hidden until it docks)
+      name.setAttribute("tabindex", "-1");
+      name.focus({ preventScroll: true });
+    });
+    sync();
+  }
+
   /* ---------- global keys ---------- */
   addEventListener("keydown", e => {
     const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName);
