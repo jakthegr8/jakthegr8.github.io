@@ -459,7 +459,7 @@ kbd {
 .hero__role { margin: 40px 0 0; font-size: clamp(19px, 2vw, 24px); line-height: 1.45; color: var(--fg); max-width: 34ch; }
 .hero__open { display: inline-flex; align-items: center; gap: 10px; margin: 18px 0 0; font: 400 13px/1.4 var(--mono); color: var(--muted); }
 .hero__open .dot { width: 8px; height: 8px; border-radius: 50%; background: #3fb950; box-shadow: 0 0 0 4px rgba(63, 185, 80, 0.18); }
-.hero__portrait { width: 100%; max-width: 400px; justify-self: end; pointer-events: auto; }
+.hero__portrait { width: 100%; max-width: 470px; justify-self: end; pointer-events: auto; }
 .btn--ghost { border-color: transparent; color: var(--muted); }
 .btn--ghost:hover { color: var(--bg); }
 .nav__li { color: var(--fg); }
@@ -501,12 +501,12 @@ a.model:hover h4 { color: var(--accent); }
 
 @media (max-width: 960px) {
   .hero__grid, .glance__grid { grid-template-columns: 1fr; }
-  .hero__portrait { justify-self: start; max-width: 300px; }
+  .hero__portrait { justify-self: start; max-width: 340px; }
   .caps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
   .hero { padding-top: 104px; }
-  .hero__portrait { max-width: 240px; }
+  .hero__portrait { max-width: 270px; }
   .caps { grid-template-columns: 1fr; }
   .career li { grid-template-columns: 1fr; }
   .career time { grid-row: auto; }
