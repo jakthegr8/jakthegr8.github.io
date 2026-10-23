@@ -13,6 +13,7 @@
   --aurora-2: #ffb36b;
   --aurora-3: #8a4dff;
   --aurora-strength: 0.62;
+  --orb-deep: rgba(40, 16, 60, 0.92);
   --serif: "Instrument Serif", "Times New Roman", serif;
   --sans: "Geist", ui-sans-serif, sans-serif;
   --mono: "Geist Mono", ui-monospace, monospace;
@@ -34,6 +35,7 @@
   --aurora-2: #ffc08a;
   --aurora-3: #e86f9c;
   --aurora-strength: 0.5;
+  --orb-deep: rgba(120, 60, 110, 0.55);
   color-scheme: light;
 }
 
@@ -260,20 +262,33 @@ kbd {
 .footprint.is-focus .countries li:not(.is-on), .footprint.is-focus .teams li:not(.is-on) { opacity: 0.28; }
 .countries li.is-on { padding-left: 8px; }
 
-/* ---------- 3D portrait: cut-out subject over a tilting card, with an orbit ---------- */
-.p3d { margin: 0; position: relative; perspective: 1100px; padding-top: 10%; }
+/* ---------- 3D portrait: you inside a living aurora orb; your head rises out of the top ---------- */
+@property --ring { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.p3d { margin: 0; position: relative; perspective: 1100px; }
 .p3d__stage { position: relative; aspect-ratio: 3 / 4; transform-style: preserve-3d; transform: rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg)); transition: transform 0.6s var(--ease); will-change: transform; }
-.p3d__card {
-  position: absolute; inset: 14% 0 0 0; border-radius: 26px; overflow: hidden; transform: translateZ(-40px);
-  background:
-    radial-gradient(120% 80% at 50% 100%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 65%),
-    radial-gradient(circle at 1px 1px, var(--line-2) 1px, transparent 1.5px) 0 0 / 14px 14px,
-    var(--bg-2);
-  border: 1px solid var(--line-2);
+.orb { position: absolute; left: 50%; bottom: 3.2%; width: 90.9%; aspect-ratio: 1; translate: -50% 0; animation: morph 10s ease-in-out infinite; }
+@keyframes morph {
+  0%, 100% { border-radius: 46% 54% 58% 42% / 44% 46% 54% 56%; }
+  33% { border-radius: 58% 42% 44% 56% / 54% 40% 60% 46%; }
+  66% { border-radius: 40% 60% 52% 48% / 42% 58% 42% 58%; }
 }
-.p3d__mono { position: absolute; left: 50%; top: 4%; translate: -50% 0; font: italic 400 clamp(110px, 16vw, 220px)/1 var(--serif); color: transparent; -webkit-text-stroke: 1px var(--line-2); letter-spacing: -0.04em; white-space: nowrap; }
-.p3d__subject { position: absolute; left: 50%; bottom: 0; width: 94%; height: auto; translate: -50% 0; transform: translateZ(60px) translateY(var(--float, 0px)); transform-origin: bottom center; filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.45)); pointer-events: none; -webkit-mask-image: linear-gradient(#000 88%, transparent); mask-image: linear-gradient(#000 88%, transparent); }
-.p3d figcaption { position: absolute; left: 16px; bottom: 16px; z-index: 2; transform: translateZ(90px); font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 10px; border-radius: 999px; background: color-mix(in srgb, var(--bg) 70%, transparent); backdrop-filter: blur(8px); }
+@keyframes ring { to { --ring: 360deg; } }
+.orb--fill, .orb--glow {
+  background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--aurora-1) 85%, transparent), color-mix(in srgb, var(--aurora-3) 55%, transparent) 60%, var(--orb-deep) 100%);
+}
+.orb--glow { transform: translateZ(-30px); filter: blur(28px); opacity: 0.55; }
+.orb--fill { overflow: hidden; }
+.orb--ring {
+  width: 95.2%; bottom: 1.6%; padding: 2.5px; pointer-events: none;
+  background: conic-gradient(from var(--ring), var(--aurora-1), var(--aurora-3), var(--aurora-2), var(--aurora-1));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: morph 10s ease-in-out infinite, ring 6s linear infinite;
+}
+/* The same photo twice, pixel-aligned: once clipped by the shape (body), once clipped to the top band (head) */
+.orb__img { position: absolute; left: 50%; bottom: 0; width: 110%; max-width: none; height: auto; translate: -50% 0; }
+.orb__head { position: absolute; inset: 0; clip-path: inset(0 0 59% 0); pointer-events: none; }
+.orb__head .orb__img { width: 100%; bottom: 3.2%; }
 
 /* ---------- Tulifo products ---------- */
 .products { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 8px; }
@@ -445,7 +460,6 @@ kbd {
 .hero__open { display: inline-flex; align-items: center; gap: 10px; margin: 18px 0 0; font: 400 13px/1.4 var(--mono); color: var(--muted); }
 .hero__open .dot { width: 8px; height: 8px; border-radius: 50%; background: #3fb950; box-shadow: 0 0 0 4px rgba(63, 185, 80, 0.18); }
 .hero__portrait { width: 100%; max-width: 400px; justify-self: end; pointer-events: auto; }
-.hero__portrait .p3d__card { inset: 16% 0 0 0; }
 .btn--ghost { border-color: transparent; color: var(--muted); }
 .btn--ghost:hover { color: var(--bg); }
 .nav__li { color: var(--fg); }
