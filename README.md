@@ -5,7 +5,7 @@ Personal site of Arun Kumar Jayakodi — https://jakthegr8.github.io
 Plain HTML, CSS and JavaScript; no build step.
 
 - `index.html`, `css/main.css`, `js/main.js` — the page
-- `js/life.js` — the Game of Life in the hero (draw with the pointer; `space`, `r`, `g`, `c` while it is on screen)
+- `scripts/stamp-assets.mjs` — run after editing `css/` or `js/`; it versions the asset links in `index.html` so browsers never mix new HTML with cached CSS/JS
 - `data/feed.json` — Medium posts, Blogspot posts and GitHub repos, rebuilt daily by `.github/workflows/feeds.yml` via `scripts/fetch-feeds.mjs`
 
 Run locally:

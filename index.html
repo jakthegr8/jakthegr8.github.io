@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/main.css?v=f7fd9345">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -41,9 +41,8 @@
   </header>
 
   <main id="main">
-    <!-- Hero: who, what level, where, how to reach — with one quiet animation behind it -->
+    <!-- Hero: who, what level, where, how to reach -->
     <section class="hero" id="top">
-      <canvas class="life" aria-label="Interactive Conway's Game of Life. Move the pointer to draw living cells."></canvas>
       <div class="hero__grid">
         <div class="hero__inner">
           <p class="eyebrow load" style="--d:0">CTO at <a class="eyebrow__link" href="https://tulifo.com" target="_blank" rel="noopener">Tulifo</a> · Chennai, India</p>
@@ -65,10 +64,6 @@
             <img class="p3d__subject" src="img/arun-cutout.png" alt="Portrait of Arun Kumar Jayakodi" width="630" height="840" fetchpriority="high" decoding="async">
           </div>
         </figure>
-      </div>
-      <div class="hud" aria-hidden="true">
-        <span>gen <b data-gen>0000</b></span>
-        <span class="hud__hint">draw to seed life · <kbd>space</kbd> pause · <kbd>r</kbd> reseed</span>
       </div>
     </section>
 
@@ -393,7 +388,6 @@
 
   <div class="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/life.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=b9ce526a"></script>
 </body>
 </html>
