@@ -78,7 +78,8 @@
       movePill(a);
     });
   }, { rootMargin: "-45% 0px -50% 0px" });
-  ["top", "about", "experience", "tulifo", "work", "credentials", "contact"].forEach(id => sectionIO.observe(document.getElementById(id)));
+  // Observe whatever sections the page has, so a renamed or removed section can't stop the script.
+  $$("main > section[id]").forEach(el => sectionIO.observe(el));
 
   /* ---------- split headings into masked words ---------- */
   $$(".split").forEach(el => {
@@ -355,7 +356,7 @@
   /* ---------- data: projects and writing from data/feed.json ---------- */
   const LANG = { Ruby: "#cc342d", JavaScript: "#f1e05a" };
   const HIGHLIGHTS = {
-    GameOfLife: "Conway's Game of Life in Ruby. The same rules are running in the hero of this page.",
+    GameOfLife: "Conway's Game of Life in Ruby, built for the fun of it.",
     infracity: "A social-good application in Rails — winner of a national-level hackathon.",
     "konva-ext": "Konva.js canvas editing, extended with interactive resize.",
   };
@@ -418,10 +419,6 @@
     { group: "Navigate", label: "Contact", hint: "06", run: go("contact") },
     { group: "Actions", label: "Copy email address", hint: EMAIL, run: copyEmail },
     { group: "Actions", label: "Toggle theme", hint: "light / dark", run: () => toggleTheme() },
-    { group: "Game of Life", label: window.Life && !window.Life.running ? "Resume simulation" : "Pause simulation", hint: "space", run: () => window.Life && toast(window.Life.toggle() ? "Life resumed" : "Life paused") },
-    { group: "Game of Life", label: "Reseed the grid", hint: "r", run: () => window.Life && window.Life.reseed() },
-    { group: "Game of Life", label: "Launch gliders", hint: "g", run: () => window.Life && window.Life.glider() },
-    { group: "Game of Life", label: "Clear the grid", hint: "c", run: () => window.Life && window.Life.clear() },
     ...Object.entries(LINKS).map(([k, url]) => ({ group: "Elsewhere", label: "Open " + k, hint: "↗", run: open(url) })),
   ];
   let items = [], sel = 0;
@@ -465,11 +462,5 @@
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); dlg.open ? dlg.close() : openPalette(); return; }
     if (typing || dlg.open || e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.key === "/") { e.preventDefault(); openPalette(); return; }
-    const inHero = scrollY < innerHeight * 0.6;
-    if (!inHero || !window.Life) return;
-    if (e.key === " " && !document.activeElement.closest("a, button")) { e.preventDefault(); toast(window.Life.toggle() ? "Life resumed" : "Life paused"); }
-    if (e.key === "r") window.Life.reseed();
-    if (e.key === "g") window.Life.glider();
-    if (e.key === "c") window.Life.clear();
   });
 })();
