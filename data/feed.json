@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-23T17:06:55.164Z",
+ "generated": "2026-10-23T17:39:44.770Z",
  "profile": {
   "repos": 38,
   "gists": 69,
@@ -992,6 +992,15 @@
  ],
  "repos": [
   {
+   "name": "jakthegr8.github.io",
+   "url": "https://github.com/jakthegr8/jakthegr8.github.io",
+   "description": "My personal website",
+   "language": "CSS",
+   "stars": 0,
+   "pushed": "2026-10-23T17:37:59Z",
+   "created": "2020-03-02T11:16:50Z"
+  },
+  {
    "name": "leet_code_refresh",
    "url": "https://github.com/jakthegr8/leet_code_refresh",
    "description": "Refresh Leet Code",
@@ -999,15 +1008,6 @@
    "stars": 0,
    "pushed": "2024-03-14T15:59:03Z",
    "created": "2024-03-14T10:11:47Z"
-  },
-  {
-   "name": "jakthegr8.github.io",
-   "url": "https://github.com/jakthegr8/jakthegr8.github.io",
-   "description": "My personal website",
-   "language": "HTML",
-   "stars": 0,
-   "pushed": "2021-12-28T05:36:27Z",
-   "created": "2020-03-02T11:16:50Z"
   },
   {
    "name": "zero_to_mastery-data_structures",
