@@ -256,6 +256,7 @@
       p.addEventListener("focus", () => setFocus(p.dataset.country));
       p.addEventListener("blur", () => setFocus(null));
     });
+    layout();
     new ResizeObserver(layout).observe(mapEl);
     new MutationObserver(() => geo && draw()).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
   }
