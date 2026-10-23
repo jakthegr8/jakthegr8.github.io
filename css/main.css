@@ -543,3 +543,31 @@ a.model:hover h4 { color: var(--accent); }
 @media (max-width: 640px) {
   .aurora { opacity: 0.75; }
 }
+
+/* ---------- cursor light: trailing glow and card edges that light up as the cursor nears ---------- */
+.cursor-glow {
+  position: fixed; left: 0; top: 0; z-index: 1; width: 560px; height: 560px; margin: -280px 0 0 -280px;
+  border-radius: 50%; pointer-events: none; will-change: transform; mix-blend-mode: screen;
+  background: radial-gradient(circle, color-mix(in srgb, var(--aurora-1) 14%, transparent) 0%, color-mix(in srgb, var(--aurora-3) 7%, transparent) 38%, transparent 66%);
+  transition: opacity 0.5s, width 0.5s var(--ease), height 0.5s var(--ease), margin 0.5s var(--ease);
+}
+:root[data-theme="light"] .cursor-glow {
+  mix-blend-mode: multiply;
+  background: radial-gradient(circle, color-mix(in srgb, var(--aurora-2) 26%, transparent) 0%, color-mix(in srgb, var(--aurora-3) 8%, transparent) 40%, transparent 66%);
+}
+.cursor-glow.is-hidden { opacity: 0; }
+.cursor-glow.is-target { width: 260px; height: 260px; margin: -130px 0 0 -130px; }
+
+.product, .model, .feature, .cap { position: relative; isolation: isolate; }
+.card, .product, .model, .feature, .cap { --spot: 0; }
+.product, .model, .feature, .cap {
+  background-image: radial-gradient(360px circle at var(--mx, -999px) var(--my, -999px), color-mix(in srgb, var(--accent) calc(var(--spot) * 9%), transparent), transparent 70%);
+}
+.card::after, .product::after, .model::after, .feature::after, .cap::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: radial-gradient(220px circle at var(--mx, -999px) var(--my, -999px), var(--accent), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: var(--spot);
+}

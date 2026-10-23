@@ -16,7 +16,7 @@
   const vert = "attribute vec2 p; void main() { gl_Position = vec4(p, 0.0, 1.0); }";
   const frag = `
     precision mediump float;
-    uniform vec2 res; uniform float t; uniform vec2 m;
+    uniform vec2 res; uniform float t; uniform vec2 m; uniform vec2 mp; uniform float mh;
     uniform vec3 c1; uniform vec3 c2; uniform vec3 c3; uniform float strength;
     float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
     float noise(vec2 p) {
@@ -33,12 +33,14 @@
       float b1 = blob(w, vec2(ar * 0.74 + 0.10 * sin(t * 0.09), 0.58 + 0.10 * cos(t * 0.11)) + lean, 0.42);
       float b2 = blob(w, vec2(ar * 0.88 + 0.12 * cos(t * 0.07), 0.30 + 0.12 * sin(t * 0.13)) + lean * 0.6, 0.34);
       float b3 = blob(w, vec2(ar * 0.58 + 0.10 * sin(t * 0.12 + 1.7), 0.82 + 0.08 * cos(t * 0.08)) + lean * 1.3, 0.30);
-      vec3 col = c1 * b1 + c2 * b2 * 0.8 + c3 * b3 * 0.7;
-      float a = clamp((b1 + b2 * 0.8 + b3 * 0.7) * strength, 0.0, 1.0);
-      a *= smoothstep(0.18, 0.62, uv.x);             // fade out toward the text on the left
+      float b4 = blob(w, vec2(mp.x * ar, mp.y), 0.17) * mh;   // a bloom of light under the cursor
+      float base = b1 + b2 * 0.8 + b3 * 0.7;
+      vec3 col = (c1 * b1 + c2 * b2 * 0.8 + c3 * b3 * 0.7 + c2 * b4 * 1.2) / max(base + b4 * 1.2, 0.001);
+      float a = clamp(base * strength, 0.0, 1.0) * smoothstep(0.18, 0.62, uv.x); // fade out toward the text on the left
+      a = clamp(a + b4 * 0.35, 0.0, 1.0);
       a *= smoothstep(0.0, 0.32, uv.y) * smoothstep(1.0, 0.82, uv.y); // melt into the page below and the nav above
       a *= 0.85 + 0.15 * fbm(q * 3.0 + t * 0.05);    // a little living texture
-      gl_FragColor = vec4(col / max(b1 + b2 * 0.8 + b3 * 0.7, 0.001), a);
+      gl_FragColor = vec4(col, a);
     }`;
 
   function shader(type, src) {
@@ -65,7 +67,7 @@
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
   const u = name => gl.getUniformLocation(prog, name);
-  const U = { res: u("res"), t: u("t"), m: u("m"), c1: u("c1"), c2: u("c2"), c3: u("c3"), strength: u("strength") };
+  const U = { res: u("res"), t: u("t"), m: u("m"), mp: u("mp"), mh: u("mh"), c1: u("c1"), c2: u("c2"), c3: u("c3"), strength: u("strength") };
 
   // Theme colours come from CSS custom properties so light and dark stay in sync.
   const probe = document.createElement("canvas").getContext("2d");
@@ -87,19 +89,25 @@
     gl.uniform2f(U.res, w, h);
   }
 
-  let mx = 0, my = 0, tx = 0, ty = 0, visible = true, last = 0, start = performance.now();
+  let mx = 0, my = 0, tx = 0, ty = 0, hx = 0.5, hy = 0.5, hover = 0, hoverTarget = 0, visible = true, last = 0, start = performance.now();
   hero.addEventListener("pointermove", e => {
     const r = hero.getBoundingClientRect();
     tx = (e.clientX - r.left) / r.width - 0.5;
     ty = 0.5 - (e.clientY - r.top) / r.height;
+    hoverTarget = e.pointerType === "mouse" ? 1 : 0;
   }, { passive: true });
-  hero.addEventListener("pointerleave", () => { tx = 0; ty = 0; });
+  hero.addEventListener("pointerleave", () => { tx = 0; ty = 0; hoverTarget = 0; });
 
   function draw(now) {
     mx += (tx - mx) * 0.04;
     my += (ty - my) * 0.04;
     gl.uniform1f(U.t, (now - start) / 1000 + 20);
     gl.uniform2f(U.m, mx, my);
+    hx += (tx + 0.5 - hx) * 0.12;
+    hy += (ty + 0.5 - hy) * 0.12;
+    hover += (hoverTarget - hover) * 0.06;
+    gl.uniform2f(U.mp, hx, hy);
+    gl.uniform1f(U.mh, hover);
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);

@@ -273,8 +273,46 @@
     portrait.addEventListener("pointerleave", () => { stage.style.setProperty("--ty", "0deg"); stage.style.setProperty("--tx", "0deg"); });
   }
 
-  /* ---------- pointer effects: magnetic buttons, card tilt and spotlight ---------- */
+  /* ---------- pointer effects: cursor glow, card edge light, magnetic buttons, tilt ---------- */
   if (finePointer && !reduced) {
+    // A soft light that trails the cursor (the hero has its own bloom inside the aurora),
+    // and an accent edge on cards that brightens as the cursor approaches them.
+    const SPOT = ".card, .product, .model, .feature, .cap";
+    const glow = document.createElement("div");
+    glow.className = "cursor-glow is-hidden";
+    glow.setAttribute("aria-hidden", "true");
+    document.body.append(glow);
+    let gx = -999, gy = -999, cx = -999, cy = -999, dirty = false, out = true, inHero = false, onTarget = false;
+    addEventListener("pointermove", e => {
+      if (e.pointerType !== "mouse") return;
+      if (out) { gx = e.clientX; gy = e.clientY; }
+      cx = e.clientX; cy = e.clientY; dirty = true; out = false;
+      inHero = !!e.target.closest(".hero");
+      onTarget = !!e.target.closest("a, button, [data-copy]");
+    }, { passive: true });
+    document.documentElement.addEventListener("mouseleave", () => { out = true; dirty = true; });
+    addEventListener("scroll", () => (dirty = true), { passive: true });
+    (function frame() {
+      requestAnimationFrame(frame);
+      const settled = Math.abs(cx - gx) < 0.3 && Math.abs(cy - gy) < 0.3;
+      if (!dirty && settled) return;
+      gx += (cx - gx) * 0.16;
+      gy += (cy - gy) * 0.16;
+      glow.style.transform = `translate3d(${gx}px, ${gy}px, 0)`;
+      glow.classList.toggle("is-hidden", out || inHero);
+      glow.classList.toggle("is-target", onTarget);
+      if (!dirty) return;
+      dirty = false;
+      $$(SPOT).forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > innerHeight + 200) return;
+        const d = out ? 999 : Math.hypot(Math.max(r.left - cx, 0, cx - r.right), Math.max(r.top - cy, 0, cy - r.bottom));
+        el.style.setProperty("--mx", cx - r.left + "px");
+        el.style.setProperty("--my", cy - r.top + "px");
+        el.style.setProperty("--spot", Math.max(0, 1 - d / 160).toFixed(3));
+      });
+    })();
+
     document.addEventListener("pointermove", e => {
       const m = e.target.closest(".magnetic");
       $$(".magnetic.is-pulled").forEach(b => { if (b !== m) { b.classList.remove("is-pulled"); b.style.transform = ""; } });
@@ -289,8 +327,6 @@
         const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
         t.style.setProperty("--rx", (0.5 - py) * 6 + "deg");
         t.style.setProperty("--ry", (px - 0.5) * 8 + "deg");
-        t.style.setProperty("--mx", px * 100 + "%");
-        t.style.setProperty("--my", py * 100 + "%");
       }
     }, { passive: true });
     document.addEventListener("pointerout", e => {
