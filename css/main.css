@@ -29,7 +29,7 @@
   --muted: #6e6758;
   --line: rgba(21, 19, 15, 0.12);
   --line-2: rgba(21, 19, 15, 0.24);
-  --accent: #e0450f;
+  --accent: #b53408; /* deep enough for AA contrast on both light backgrounds and under button text */
   --accent-ink: #fff6ef;
   --cell: rgba(21, 19, 15, 0.15);
   --aurora-1: #ff6a2b;
