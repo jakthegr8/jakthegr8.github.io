@@ -65,7 +65,7 @@
     pill.style.width = a.offsetWidth + "px";
   }
   addEventListener("scroll", () => {
-    nav.classList.toggle("is-scrolled", scrollY > 40);
+    nav.classList.toggle("is-scrolled", scrollY > (root.classList.contains("dock") ? $(".hero").offsetHeight * 0.55 : 40));
     if (!CSS.supports("animation-timeline: scroll()")) {
       $(".progress").style.setProperty("--p", scrollY / (root.scrollHeight - innerHeight || 1));
     }
@@ -199,8 +199,10 @@
     activate(0);
   }
 
-  /* ---------- footprint: dot-matrix world map (Natural Earth 110m, 2.5° grid) ---------- */
+  /* ---------- footprint: dot-matrix world map with a scroll-driven camera ---------- */
   const MAP = {"cols": 144, "rows": 52, "lat0": 75, "step": 2.5, "rle": "m.4.8.2.1.1.c.e.t.2.a.c.b.1.f|0.1.8.1.f.5.3.2.1.7.8.c.u.2.4.3.1.l.1.8.b|5.l.1.1.1.1.4.3.1.2.2.3.6.a.i.8.6.1.1.4.1.1.1.16|0.4.2.w.4.5.4.7.7.1.b.9.1.1.2.1i|8.s.1.1.1.1.3.3.5.5.8.1.b.4.1.1q.1|6.s.7.2.9.3.j.5.2.1i.1.5.3|7.4.6.i.6.6.r.5.2.1c.7.1.7|8.1.a.i.4.6.n.1.4.1.1.1.2.1b.7.3.7|k.j.1.9.j.2.1.1.3.1h.6.2.8|l.t.k.1m.g|m.m.1.1.2.3.j.1m.g|m.o.p.d.1.1.1.5.1.y.h|m.m.r.4.1.1.1.5.5.3.1.y.3.1.e|m.l.p.5.4.2.1.4.1.2.1.4.2.u.4.1.f|n.j.q.4.6.1.1.1.2.9.2.p.3.1.5.1.f|n.j.u.4.9.z.3.1.2.2.g|p.g.s.7.a.y.5.1.i|p.1.1.c.t.b.1.3.1.1.1.z.n|q.8.5.1.s.n.1.t.n|s.5.6.1.q.k.1.5.2.q.o|t.4.x.k.1.8.4.k.1.1.n|u.3.3.1.s.m.1.8.4.7.2.6.t|u.4.1.2.6.2.l.l.1.7.6.5.4.4.1.1.s|x.4.s.n.1.4.8.4.6.4.5.1.n|10.3.q.q.b.2.7.5.4.2.m|16.1.1.1.l.n.2.1.a.2.7.1.1.2.t|13.1.1.7.j.p.j.1.a.1.l|15.8.j.5.1.i.c.1.7.1.v|15.b.o.f.k.2.4.2.p|14.c.o.e.m.2.2.3.p|14.e.m.d.n.2.2.3.1.1.3.2.i|14.h.j.c.p.1.6.1.5.4.e|14.i.j.b.q.1.c.4.d|14.i.j.b.v.2.1.1.5.1.f|15.g.k.b.1k|15.f.l.b.3.1.w.2.i|17.d.l.b.2.2.t.6.2.1.e|18.c.l.9.4.2.t.a.d|18.c.l.9.3.2.r.e.c|18.a.o.8.3.2.q.f.c|18.9.p.7.w.g.b|17.9.r.6.x.f.b|17.9.r.5.y.f.b|17.8.s.3.10.4.4.7.b|17.6.27.4.c|17.5.2a.1.b.1.1|16.4.2c.1.a.1.2|17.3.2m.1.3|16.3.2m.1.4|16.3.2r|16.2.4.1.2n|17.2.2r"};
+  const easeInOut = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const span = (v, a, b) => Math.min(1, Math.max(0, (v - a) / (b - a)));
   const mapEl = $("[data-map]");
   if (mapEl) {
     const land = new Uint8Array(MAP.cols * MAP.rows);
@@ -209,56 +211,137 @@
       row.split(".").forEach(run => { const n = parseInt(run, 36); if (v) land.fill(1, r * MAP.cols + c, r * MAP.cols + c + n); c += n; v ^= 1; });
     });
     const canvas = $(".map__dots", mapEl), ctx = canvas.getContext("2d"), svg = $(".map__arcs", mapEl);
-    const pins = $$(".pin", mapEl), foot = $(".footprint");
-    let geo = null, focus = null;
+    const pins = $$(".pin", mapEl), foot = $(".footprint"), journey = $("[data-journey]");
+    const home = pins.find(p => p.dataset.country === "in"), away = pins.filter(p => p !== home);
     const toGrid = (lat, lon) => ({ c: (lon + 180) / MAP.step, r: (MAP.lat0 - lat) / MAP.step });
+    const WORLD = { c: MAP.cols / 2, r: MAP.rows / 2, z: 1 };
+    let geo = null, cam = { ...WORLD }, focus = [], journeyFocus = [];
+
+    // The camera looks at grid cell (c, r) with zoom z; z = 1 fits the whole world.
+    const project = (c, r) => { const cell = geo.cell * cam.z; return [geo.w / 2 + (c - cam.c) * cell, geo.h / 2 + (r - cam.r) * cell]; };
+    const pinPoint = p => { const g = toGrid(+p.dataset.lat, +p.dataset.lon); return project(g.c, g.r); };
+
     function layout() {
       const w = mapEl.clientWidth, h = mapEl.clientHeight, pad = 0.04;
-      const cell = Math.min((w * (1 - pad * 2)) / MAP.cols, (h * (1 - pad * 2)) / MAP.rows);
-      geo = { w, h, cell, ox: (w - cell * MAP.cols) / 2, oy: (h - cell * MAP.rows) / 2 };
+      geo = { w, h, cell: Math.min((w * (1 - pad * 2)) / MAP.cols, (h * (1 - pad * 2)) / MAP.rows) };
       const dpr = Math.min(devicePixelRatio || 1, 2);
       canvas.width = w * dpr; canvas.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const pt = p => { const g = toGrid(+p.dataset.lat, +p.dataset.lon); return [geo.ox + g.c * cell, geo.oy + g.r * cell]; };
-      pins.forEach(p => { const [x, y] = pt(p); p.style.setProperty("--px", x + "px"); p.style.setProperty("--py", y + "px"); });
       svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
-      const home = pt(pins.find(p => p.dataset.country === "in"));
-      svg.innerHTML = pins.filter(p => p.dataset.country !== "in").map(p => {
-        const [x, y] = pt(p), mx = (x + home[0]) / 2, my = Math.min(y, home[1]) - Math.abs(x - home[0]) * 0.28;
-        return `<path pathLength="1" d="M${home[0]},${home[1]} Q${mx},${my} ${x},${y}"/>`;
-      }).join("");
+      if (!svg.children.length) svg.innerHTML = away.map(() => '<path pathLength="1"/>').join("");
+      render();
+    }
+    function render() {
+      if (!geo) return;
+      pins.forEach(p => { const [x, y] = pinPoint(p); p.style.setProperty("--px", x + "px"); p.style.setProperty("--py", y + "px"); });
+      const [hx, hy] = pinPoint(home);
+      [...svg.children].forEach((path, i) => {
+        const [x, y] = pinPoint(away[i]), mx = (x + hx) / 2, my = Math.min(y, hy) - Math.abs(x - hx) * 0.28;
+        path.setAttribute("d", `M${hx},${hy} Q${mx},${my} ${x},${y}`);
+      });
       draw();
     }
     function draw() {
       const st = getComputedStyle(root), base = st.getPropertyValue("--cell").trim(), accent = st.getPropertyValue("--accent").trim();
-      const fp = focus ? pins.filter(p => p.dataset.country === focus).map(p => toGrid(+p.dataset.lat, +p.dataset.lon)) : [];
+      const fp = pins.filter(p => focus.includes(p.dataset.country)).map(p => toGrid(+p.dataset.lat, +p.dataset.lon));
+      const cell = geo.cell * cam.z, rad = cell * 0.32;
+      const c0 = Math.max(0, Math.floor(cam.c - geo.w / 2 / cell) - 1), c1 = Math.min(MAP.cols, Math.ceil(cam.c + geo.w / 2 / cell) + 1);
+      const r0 = Math.max(0, Math.floor(cam.r - geo.h / 2 / cell) - 1), r1 = Math.min(MAP.rows, Math.ceil(cam.r + geo.h / 2 / cell) + 1);
       ctx.clearRect(0, 0, geo.w, geo.h);
-      const rad = geo.cell * 0.32;
-      for (let i = 0; i < land.length; i++) {
-        if (!land[i]) continue;
-        const c = i % MAP.cols, r = (i / MAP.cols) | 0;
+      for (let r = r0; r < r1; r++) for (let c = c0; c < c1; c++) {
+        if (!land[r * MAP.cols + c]) continue;
         const near = fp.some(g => Math.hypot(c + 0.5 - g.c, r + 0.5 - g.r) < 6);
+        const [x, y] = project(c + 0.5, r + 0.5);
         ctx.fillStyle = near ? accent : base;
-        ctx.beginPath(); ctx.arc(geo.ox + (c + 0.5) * geo.cell, geo.oy + (r + 0.5) * geo.cell, rad, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(x, y, rad, 0, Math.PI * 2); ctx.fill();
       }
     }
-    function setFocus(country) {
-      focus = country;
-      foot.classList.toggle("is-focus", !!country);
-      pins.forEach(p => p.classList.toggle("is-on", p.dataset.country === country));
-      $$(".countries li, .teams li", foot).forEach(li => li.classList.toggle("is-on", !!country && li.dataset.country.split(" ").includes(country)));
-      draw();
+    function setFocus(list) {
+      focus = list || [];
+      foot.classList.toggle("is-focus", focus.length > 0);
+      pins.forEach(p => p.classList.toggle("is-on", focus.includes(p.dataset.country)));
+      $$(".teams li", foot).forEach(li => li.classList.toggle("is-on", focus.length > 0 && li.dataset.country.split(" ").some(c => focus.includes(c))));
+      if (geo) draw();
     }
-    $$(".pin, .countries li, .teams li", foot).forEach(el => {
-      el.addEventListener("mouseenter", () => setFocus(el.dataset.country.split(" ")[0]));
-      el.addEventListener("mouseleave", () => setFocus(null));
+    $$(".pin, .teams li", foot).forEach(el => {
+      el.addEventListener("mouseenter", () => setFocus(el.dataset.country.split(" ")));
+      el.addEventListener("mouseleave", () => setFocus(journeyFocus));
     });
     pins.forEach(p => {
-      p.addEventListener("focus", () => setFocus(p.dataset.country));
-      p.addEventListener("blur", () => setFocus(null));
+      p.addEventListener("focus", () => setFocus([p.dataset.country]));
+      p.addEventListener("blur", () => setFocus(journeyFocus));
     });
-    layout();
+
+    // Journey: the map stays pinned while the camera flies between stops and a story card follows.
+    if (journey && !reduced) {
+      journey.classList.add("journey--live");
+      const stops = $$("[data-stop]", journey).map(li => {
+        const g = li.hasAttribute("data-overview") ? WORLD : { ...toGrid(+li.dataset.lat, +li.dataset.lon), z: +li.dataset.zoom };
+        return { c: g.c, r: g.r, z: g.z, focus: li.dataset.focus ? li.dataset.focus.split(" ") : [], k: $("b", li).textContent, t: $("h4", li).textContent, x: $("p", li).textContent };
+      });
+      const card = $(".journey__card", journey), dots = $$(".journey__dots li", journey);
+      let shown = -1;
+      const showCard = i => {
+        if (i === shown) return;
+        shown = i;
+        $("[data-k]", card).textContent = stops[i].k;
+        $("[data-t]", card).textContent = stops[i].t;
+        $("[data-x]", card).textContent = stops[i].x;
+        dots.forEach((d, k) => d.classList.toggle("is-on", k === i));
+        card.classList.remove("swap"); void card.offsetWidth; card.classList.add("swap");
+        journeyFocus = stops[i].focus;
+        setFocus(journeyFocus);
+      };
+      const update = () => {
+        const r = journey.getBoundingClientRect(), travel = Math.max(1, r.height - innerHeight);
+        const f = Math.min(1, Math.max(0, -r.top / travel)) * (stops.length - 1);
+        const i = Math.min(stops.length - 2, Math.floor(f)), m = easeInOut(span(f - i, 0.3, 1)); // rest at each stop, then fly
+        const a = stops[i], b = stops[i + 1], far = Math.min(1, Math.hypot(b.c - a.c, b.r - a.r) / 60);
+        cam = {
+          c: a.c + (b.c - a.c) * m,
+          r: a.r + (b.r - a.r) * m,
+          z: a.z * Math.pow(b.z / a.z, m) * (1 - 0.45 * far * Math.sin(Math.PI * m)), // pull back on long flights
+        };
+        showCard(m > 0.5 ? i + 1 : i);
+        render();
+      };
+      addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+      addEventListener("resize", () => requestAnimationFrame(update));
+      layout();
+      update();
+    } else {
+      layout();
+    }
+    new IntersectionObserver(([en]) => { if (en.isIntersecting) mapEl.classList.add("in"); }).observe(mapEl);
     new ResizeObserver(layout).observe(mapEl);
     new MutationObserver(() => geo && draw()).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+  }
+
+  /* ---------- hero: parallax layers, and the name docking into the logo ---------- */
+  const heroEl = $(".hero"), heroTitle = $(".hero__title"), logo = $(".nav__logo");
+  if (heroEl && heroTitle && logo && !reduced) {
+    const fades = $$(".hero__fade", heroEl), figure = $(".hero__portrait", heroEl), aurora = $(".aurora", heroEl);
+    let base = null;
+    const measure = () => {
+      heroTitle.style.translate = heroTitle.style.scale = "";
+      const t = heroTitle.getBoundingClientRect(), l = logo.getBoundingClientRect();
+      base = { left: t.left, top: t.top + scrollY, s: Math.min(1, (l.height * 1.15) / t.height) };
+      dock();
+    };
+    function dock() {
+      const y = scrollY, p = span(y, 0, heroEl.offsetHeight * 0.55), k = easeInOut(p), l = logo.getBoundingClientRect();
+      heroTitle.style.translate = `${(l.left - base.left) * k}px ${(l.top - (base.top - y)) * k}px`;
+      heroTitle.style.scale = String(1 - (1 - base.s) * k);
+      heroTitle.style.opacity = String(1 - span(p, 0.82, 1));
+      root.style.setProperty("--logo-in", span(p, 0.82, 1).toFixed(3));
+      fades.forEach(f => { f.style.opacity = String(1 - span(p, 0, 0.45)); f.style.translate = `0 ${-p * 60}px`; });
+      if (figure) figure.style.translate = `0 ${y * 0.18}px`;   // the orb drifts slower than the page
+      if (aurora) aurora.style.translate = `0 ${y * 0.42}px`;   // the aurora slowest of all
+    }
+    root.classList.add("dock");
+    addEventListener("scroll", () => requestAnimationFrame(dock), { passive: true });
+    addEventListener("resize", measure);
+    measure();
+    if (document.fonts) document.fonts.ready.then(measure);
   }
 
   /* ---------- 3D portrait follows the pointer ---------- */
@@ -409,8 +492,8 @@
   const baseCommands = () => [
     { group: "Navigate", label: "At a glance", hint: "01", run: go("about") },
     { group: "Navigate", label: "How I build with AI", hint: "02", run: go("ai") },
-    { group: "Navigate", label: "Experience", hint: "03", run: go("experience") },
-    { group: "Navigate", label: "Tulifo", hint: "04", run: go("tulifo") },
+    { group: "Navigate", label: "Tulifo", hint: "03", run: go("tulifo") },
+    { group: "Navigate", label: "Experience", hint: "04", run: go("experience") },
     { group: "Navigate", label: "Work and writing", hint: "05", run: go("work") },
     { group: "Navigate", label: "Credentials", hint: "06", run: go("credentials") },
     { group: "Navigate", label: "Contact", hint: "07", run: go("contact") },

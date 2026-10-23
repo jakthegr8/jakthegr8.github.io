@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css?v=36777d2d">
+  <link rel="stylesheet" href="css/main.css?v=97fda0d2">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -28,8 +28,8 @@
     <nav class="nav__links" aria-label="Sections">
       <a href="#about">About</a>
       <a href="#ai">AI</a>
-      <a href="#experience">Experience</a>
       <a href="#tulifo">Tulifo</a>
+      <a href="#experience">Experience</a>
       <a href="#work">Work</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -48,17 +48,19 @@
       <canvas class="aurora" aria-hidden="true"></canvas>
       <div class="hero__grid">
         <div class="hero__inner">
-          <p class="eyebrow load" style="--d:0">CTO at <a class="eyebrow__link" href="https://tulifo.com" target="_blank" rel="noopener">Tulifo</a> · Chennai, India</p>
+          <div class="hero__fade"><p class="eyebrow load" style="--d:0">CTO at <a class="eyebrow__link" href="https://tulifo.com" target="_blank" rel="noopener">Tulifo</a> · Chennai, India</p></div>
           <h1 class="hero__title">
             <span class="line"><span class="load" style="--d:1">Arun Kumar</span></span>
             <span class="line"><span class="load" style="--d:2"><em>Jayakodi</em></span></span>
           </h1>
+          <div class="hero__fade">
           <p class="hero__role load" style="--d:3">Technology leader in AI and cloud. 18+ years building products and the engineering teams behind them — still hands-on in code.</p>
           <p class="hero__open load" style="--d:4"><span class="dot" aria-hidden="true"></span>Open to AI advisory, speaking and select collaborations</p>
           <div class="hero__cta load" style="--d:5">
             <a class="btn btn--solid magnetic" href="https://www.linkedin.com/in/arunkumarjayakodi" target="_blank" rel="noopener"><span>Connect on LinkedIn</span></a>
             <button class="btn magnetic" data-copy="iam.arunkumar.tech@gmail.com"><span data-copy-label>Copy email</span></button>
             <a class="btn btn--ghost" href="#ai"><span>How I build with AI ↓</span></a>
+          </div>
           </div>
         </div>
         <figure class="p3d hero__portrait load" style="--d:2" data-portrait>
@@ -174,35 +176,113 @@
       </div>
     </section>
 
-    <section class="section experience" id="experience">
+    <section class="section tulifo" id="tulifo">
       <header class="section__head">
         <span class="section__num">03</span>
+        <h2 class="split">Now: CTO at Tulifo.</h2>
+      </header>
+      <div class="tulifo__intro">
+        <p class="big reveal"><a class="inline" href="https://tulifo.com" target="_blank" rel="noopener">Tulifo</a> trains its own models to run fair, verifiable interviews for any role, in any language. I've architected and built all of it — the model work, the products and the platform underneath.</p>
+        <ul class="tulifo__facts reveal">
+          <li><b>2026</b><span>founded · Coimbatore and Bengaluru</span></li>
+          <li><b>6</b><span>products on one model family</span></li>
+          <li><b>10</b><span>interview languages</span></li>
+          <li><b>3 months</b><span>from blank repo to production</span></li>
+        </ul>
+      </div>
+
+      <div class="flow reveal" data-flow>
+        <p class="flow__label">How an interview with Xiya works — select a stage</p>
+        <div class="flow__track" role="tablist" aria-label="Interview stages">
+          <button class="flow__node is-on" role="tab" aria-selected="true" data-stage="0"><span class="flow__n">01</span>Candidate joins</button>
+          <span class="flow__wire" aria-hidden="true"></span>
+          <button class="flow__node" role="tab" aria-selected="false" data-stage="1"><span class="flow__n">02</span>Integrity checks</button>
+          <span class="flow__wire" aria-hidden="true"></span>
+          <button class="flow__node" role="tab" aria-selected="false" data-stage="2"><span class="flow__n">03</span>Xiya interviews</button>
+          <span class="flow__wire" aria-hidden="true"></span>
+          <button class="flow__node" role="tab" aria-selected="false" data-stage="3"><span class="flow__n">04</span>Rubric scoring</button>
+          <span class="flow__wire" aria-hidden="true"></span>
+          <button class="flow__node" role="tab" aria-selected="false" data-stage="4"><span class="flow__n">05</span>People decide</button>
+        </div>
+        <div class="flow__detail" role="tabpanel" aria-live="polite">
+          <h3 data-flow-title>Candidate joins</h3>
+          <p data-flow-text>Xiya introduces the role and explains how the session works, in the candidate's own language. Consent is recorded and versioned before anything is shared.</p>
+          <p class="stack" data-flow-chips>Any role · 10 languages · Consent first</p>
+        </div>
+      </div>
+
+      <h3 class="sub reveal">Six products, one model family</h3>
+      <div class="products">
+        <a class="product reveal" href="https://tulifo.com/interview" target="_blank" rel="noopener"><span class="product__l">I</span><b>Interview</b><p>Fully autonomous video interviews for any role, in the candidate's language, with background verification built in.</p></a>
+        <a class="product reveal" href="https://tulifo.com/jobs" target="_blank" rel="noopener"><span class="product__l">J</span><b>Jobs</b><p>Openings matched to the skills a candidate already has, with one-step apply.</p></a>
+        <a class="product reveal" href="https://tulifo.com/pool" target="_blank" rel="noopener"><span class="product__l">V</span><b>Verified pool</b><p>Candidates who've interviewed and cleared background checks once, matched to employers whose role fits.</p></a>
+        <a class="product reveal" href="https://tulifo.com/rehearsal" target="_blank" rel="noopener"><span class="product__l">R</span><b>Rehearsal</b><p>Practise a Google-style or Microsoft-style loop with interviewers from top tech companies.</p></a>
+        <a class="product reveal" href="https://tulifo.com/pinmbo" target="_blank" rel="noopener"><span class="product__l">p</span><b>pinmbo</b><p>A learning companion for kids, built on Chittu, that gives hints instead of answers.</p></a>
+        <a class="product reveal" href="https://tulifo.com/chittu" target="_blank" rel="noopener"><span class="product__l">C</span><b>Chittu</b><p>Tulifo's own language model family, with open weights on Hugging Face.</p></a>
+      </div>
+
+      <h3 class="sub reveal">Models in my stack</h3>
+      <div class="model-grid">
+        <article class="model reveal">
+          <p class="model__kind">Tulifo · in-house</p>
+          <h4>Xiya</h4>
+          <p>The interview model, trained for follow-up questions, rubric scoring and fair pacing — with a focus on non-Western-English speech.</p>
+        </article>
+        <a class="model reveal" href="https://huggingface.co/Tulifo/chittu-guard-v0-4b" target="_blank" rel="noopener">
+          <p class="model__kind">Hugging Face · open weights</p>
+          <h4>Chittu Guard</h4>
+          <p>A 4B guard model fine-tuned from Qwen3-4B with MLX that escalates with four tokens instead of writing crisis replies itself.</p>
+          <p class="stack">4B · 5,250 synthetic examples · Apache-2.0 ↗</p>
+        </a>
+        <a class="model reveal" href="https://huggingface.co/Tulifo/chittu-story-v0-26m" target="_blank" rel="noopener">
+          <p class="model__kind">Hugging Face · open weights</p>
+          <h4>Chittu Story</h4>
+          <p>A 26M story model trained from scratch on children's stories swept by Chittu's own guards. No real child data.</p>
+          <p class="stack">26.3M · 2.33M stories · Apache-2.0 ↗</p>
+        </a>
+        <article class="model reveal">
+          <p class="model__kind">Frontier LLMs</p>
+          <h4>Claude and OpenAI</h4>
+          <p>Anthropic Claude through the API and Agent SDK for reasoning and orchestration, with OpenAI models alongside — chosen per job.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section experience" id="experience">
+      <header class="section__head">
+        <span class="section__num">04</span>
         <h2 class="split">Six countries, five teams.</h2>
       </header>
       <div class="footprint">
-        <div class="map reveal" data-map>
-          <canvas class="map__dots" aria-hidden="true"></canvas>
-          <svg class="map__arcs" viewBox="0 0 144 52" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <div class="journey" data-journey style="--stops:6">
+          <div class="journey__sticky">
+            <div class="map" data-map>
+              <canvas class="map__dots" aria-hidden="true"></canvas>
+              <svg class="map__arcs" aria-hidden="true"></svg>
           <button class="pin" data-country="us" data-lat="39" data-lon="-98"><span>USA</span></button>
           <button class="pin" data-country="es" data-lat="40.4" data-lon="-3.7"><span>Spain</span></button>
           <button class="pin" data-country="ae" data-lat="25.2" data-lon="55.3"><span>Dubai</span></button>
           <button class="pin" data-country="cn" data-lat="34" data-lon="108"><span>China</span></button>
           <button class="pin pin--below" data-country="sg" data-lat="1.35" data-lon="103.8"><span>Singapore</span></button>
           <button class="pin pin--home" data-country="in" data-lat="13.1" data-lon="80.3"><span>Chennai</span></button>
+              <div class="journey__card" aria-live="polite">
+                <p class="journey__k" data-k></p>
+                <h3 class="journey__t" data-t></h3>
+                <p class="journey__x" data-x></p>
+                <ol class="journey__dots" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li></ol>
+              </div>
+            </div>
+          </div>
+          <ol class="journey__stops">
+          <li data-stop data-overview data-focus=""><b>Six countries · 2012 — now</b><h4>Around the world</h4><p>Scroll to travel through the places I've built teams and products.</p></li>
+          <li data-stop data-lat="16" data-lon="80" data-zoom="4" data-focus="in"><b>India · 2012 — now</b><h4>Chennai</h4><p>Home base. Tulifo, Francium, Accenture and Wipro.</p></li>
+          <li data-stop data-lat="39" data-lon="-98" data-zoom="3.2" data-focus="us"><b>United States · 2021 — 2024</b><h4>Watermark Insights</h4><p>Led a 45-person remote engineering organisation with 29 direct reports.</p></li>
+          <li data-stop data-lat="33" data-lon="106" data-zoom="3.6" data-focus="cn"><b>China · 2021 — 2024</b><h4>Watermark Insights</h4><p>An engineering team in China, part of the same organisation.</p></li>
+          <li data-stop data-lat="14" data-lon="80" data-zoom="2.4" data-focus="ae sg"><b>Dubai and Singapore · 2018 — 2021</b><h4>Francium</h4><p>Distributed teams across India and Dubai, and fintech and mobility client work.</p></li>
+          <li data-stop data-lat="40" data-lon="-3.5" data-zoom="4" data-focus="es"><b>Spain · 2018 — 2021</b><h4>Francium</h4><p>Client and delivery teams.</p></li>
+          </ol>
         </div>
         <div class="footprint__grid">
-          <div class="countries reveal">
-            <h3>Six countries</h3>
-            <ul>
-              <li data-country="in"><b>India</b><span>Tulifo · Francium · Accenture · Wipro</span><time>2012 — now</time></li>
-              <li data-country="ae"><b>United Arab Emirates</b><span>Francium — distributed teams across India and Dubai</span><time>2018 — 2021</time></li>
-              <li data-country="sg"><b>Singapore</b><span>Francium — fintech and mobility client work</span><time>2018 — 2021</time></li>
-              <li data-country="es"><b>Spain</b><span>Francium — client and delivery teams</span><time>2018 — 2021</time></li>
-              <li data-country="us"><b>United States</b><span>Watermark Insights — remote engineering organisation</span><time>2021 — 2024</time></li>
-              <li data-country="cn"><b>China</b><span>Watermark Insights — engineering team in China</span><time>2021 — 2024</time></li>
-            </ul>
-            <p class="countries__clients">Clients and products along the way: Rosetta Stone, RPX Insight, MoneySmart, Spin and Base))) Harmony.</p>
-          </div>
           <div class="teams reveal">
             <h3>Teams I've led <small><i class="sw sw--team"></i>team <i class="sw sw--direct"></i>direct reports</small></h3>
             <ul>
@@ -213,6 +293,7 @@
               <li data-country="in" style="--w:0.111"><span class="teams__name">Accenture<em>Technical Architect</em></span><span class="teams__bar"><i></i></span><span class="teams__n">5</span></li>
             </ul>
           </div>
+          <p class="countries__clients">Clients and products along the way: Rosetta Stone, RPX Insight, MoneySmart, Spin and Base))) Harmony.</p>
         </div>
       </div>
       <ol class="timeline" data-timeline>
@@ -289,78 +370,6 @@
         <div class="cap reveal"><h4>Backend and APIs</h4><p>Services in Python, Rails, Node.js and Java on data stores chosen for the job.</p><p class="stack">FastAPI · Rails · PostgreSQL · Redis</p></div>
         <div class="cap reveal"><h4>Frontend and mobile</h4><p>React and Ember interfaces and Flutter apps, built with accessibility in mind.</p><p class="stack">React · Ember · Flutter · Accessibility</p></div>
         <div class="cap reveal"><h4>DevOps and security</h4><p>Containers, CI/CD and observability, with security designed in rather than bolted on.</p><p class="stack">Docker · CI/CD · New Relic · Datadog</p></div>
-      </div>
-    </section>
-
-    <section class="section tulifo" id="tulifo">
-      <header class="section__head">
-        <span class="section__num">04</span>
-        <h2 class="split">Now: CTO at Tulifo.</h2>
-      </header>
-      <div class="tulifo__intro">
-        <p class="big reveal"><a class="inline" href="https://tulifo.com" target="_blank" rel="noopener">Tulifo</a> trains its own models to run fair, verifiable interviews for any role, in any language. I've architected and built all of it — the model work, the products and the platform underneath.</p>
-        <ul class="tulifo__facts reveal">
-          <li><b>2026</b><span>founded · Coimbatore and Bengaluru</span></li>
-          <li><b>6</b><span>products on one model family</span></li>
-          <li><b>10</b><span>interview languages</span></li>
-          <li><b>3 months</b><span>from blank repo to production</span></li>
-        </ul>
-      </div>
-
-      <div class="flow reveal" data-flow>
-        <p class="flow__label">How an interview with Xiya works — select a stage</p>
-        <div class="flow__track" role="tablist" aria-label="Interview stages">
-          <button class="flow__node is-on" role="tab" aria-selected="true" data-stage="0"><span class="flow__n">01</span>Candidate joins</button>
-          <span class="flow__wire" aria-hidden="true"></span>
-          <button class="flow__node" role="tab" aria-selected="false" data-stage="1"><span class="flow__n">02</span>Integrity checks</button>
-          <span class="flow__wire" aria-hidden="true"></span>
-          <button class="flow__node" role="tab" aria-selected="false" data-stage="2"><span class="flow__n">03</span>Xiya interviews</button>
-          <span class="flow__wire" aria-hidden="true"></span>
-          <button class="flow__node" role="tab" aria-selected="false" data-stage="3"><span class="flow__n">04</span>Rubric scoring</button>
-          <span class="flow__wire" aria-hidden="true"></span>
-          <button class="flow__node" role="tab" aria-selected="false" data-stage="4"><span class="flow__n">05</span>People decide</button>
-        </div>
-        <div class="flow__detail" role="tabpanel" aria-live="polite">
-          <h3 data-flow-title>Candidate joins</h3>
-          <p data-flow-text>Xiya introduces the role and explains how the session works, in the candidate's own language. Consent is recorded and versioned before anything is shared.</p>
-          <p class="stack" data-flow-chips>Any role · 10 languages · Consent first</p>
-        </div>
-      </div>
-
-      <h3 class="sub reveal">Six products, one model family</h3>
-      <div class="products">
-        <a class="product reveal" href="https://tulifo.com/interview" target="_blank" rel="noopener"><span class="product__l">I</span><b>Interview</b><p>Fully autonomous video interviews for any role, in the candidate's language, with background verification built in.</p></a>
-        <a class="product reveal" href="https://tulifo.com/jobs" target="_blank" rel="noopener"><span class="product__l">J</span><b>Jobs</b><p>Openings matched to the skills a candidate already has, with one-step apply.</p></a>
-        <a class="product reveal" href="https://tulifo.com/pool" target="_blank" rel="noopener"><span class="product__l">V</span><b>Verified pool</b><p>Candidates who've interviewed and cleared background checks once, matched to employers whose role fits.</p></a>
-        <a class="product reveal" href="https://tulifo.com/rehearsal" target="_blank" rel="noopener"><span class="product__l">R</span><b>Rehearsal</b><p>Practise a Google-style or Microsoft-style loop with interviewers from top tech companies.</p></a>
-        <a class="product reveal" href="https://tulifo.com/pinmbo" target="_blank" rel="noopener"><span class="product__l">p</span><b>pinmbo</b><p>A learning companion for kids, built on Chittu, that gives hints instead of answers.</p></a>
-        <a class="product reveal" href="https://tulifo.com/chittu" target="_blank" rel="noopener"><span class="product__l">C</span><b>Chittu</b><p>Tulifo's own language model family, with open weights on Hugging Face.</p></a>
-      </div>
-
-      <h3 class="sub reveal">Models in my stack</h3>
-      <div class="model-grid">
-        <article class="model reveal">
-          <p class="model__kind">Tulifo · in-house</p>
-          <h4>Xiya</h4>
-          <p>The interview model, trained for follow-up questions, rubric scoring and fair pacing — with a focus on non-Western-English speech.</p>
-        </article>
-        <a class="model reveal" href="https://huggingface.co/Tulifo/chittu-guard-v0-4b" target="_blank" rel="noopener">
-          <p class="model__kind">Hugging Face · open weights</p>
-          <h4>Chittu Guard</h4>
-          <p>A 4B guard model fine-tuned from Qwen3-4B with MLX that escalates with four tokens instead of writing crisis replies itself.</p>
-          <p class="stack">4B · 5,250 synthetic examples · Apache-2.0 ↗</p>
-        </a>
-        <a class="model reveal" href="https://huggingface.co/Tulifo/chittu-story-v0-26m" target="_blank" rel="noopener">
-          <p class="model__kind">Hugging Face · open weights</p>
-          <h4>Chittu Story</h4>
-          <p>A 26M story model trained from scratch on children's stories swept by Chittu's own guards. No real child data.</p>
-          <p class="stack">26.3M · 2.33M stories · Apache-2.0 ↗</p>
-        </a>
-        <article class="model reveal">
-          <p class="model__kind">Frontier LLMs</p>
-          <h4>Claude and OpenAI</h4>
-          <p>Anthropic Claude through the API and Agent SDK for reasoning and orchestration, with OpenAI models alongside — chosen per job.</p>
-        </article>
       </div>
     </section>
 
@@ -448,6 +457,6 @@
   <div class="toast" role="status" aria-live="polite"></div>
 
   <script src="js/aurora.js?v=f12c4654"></script>
-  <script src="js/main.js?v=f4ceb5aa"></script>
+  <script src="js/main.js?v=dde68b12"></script>
 </body>
 </html>
