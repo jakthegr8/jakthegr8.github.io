@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css?v=f7fd9345">
+  <link rel="stylesheet" href="css/main.css?v=1ae9d7e6">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -26,6 +26,7 @@
     <a class="nav__logo" href="#top" aria-label="Back to top">akj<i>.</i></a>
     <nav class="nav__links" aria-label="Sections">
       <a href="#about">About</a>
+      <a href="#ai">AI</a>
       <a href="#experience">Experience</a>
       <a href="#tulifo">Tulifo</a>
       <a href="#work">Work</a>
@@ -41,8 +42,9 @@
   </header>
 
   <main id="main">
-    <!-- Hero: who, what level, where, how to reach -->
+    <!-- Hero: who, what level, where, how to reach — over a slow neural aurora -->
     <section class="hero" id="top">
+      <canvas class="aurora" aria-hidden="true"></canvas>
       <div class="hero__grid">
         <div class="hero__inner">
           <p class="eyebrow load" style="--d:0">CTO at <a class="eyebrow__link" href="https://tulifo.com" target="_blank" rel="noopener">Tulifo</a> · Chennai, India</p>
@@ -55,13 +57,15 @@
           <div class="hero__cta load" style="--d:5">
             <a class="btn btn--solid magnetic" href="https://www.linkedin.com/in/arunkumarjayakodi" target="_blank" rel="noopener"><span>Connect on LinkedIn</span></a>
             <button class="btn magnetic" data-copy="iam.arunkumar.tech@gmail.com"><span data-copy-label>Copy email</span></button>
-            <a class="btn btn--ghost" href="#experience"><span>Experience ↓</span></a>
+            <a class="btn btn--ghost" href="#ai"><span>How I build with AI ↓</span></a>
           </div>
         </div>
         <figure class="p3d hero__portrait load" style="--d:2" data-portrait>
           <div class="p3d__stage">
-            <div class="p3d__card" aria-hidden="true"><span class="p3d__mono">akj</span></div>
-            <img class="p3d__subject" src="img/arun-cutout.png" alt="Portrait of Arun Kumar Jayakodi" width="630" height="840" fetchpriority="high" decoding="async">
+            <span class="orb orb--glow" aria-hidden="true"></span>
+            <span class="orb orb--fill"><img class="orb__img" src="img/arun-cutout.png" alt="Portrait of Arun Kumar Jayakodi" width="630" height="840" fetchpriority="high" decoding="async"></span>
+            <span class="orb orb--ring" aria-hidden="true"></span>
+            <span class="orb__head" aria-hidden="true"><img class="orb__img" src="img/arun-cutout.png" alt="" width="630" height="840" decoding="async"></span>
           </div>
         </figure>
       </div>
@@ -96,9 +100,82 @@
       </div>
     </section>
 
-    <section class="section experience" id="experience">
+    <!-- How I build with AI: the featured section, told as four scroll-driven pillars -->
+    <section class="section ai" id="ai">
       <header class="section__head">
         <span class="section__num">02</span>
+        <h2 class="split">From customer problem to <em>model in production.</em></h2>
+      </header>
+      <p class="ai__lede reveal"><b>How I build with AI</b> — four habits that took Tulifo from a blank repo to six products and two open-weights models.</p>
+      <div class="ai__grid" data-ai>
+        <aside class="ai__sticky">
+          <div class="loop" aria-hidden="true"><svg class="loop__ring" viewBox="0 0 200 200"><circle cx="100" cy="100" r="78"/></svg><div class="loop__nodes"></div><div class="loop__core"><b data-ai-core>ship</b><span>loop</span></div></div>
+          <ol class="ai__index">
+          <li><a href="#pillar-0" data-pillar="0" class="is-on"><span>01</span>Forward deployed</a></li>
+          <li><a href="#pillar-1" data-pillar="1"><span>02</span>Agentic AI</a></li>
+          <li><a href="#pillar-2" data-pillar="2"><span>03</span>RAG</a></li>
+          <li><a href="#pillar-3" data-pillar="3"><span>04</span>LLMs in production</a></li>
+          </ol>
+        </aside>
+        <div class="ai__pillars">
+        <article id="pillar-0" class="pillar is-on" data-core="ship" data-stages="Discover,Prototype,Deploy,Measure,Harden">
+          <p class="pillar__n">01 · Forward deployed engineering</p>
+          <h3>Embedded with the customer, accountable for production.</h3>
+          <p class="pillar__text">I do my best work inside the customer's meetings, codebase and constraints — turning a fuzzy problem into software that runs.</p>
+          <ul class="pillar__points">
+            <li>Took Tulifo from a blank repo to a live production platform in three months.</li>
+            <li>Built fintech and mobility platforms for MoneySmart and Spin with teams across India, Dubai, Singapore and Spain.</li>
+            <li>Architected enterprise systems for Rosetta Stone and RPX Insight at Accenture.</li>
+          </ul>
+          <div class="pillar__proof"><b>3 months</b><span>Tulifo, from blank repo to production</span></div>
+          <p class="stack">Customer discovery · Rapid prototyping · Production rollout</p>
+          <p class="pillar__stages" aria-hidden="true">Discover → Prototype → Deploy → Measure → Harden</p>
+        </article>
+        <article id="pillar-1" class="pillar" data-core="act" data-stages="Plan,Retrieve,Act,Observe,Reflect">
+          <p class="pillar__n">02 · Agentic AI</p>
+          <h3>Agents that run the whole workflow, not a chat window.</h3>
+          <p class="pillar__text">An agent earns its place when it carries a real process end to end — and hands the decision to a person.</p>
+          <ul class="pillar__points">
+            <li>Xiya runs a fully autonomous interview: it asks its own follow-ups, scores against a rubric and explains its recommendation.</li>
+            <li>Orchestration in Python and FastAPI on the Claude API and Agent SDK.</li>
+            <li>Workflow automation that turns multi-step manual processes into agent runs.</li>
+          </ul>
+          <div class="pillar__proof"><b>End to end</b><span>Xiya runs the full interview; people make the call</span></div>
+          <p class="stack">Claude Agent SDK · LiveKit · Workflow automation</p>
+          <p class="pillar__stages" aria-hidden="true">Plan → Retrieve → Act → Observe → Reflect</p>
+        </article>
+        <article id="pillar-2" class="pillar" data-core="ground" data-stages="Ingest,Chunk,Embed,Retrieve,Generate">
+          <p class="pillar__n">03 · Retrieval-augmented generation</p>
+          <h3>Answers grounded in your data, not the model's memory.</h3>
+          <p class="pillar__text">Retrieval is what makes a model useful on a company's own information — so it gets the same care as the model itself.</p>
+          <ul class="pillar__points">
+            <li>RAG over candidate and job data powers Tulifo's matching.</li>
+            <li>The verified pool matches pre-interviewed candidates to employers whose role fits.</li>
+          </ul>
+          <div class="pillar__proof"><b>Grounded</b><span>Tulifo matching runs on real candidate and job data</span></div>
+          <p class="stack">RAG pipelines · PostgreSQL · Redis</p>
+          <p class="pillar__stages" aria-hidden="true">Ingest → Chunk → Embed → Retrieve → Generate</p>
+        </article>
+        <article id="pillar-3" class="pillar" data-core="own" data-stages="Select,Train,Evaluate,Deploy,Monitor">
+          <p class="pillar__n">04 · LLMs in production</p>
+          <h3>Models chosen, trained and shipped like any other system.</h3>
+          <p class="pillar__text">Model choice, training and cost are engineering decisions — owned, measured and documented.</p>
+          <ul class="pillar__points">
+            <li>Own model selection at Tulifo: in-house Xiya and the open Chittu models alongside Anthropic and OpenAI.</li>
+            <li>Fine-tuned Chittu Guard from Qwen3-4B with MLX, and trained Chittu Story from scratch on 2.33M stories.</li>
+            <li>Every Chittu release ships with a model card listing its evaluations and known failures.</li>
+          </ul>
+          <div class="pillar__proof"><b>2 open models</b><span>Chittu Guard 4B and Chittu Story 26M on Hugging Face</span></div>
+          <p class="stack">Hugging Face · Fine-tuning · MLX · Model cards</p>
+          <p class="pillar__stages" aria-hidden="true">Select → Train → Evaluate → Deploy → Monitor</p>
+        </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section experience" id="experience">
+      <header class="section__head">
+        <span class="section__num">03</span>
         <h2 class="split">Six countries, five teams.</h2>
       </header>
       <div class="footprint">
@@ -216,7 +293,7 @@
 
     <section class="section tulifo" id="tulifo">
       <header class="section__head">
-        <span class="section__num">03</span>
+        <span class="section__num">04</span>
         <h2 class="split">Now: CTO at Tulifo.</h2>
       </header>
       <div class="tulifo__intro">
@@ -259,25 +336,6 @@
         <a class="product reveal" href="https://tulifo.com/chittu" target="_blank" rel="noopener"><span class="product__l">C</span><b>Chittu</b><p>Tulifo's own language model family, with open weights on Hugging Face.</p></a>
       </div>
 
-      <h3 class="sub reveal">How I build with AI</h3>
-      <div class="playbook reveal" data-playbook>
-        <div class="playbook__tabs" role="tablist" aria-label="Playbook topics">
-          <button role="tab" aria-selected="true" class="is-on" data-pb="fde">Forward deployed</button>
-          <button role="tab" aria-selected="false" data-pb="agents">Agentic AI</button>
-          <button role="tab" aria-selected="false" data-pb="rag">RAG</button>
-          <button role="tab" aria-selected="false" data-pb="llm">LLMs in production</button>
-        </div>
-        <div class="playbook__panel" role="tabpanel">
-          <div class="loop" data-loop aria-hidden="true"><svg class="loop__ring" viewBox="0 0 200 200"><circle cx="100" cy="100" r="78"/></svg><div class="loop__nodes"></div><div class="loop__core"><b data-pb-core></b><span>loop</span></div></div>
-          <div class="playbook__copy">
-            <h4 data-pb-title></h4>
-            <p data-pb-text></p>
-            <ul class="playbook__points" data-pb-points></ul>
-            <p class="stack" data-pb-chips></p>
-          </div>
-        </div>
-      </div>
-
       <h3 class="sub reveal">Models in my stack</h3>
       <div class="model-grid">
         <article class="model reveal">
@@ -307,7 +365,7 @@
 
     <section class="section work" id="work">
       <header class="section__head">
-        <span class="section__num">04</span>
+        <span class="section__num">05</span>
         <h2 class="split">Selected work and writing.</h2>
       </header>
       <div class="projects" data-projects aria-live="polite"></div>
@@ -319,7 +377,7 @@
 
     <section class="section credentials" id="credentials">
       <header class="section__head">
-        <span class="section__num">05</span>
+        <span class="section__num">06</span>
         <h2 class="split">Credentials.</h2>
       </header>
       <div class="creds">
@@ -353,7 +411,7 @@
     </section>
 
     <section class="contact" id="contact">
-      <p class="eyebrow reveal">06 — Contact</p>
+      <p class="eyebrow reveal">07 — Contact</p>
       <h2 class="contact__title split">Let's build something <em>that lasts.</em></h2>
       <p class="contact__lede reveal">Open to AI advisory, speaking and select collaborations.</p>
       <div class="contact__actions reveal">
@@ -388,6 +446,7 @@
 
   <div class="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/main.js?v=b9ce526a"></script>
+  <script src="js/aurora.js?v=f12c4654"></script>
+  <script src="js/main.js?v=f4ceb5aa"></script>
 </body>
 </html>
