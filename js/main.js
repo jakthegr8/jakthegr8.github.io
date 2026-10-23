@@ -9,8 +9,7 @@
   const LINKS = {
     LinkedIn: "https://www.linkedin.com/in/arunkumarjayakodi",
     Tulifo: "https://tulifo.com",
-    "Chittu on Hugging Face": "https://huggingface.co/Tulifo",
-    "Hugging Face": "https://huggingface.co/jakthegr8",
+    "Hugging Face": "https://huggingface.co/Tulifo",
     GitHub: "https://github.com/jakthegr8",
     Medium: "https://medium.com/@arun.ranush",
     Blog: "https://jak-ruby.blogspot.com/",
@@ -79,7 +78,7 @@
       movePill(a);
     });
   }, { rootMargin: "-45% 0px -50% 0px" });
-  ["top", "about", "tulifo", "models", "experience", "craft", "work", "writing", "credentials", "contact"].forEach(id => sectionIO.observe(document.getElementById(id)));
+  ["top", "about", "experience", "tulifo", "work", "credentials", "contact"].forEach(id => sectionIO.observe(document.getElementById(id)));
 
   /* ---------- split headings into masked words ---------- */
   $$(".split").forEach(el => {
@@ -131,35 +130,18 @@
   }
   observeReveals();
 
-  /* ---------- rotating role in the hero (roles from the original site) ---------- */
-  const roles = ["agentic AI platforms", "real-time voice agents", "cloud-native systems", "engineering teams", "microservices", "whole products"];
-  const rot = $(".rotator");
-  let ri = 0;
-  if (!reduced) setInterval(() => {
-    if (document.hidden) return;
-    const cur = $(".rotator__word", rot);
-    ri = (ri + 1) % roles.length;
-    const nxt = document.createElement("span");
-    nxt.className = "rotator__word in";
-    nxt.textContent = roles[ri];
-    cur.classList.add("out");
-    cur.style.gridArea = nxt.style.gridArea = "1 / 1";
-    rot.append(nxt);
-    setTimeout(() => cur.remove(), 450);
-  }, 2600);
-
-  /* ---------- Tulifo pipeline: hover or tap a stage; cycles until touched ---------- */
+  /* ---------- Tulifo interview flow: hover, tap or focus a stage ---------- */
   const STAGES = [
-    { title: "Candidate joins", text: "Xiya introduces the role and explains how the session works, in the candidate's own language. Consent is recorded and versioned before anything is shared.", chips: ["Any role", "10 languages", "Consent first"] },
-    { title: "Integrity checks", text: "Identity, live camera, faces in frame, editor input and window focus are fused into one picture of the session's integrity, and logged so results can be audited.", chips: ["Identity matched", "One face in frame", "Window focus"] },
-    { title: "Xiya interviews", text: "A fully autonomous video interview: Xiya asks follow-ups, hears many languages and keeps a fair pace, with background verification running alongside.", chips: ["Follow-up questions", "Vernacular speech", "BGV built in"] },
-    { title: "Rubric scoring", text: "Answers are scored against a rubric people can read — role knowledge, communication and problem solving — not a black-box number.", chips: ["Role knowledge", "Communication", "Problem solving"] },
-    { title: "People decide", text: "Xiya recommends and explains in a single report with the background check. A person on the employer's team makes every hiring decision.", chips: ["Scored report", "Human in the loop", "ISO 27001 path"] },
+    { title: "Candidate joins", text: "Xiya introduces the role and explains how the session works, in the candidate's own language. Consent is recorded and versioned before anything is shared.", stack: "Any role · 10 languages · Consent first" },
+    { title: "Integrity checks", text: "Identity, live camera, faces in frame, editor input and window focus are fused into one picture of the session's integrity, and logged so results can be audited.", stack: "Identity matched · One face in frame · Window focus" },
+    { title: "Xiya interviews", text: "A fully autonomous video interview: Xiya asks follow-ups, hears many languages and keeps a fair pace, with background verification running alongside.", stack: "Follow-up questions · Vernacular speech · BGV built in" },
+    { title: "Rubric scoring", text: "Answers are scored against a rubric people can read — role knowledge, communication and problem solving — not a black-box number.", stack: "Role knowledge · Communication · Problem solving" },
+    { title: "People decide", text: "Xiya recommends and explains in a single report with the background check. A person on the employer's team makes every hiring decision.", stack: "Scored report · Human in the loop · ISO 27001 path" },
   ];
   const flow = $("[data-flow]");
   if (flow) {
     const nodes = $$(".flow__node", flow), detail = $(".flow__detail", flow);
-    let stage = 0, auto = !reduced, timer;
+    let stage = 0;
     const show = i => {
       if (i === stage && detail.dataset.ready) return;
       stage = i;
@@ -167,20 +149,11 @@
       nodes.forEach((n, k) => { n.classList.toggle("is-on", k === i); n.setAttribute("aria-selected", String(k === i)); });
       $("[data-flow-title]", flow).textContent = STAGES[i].title;
       $("[data-flow-text]", flow).textContent = STAGES[i].text;
-      $("[data-flow-chips]", flow).innerHTML = STAGES[i].chips.map(c => `<li>${c}</li>`).join("");
+      $("[data-flow-chips]", flow).textContent = STAGES[i].stack;
       flow.style.setProperty("--fx", 10 + i * 20 + "%");
       detail.classList.remove("swap"); void detail.offsetWidth; detail.classList.add("swap");
     };
-    const stop = () => { auto = false; clearInterval(timer); };
-    nodes.forEach((n, i) => {
-      n.addEventListener("mouseenter", () => { stop(); show(i); });
-      n.addEventListener("click", () => { stop(); show(i); });
-      n.addEventListener("focus", () => { stop(); show(i); });
-    });
-    new IntersectionObserver(([en]) => {
-      clearInterval(timer);
-      if (en.isIntersecting && auto) timer = setInterval(() => show((stage + 1) % STAGES.length), 3200);
-    }, { threshold: 0.4 }).observe(flow);
+    nodes.forEach((n, i) => ["mouseenter", "click", "focus"].forEach(ev => n.addEventListener(ev, () => show(i))));
   }
 
   /* ---------- experience timeline fills as you scroll ---------- */
@@ -197,57 +170,51 @@
     update();
   }
 
-  /* ---------- AI playbook: tabs, each with an animated loop of stages ---------- */
+  /* ---------- AI playbook: tabs, each showing its stages around a loop ---------- */
   const PLAYBOOK = {
     fde: {
       core: "ship", title: "Forward deployed engineering", stages: ["Discover", "Prototype", "Deploy", "Measure", "Harden"],
       text: "I do my best work embedded with the customer — in their meetings, their codebase and their constraints — turning a fuzzy problem into software running in production.",
       points: [
         "Took Tulifo from a blank repo to a live production platform in three months.",
-        "Worked inside fintech and mobility client programmes (MoneySmart, Spin) with teams across India and Dubai.",
+        "Built fintech and mobility platforms for MoneySmart and Spin with teams across India, Dubai, Singapore and Spain.",
         "Architected enterprise systems for Rosetta Stone and RPX Insight at Accenture.",
-        "Partner with Product, Security and DevOps leaders so what ships lines up with the business.",
       ],
-      chips: ["Customer discovery", "Rapid prototyping", "Production rollout", "Stakeholder alignment"],
+      stack: "Customer discovery · Rapid prototyping · Production rollout",
     },
     agents: {
       core: "act", title: "Agentic AI", stages: ["Plan", "Retrieve", "Act", "Observe", "Reflect"],
-      text: "Agents that plan, call tools and recover from mistakes — with the guardrails and observability you need before customers rely on them.",
+      text: "Agents that run a real workflow end to end — like a full interview — rather than a chat window.",
       points: [
         "Xiya runs a fully autonomous interview: it asks its own follow-ups, scores against a rubric and explains its recommendation.",
-        "Built with the Claude API and Agent SDK, orchestrated from Python and FastAPI.",
-        "Tool use, structured outputs and human checkpoints wherever a wrong action would be costly.",
+        "Orchestration in Python and FastAPI on the Claude API and Agent SDK.",
         "Workflow automation that turns multi-step manual processes into agent runs.",
       ],
-      chips: ["Claude Agent SDK", "Tool use", "LiveKit / Pipecat", "Workflow automation"],
+      stack: "Claude Agent SDK · LiveKit · Workflow automation",
     },
     rag: {
       core: "ground", title: "Retrieval-augmented generation", stages: ["Ingest", "Chunk", "Embed", "Retrieve", "Generate"],
-      text: "Answers grounded in your own data rather than the model's memory — ingestion, retrieval and generation tuned as one system.",
+      text: "Answers grounded in your own data rather than the model's memory.",
       points: [
         "RAG over candidate and job data powers Tulifo's matching.",
-        "Retrieval quality is measured, not assumed: test sets of real questions with the sources they should find.",
-        "Grounded responses that can point back to the evidence they used.",
-        "Retrieval kept close to the data it serves, on PostgreSQL and Redis I already run.",
+        "The verified pool matches pre-interviewed candidates to employers whose role fits.",
       ],
-      chips: ["RAG pipelines", "Embeddings", "Re-ranking", "PostgreSQL"],
+      stack: "RAG pipelines · PostgreSQL · Redis",
     },
     llm: {
-      core: "own", title: "LLMs in production", stages: ["Select", "Prompt", "Evaluate", "Deploy", "Monitor"],
-      text: "Model choice, prompts, latency and cost treated as engineering decisions — measured, versioned and owned.",
+      core: "own", title: "LLMs in production", stages: ["Select", "Train", "Evaluate", "Deploy", "Monitor"],
+      text: "Model choice, training and cost treated as engineering decisions.",
       points: [
-        "Own model selection at Tulifo: our in-house Xiya and open Chittu models alongside Anthropic and OpenAI.",
-        "Fine-tuned Chittu Guard from Qwen3-4B with MLX, and trained Chittu Story from scratch on 2.33M swept stories.",
-        "Every release ships with a model card that lists every evaluation result and known failure — and comparisons published in the open.",
-        "Observability and cost tracking from years of running production systems on New Relic and Datadog.",
+        "Own model selection at Tulifo: in-house Xiya and the open Chittu models alongside Anthropic and OpenAI.",
+        "Fine-tuned Chittu Guard from Qwen3-4B with MLX, and trained Chittu Story from scratch on 2.33M stories.",
+        "Every Chittu release ships with a model card listing its evaluations and known failures.",
       ],
-      chips: ["Hugging Face", "Fine-tuning", "MLX", "Model cards", "Observability"],
+      stack: "Hugging Face · Fine-tuning · MLX · Model cards",
     },
   };
   const pb = $("[data-playbook]");
   if (pb) {
     const tabs = $$("[data-pb]", pb), panel = $(".playbook__panel", pb), nodesEl = $(".loop__nodes", pb);
-    let loopTimer, step = 0;
     const show = key => {
       const d = PLAYBOOK[key];
       tabs.forEach(t => { const on = t.dataset.pb === key; t.classList.toggle("is-on", on); t.setAttribute("aria-selected", String(on)); });
@@ -255,18 +222,13 @@
       $("[data-pb-title]", pb).textContent = d.title;
       $("[data-pb-text]", pb).textContent = d.text;
       $("[data-pb-points]", pb).innerHTML = d.points.map(x => `<li>${esc(x)}</li>`).join("");
-      $("[data-pb-chips]", pb).innerHTML = d.chips.map(x => `<li>${esc(x)}</li>`).join("");
+      $("[data-pb-chips]", pb).textContent = d.stack;
       nodesEl.innerHTML = d.stages.map((st, i) => {
         const a = (i / d.stages.length) * Math.PI * 2 - Math.PI / 2;
         return `<span class="loop__node" style="--x:${Math.cos(a).toFixed(3)};--y:${Math.sin(a).toFixed(3)}">${esc(st)}</span>`;
       }).join("");
       panel.classList.remove("swap"); void panel.offsetWidth; panel.classList.add("swap");
-      step = 0;
-      clearInterval(loopTimer);
-      const nodes = $$(".loop__node", nodesEl);
-      const tick = () => { nodes.forEach((n, i) => n.classList.toggle("is-on", i === step)); step = (step + 1) % nodes.length; };
-      tick();
-      if (!reduced) loopTimer = setInterval(tick, 1200);
+      nodesEl.firstElementChild.classList.add("is-on");
     };
     tabs.forEach(t => t.addEventListener("click", () => show(t.dataset.pb)));
     $(".playbook__tabs", pb).addEventListener("keydown", e => {
@@ -351,34 +313,8 @@
     portrait.addEventListener("pointerleave", () => { stage.style.setProperty("--ty", "0deg"); stage.style.setProperty("--tx", "0deg"); });
   }
 
-  /* ---------- craft accordion ---------- */
-  $$(".craft__row").forEach((btn, idx) => {
-    const item = btn.parentElement;
-    btn.addEventListener("click", () => {
-      const open = !item.classList.contains("is-open");
-      $$(".craft__item").forEach(i => { i.classList.remove("is-open"); $(".craft__row", i).setAttribute("aria-expanded", "false"); });
-      item.classList.toggle("is-open", open);
-      btn.setAttribute("aria-expanded", String(open));
-    });
-    if (idx === 0) btn.click();
-  });
-
-  /* ---------- pointer effects: cursor, magnetic buttons, tilt, spotlight ---------- */
+  /* ---------- pointer effects: magnetic buttons, card tilt and spotlight ---------- */
   if (finePointer && !reduced) {
-    root.classList.add("has-cursor");
-    const cursor = $(".cursor");
-    let cx = -100, cy = -100, tx = -100, ty = -100;
-    addEventListener("pointermove", e => { tx = e.clientX; ty = e.clientY; }, { passive: true });
-    addEventListener("pointerdown", () => cursor.classList.add("is-down"));
-    addEventListener("pointerup", () => cursor.classList.remove("is-down"));
-    document.addEventListener("pointerover", e => cursor.classList.toggle("is-hover", !!e.target.closest("a, button, input, .card")));
-    (function follow() {
-      cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2;
-      cursor.style.setProperty("--cx", cx + "px");
-      cursor.style.setProperty("--cy", cy + "px");
-      requestAnimationFrame(follow);
-    })();
-
     document.addEventListener("pointermove", e => {
       const m = e.target.closest(".magnetic");
       $$(".magnetic.is-pulled").forEach(b => { if (b !== m) { b.classList.remove("is-pulled"); b.style.transform = ""; } });
@@ -409,39 +345,19 @@
     try { await navigator.clipboard.writeText(EMAIL); toast("Email copied to clipboard"); }
     catch (e) { location.href = "mailto:" + EMAIL; }
   }
-  $("[data-copy]").addEventListener("click", () => {
+  $$("[data-copy]").forEach(btn => btn.addEventListener("click", () => {
     copyEmail();
-    const hint = $("[data-copy-hint]");
-    hint.textContent = "Copied";
-    setTimeout(() => (hint.textContent = "Click to copy"), 1800);
-  });
-
-  const codeBtn = $("[data-copy-code]");
-  if (codeBtn) codeBtn.addEventListener("click", async () => {
-    try { await navigator.clipboard.writeText($(".snippet code").textContent); codeBtn.textContent = "Copied"; }
-    catch (e) { codeBtn.textContent = "Select and copy"; }
-    setTimeout(() => (codeBtn.textContent = "Copy"), 1600);
-  });
+    const label = $("[data-copy-hint], [data-copy-label]", btn), was = label.textContent;
+    label.textContent = "Copied";
+    setTimeout(() => (label.textContent = was), 1800);
+  }));
 
   /* ---------- data: projects and writing from data/feed.json ---------- */
-  const LANG = { Ruby: "#cc342d", Go: "#00add8", Dart: "#00b4ab", JavaScript: "#f1e05a", Python: "#3572a5" };
-  const MAIN = ["Ruby", "Go", "Dart", "JavaScript"];
-  const FEATURED = ["GameOfLife", "infracity", "flutter_base", "konva-ext"];
-  const HIDDEN = ["jakthegr8.github.io", "Sublime_and_np"];
-  const CURATED = {
-    GameOfLife: { description: "Conway's Game of Life in Ruby. The same rules are running in the hero of this page." },
-    infracity: { description: "A social-good application in Rails — winner of a national-level hackathon." },
-    flutter_base: { description: "A Flutter starter project, preconfigured so new apps begin from a working base." },
-    "konva-ext": { description: "Konva.js canvas editing, extended with interactive resize." },
-    go_code: { description: "Solutions to popular problems, written in Go." },
-    leet_code_refresh: { description: "LeetCode problems, solved again in JavaScript." },
-    "zero_to_mastery-data_structures": { description: "Data structures and algorithms in Ruby.", language: "Ruby" },
-    Express_nodejs_app: { description: "A basic Express application on Node.js.", language: "JavaScript" },
-    ruby_codes: { description: "Ruby practice code and snippets." },
-    javascript_codes: { description: "JavaScript practice code and snippets." },
-    python_code: { description: "Python practice code and snippets." },
-    rest_api: { description: "A REST API written in Ruby." },
-    loan_packages: { description: "Dart packages, published from a Flutter workspace." },
+  const LANG = { Ruby: "#cc342d", JavaScript: "#f1e05a" };
+  const HIGHLIGHTS = {
+    GameOfLife: "Conway's Game of Life in Ruby. The same rules are running in the hero of this page.",
+    infracity: "A social-good application in Rails — winner of a national-level hackathon.",
+    "konva-ext": "Konva.js canvas editing, extended with interactive resize.",
   };
   const year = d => new Date(d).getFullYear();
   const fmtDate = d => new Date(d).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
@@ -449,22 +365,15 @@
 
   let projects = [], posts = [];
 
-  function renderProjects(filter = "all") {
-    const list = projects.filter(p => filter === "all" || (filter === "Misc" ? !MAIN.includes(p.language) : p.language === filter));
-    $("[data-projects]").innerHTML = list.map(p => `
-      <a class="card${filter === "all" && FEATURED.slice(0, 2).includes(p.name) ? " is-featured" : ""}" href="${esc(p.url)}" target="_blank" rel="noopener" style="view-transition-name: p-${esc(p.name.replace(/[^\w-]/g, ""))}; --dot: ${LANG[p.language] || "var(--muted)"}">
-        <div class="card__top"><span class="card__lang">${esc(p.language === "Misc" ? "Other" : p.language)}</span><span>${year(p.created)}</span></div>
+  function renderProjects() {
+    $("[data-projects]").innerHTML = projects.map(p => `
+      <a class="card" href="${esc(p.url)}" target="_blank" rel="noopener" style="--dot: ${LANG[p.language] || "var(--muted)"}">
+        <div class="card__top"><span class="card__lang">${esc(p.language)}</span><span>${year(p.created)}</span></div>
         <h3>${esc(p.name.replace(/[_-]/g, " "))}</h3>
-        <p>${esc(p.description || "Source on GitHub.")}</p>
+        <p>${esc(p.description)}</p>
         <span class="card__arrow">${ARROW}</span>
       </a>`).join("");
   }
-
-  $$(".filters .chip").forEach(chip => chip.addEventListener("click", () => {
-    $$(".filters .chip").forEach(c => { c.classList.toggle("is-on", c === chip); c.setAttribute("aria-pressed", String(c === chip)); });
-    const run = () => renderProjects(chip.dataset.filter);
-    if (document.startViewTransition && !reduced) document.startViewTransition(run); else run();
-  }));
 
   function renderFeatures() {
     $("[data-features]").innerHTML = posts.filter(p => p.source === "Medium").slice(0, 4).map(p => `
@@ -472,55 +381,26 @@
         <div class="feature__meta"><span>${esc(p.source)}</span><span>${fmtDate(p.date)}</span></div>
         <h3>${esc(p.title)}</h3>
         <p>${esc(p.excerpt)}</p>
-        <ul class="chips">${p.tags.slice(0, 3).map(t => `<li>${esc(t)}</li>`).join("")}</ul>
+        <p class="stack">${p.tags.slice(0, 3).map(esc).join(" · ")}</p>
       </a>`).join("");
     observeReveals($("[data-features]"));
   }
 
-  let logLimit = 10;
-  function renderLog() {
-    const q = $("[data-log-search]").value.trim().toLowerCase();
-    const all = posts.filter(p => p.source !== "Medium");
-    const hits = q ? all.filter(p => (p.title + " " + p.tags.join(" ")).toLowerCase().includes(q)) : all;
-    const shown = q ? hits : hits.slice(0, logLimit);
-    const hl = s => {
-      const safe = esc(s);
-      if (!q) return safe;
-      const at = s.toLowerCase().indexOf(q);
-      return at < 0 ? safe : esc(s.slice(0, at)) + "<mark>" + esc(s.slice(at, at + q.length)) + "</mark>" + esc(s.slice(at + q.length));
-    };
-    $("[data-log-count]").textContent = q ? `${hits.length} of ${all.length}` : `${all.length} posts`;
-    $("[data-log]").innerHTML = shown.length
-      ? shown.map(p => `<li><a href="${esc(p.url)}" target="_blank" rel="noopener"><span class="log__date">${fmtDate(p.date)}</span><span class="log__title">${hl(p.title)}</span><span class="log__src">${esc(p.source)} ↗</span></a></li>`).join("")
-      : `<li class="log__empty">No posts match “${esc(q)}”.</li>`;
-    $("[data-log-more]").hidden = !!q || hits.length <= logLimit;
-  }
-  $("[data-log-search]").addEventListener("input", renderLog);
-  $("[data-log-more]").addEventListener("click", () => { logLimit = Infinity; renderLog(); });
-
   fetch("data/feed.json")
     .then(r => r.json())
     .then(data => {
+      const names = Object.keys(HIGHLIGHTS);
       projects = data.repos
-        .filter(r => !HIDDEN.includes(r.name))
-        .map(r => ({ ...r, ...CURATED[r.name], description: (CURATED[r.name] || {}).description || r.description }))
-        .sort((a, b) => {
-          const fa = FEATURED.indexOf(a.name), fb = FEATURED.indexOf(b.name);
-          if (fa !== fb) return (fa < 0 ? 99 : fa) - (fb < 0 ? 99 : fb);
-          return b.pushed.localeCompare(a.pushed);
-        });
+        .filter(r => names.includes(r.name))
+        .map(r => ({ ...r, description: HIGHLIGHTS[r.name] }))
+        .sort((a, b) => names.indexOf(a.name) - names.indexOf(b.name));
       posts = data.posts;
-      $$(".filters .chip").forEach(c => {
-        const f = c.dataset.filter;
-        const n = f === "all" ? projects.length : projects.filter(p => (f === "Misc" ? !MAIN.includes(p.language) : p.language === f)).length;
-        c.insertAdjacentHTML("beforeend", `<sup>${n}</sup>`);
-      });
+      $("[data-kata-count]").textContent = posts.filter(p => p.source !== "Medium").length;
       renderProjects();
       renderFeatures();
-      renderLog();
     })
     .catch(() => {
-      $("[data-projects]").innerHTML = `<p class="log__empty">Projects are on <a href="${LINKS.GitHub}">GitHub</a>.</p>`;
+      $("[data-projects]").innerHTML = `<p class="stack">Projects are on <a href="${LINKS.GitHub}">GitHub</a>.</p>`;
     });
 
   /* ---------- command palette ---------- */
@@ -530,15 +410,12 @@
   const go = id => () => document.getElementById(id).scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
   const open = url => () => window.open(url, "_blank", "noopener");
   const baseCommands = () => [
-    { group: "Navigate", label: "About", hint: "01", run: go("about") },
-    { group: "Navigate", label: "Tulifo", hint: "02", run: go("tulifo") },
-    { group: "Navigate", label: "AI playbook and models", hint: "03", run: go("models") },
-    { group: "Navigate", label: "Experience", hint: "04", run: go("experience") },
-    { group: "Navigate", label: "Craft", hint: "05", run: go("craft") },
-    { group: "Navigate", label: "Work", hint: "06", run: go("work") },
-    { group: "Navigate", label: "Writing", hint: "07", run: go("writing") },
-    { group: "Navigate", label: "Credentials", hint: "08", run: go("credentials") },
-    { group: "Navigate", label: "Contact", hint: "09", run: go("contact") },
+    { group: "Navigate", label: "At a glance", hint: "01", run: go("about") },
+    { group: "Navigate", label: "Experience", hint: "02", run: go("experience") },
+    { group: "Navigate", label: "Tulifo and AI", hint: "03", run: go("tulifo") },
+    { group: "Navigate", label: "Work and writing", hint: "04", run: go("work") },
+    { group: "Navigate", label: "Credentials", hint: "05", run: go("credentials") },
+    { group: "Navigate", label: "Contact", hint: "06", run: go("contact") },
     { group: "Actions", label: "Copy email address", hint: EMAIL, run: copyEmail },
     { group: "Actions", label: "Toggle theme", hint: "light / dark", run: () => toggleTheme() },
     { group: "Game of Life", label: window.Life && !window.Life.running ? "Resume simulation" : "Pause simulation", hint: "space", run: () => window.Life && toast(window.Life.toggle() ? "Life resumed" : "Life paused") },

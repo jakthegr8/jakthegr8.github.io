@@ -10,7 +10,7 @@
   const aliveEl = document.querySelector("[data-alive]");
 
   const CELL = 14;
-  const TICK = 95;
+  const TICK = 150;
   let cols = 0, rows = 0, cells, next, age, gen = 0, alive = 0;
   let running = !reduced, visible = true, last = 0, colors = {};
 
@@ -42,7 +42,7 @@
     cells.fill(0); age.fill(0); gen = 0;
     for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
       const bias = Math.pow(x / cols, 1.6);
-      if (Math.random() < 0.06 + bias * 0.22) { cells[y * cols + x] = 1; age[y * cols + x] = 3; }
+      if (Math.random() < 0.04 + bias * 0.18) { cells[y * cols + x] = 1; age[y * cols + x] = 3; }
     }
     for (let i = 0; i < 4; i++) glider(Math.random() * cols * 0.5 | 0, Math.random() * rows | 0);
   }
@@ -95,7 +95,7 @@
     ctx.fillStyle = colors.accent;
     for (let i = 0; i < cells.length; i++) {
       if (!cells[i] || age[i] >= 3) continue;
-      ctx.globalAlpha = 0.85 - age[i] * 0.25;
+      ctx.globalAlpha = 0.5 - age[i] * 0.15;
       ctx.fillRect((i % cols) * CELL + 1.5, ((i / cols) | 0) * CELL + 1.5, s, s);
     }
     ctx.globalAlpha = 1;
