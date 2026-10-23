@@ -317,7 +317,9 @@
     });
 
     // Journey: the map stays pinned while the camera flies between stops and a story card follows.
-    if (journey && !reduced) {
+    // Phones and tablets get a static map: the scroll-driven camera redraws on every frame and lags there.
+    const compact = matchMedia("(max-width: 960px), (pointer: coarse)").matches;
+    if (journey && !reduced && !compact) {
       journey.classList.add("journey--live");
       const stops = $$("[data-stop]", journey).map(li => {
         const g = li.hasAttribute("data-overview") ? WORLD : { ...toGrid(+li.dataset.lat, +li.dataset.lon), z: +li.dataset.zoom };

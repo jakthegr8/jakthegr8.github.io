@@ -441,7 +441,7 @@ kbd {
   .model-grid, .products { grid-template-columns: 1fr; }
   .model { min-height: 0; }
   .map { aspect-ratio: 144 / 70; }
-  .pin span { font-size: 10px; padding: 4px 7px; opacity: 0; transition: opacity 0.3s; }
+  .pin span { font-size: 11px; padding: 4px 7px; opacity: 0; transition: opacity 0.3s; }
   .pin { width: 10px; height: 10px; }
   .pin.is-on span { opacity: 1; }
   .teams li { grid-template-columns: 1fr 52px; }
@@ -660,3 +660,16 @@ a.model:hover h4 { color: var(--accent); }
 .to-top:hover path { translate: 0 -2px; }
 @media (max-width: 640px) { .to-top { right: 16px; bottom: 16px; width: 46px; height: 46px; } }
 .hero__title:focus { outline: none; }
+
+/* ---------- static map (phones, tablets, reduced motion): no drawing animation ---------- */
+.journey:not(.journey--live) .map__arcs path { animation: none; stroke-dashoffset: 0; }
+
+/* ---------- touch: larger tap areas without changing the look ---------- */
+.pin::after { content: ""; position: absolute; inset: -12px; }
+@media (max-width: 640px) {
+  .nav__tools .kbd-btn, .nav__tools .icon-btn { height: 40px; }
+  .nav__tools .icon-btn { width: 40px; }
+  .nav__logo { padding: 6px 4px; margin: -6px -4px; }
+  .more { padding: 9px 0; background-position: 0 calc(100% - 9px); }
+}
+
