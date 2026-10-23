@@ -11,12 +11,13 @@
   const root = document.documentElement;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const SCALE = 0.45;
-  const FRAME = 1000 / 30;
+  const FRAME = 1000 / 60;
+  const SPEED = 3.2; // how fast the field drifts; ~3x the first version so the motion reads clearly
 
   const vert = "attribute vec2 p; void main() { gl_Position = vec4(p, 0.0, 1.0); }";
   const frag = `
     precision mediump float;
-    uniform vec2 res; uniform float t; uniform vec2 m; uniform vec2 mp; uniform float mh;
+    uniform vec2 res; uniform float t0; uniform vec2 m; uniform vec2 mp; uniform float mh;
     uniform vec3 c1; uniform vec3 c2; uniform vec3 c3; uniform float strength;
     float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
     float noise(vec2 p) {
@@ -26,16 +27,18 @@
     float fbm(vec2 p) { float v = 0.0, a = 0.5; for (int i = 0; i < 4; i++) { v += a * noise(p); p *= 2.02; a *= 0.5; } return v; }
     float blob(vec2 uv, vec2 c, float r) { vec2 d = uv - c; return exp(-dot(d, d) / (r * r)); }
     void main() {
+      float t = t0;
       vec2 uv = gl_FragCoord.xy / res; float ar = res.x / res.y; vec2 q = vec2(uv.x * ar, uv.y);
-      vec2 warp = vec2(fbm(q * 1.4 + vec2(t * 0.025, -t * 0.02)), fbm(q * 1.4 + vec2(-t * 0.018, t * 0.03))) - 0.5;
-      vec2 w = q + warp * 0.55;
-      vec2 lean = m * vec2(0.18, 0.12);
-      float b1 = blob(w, vec2(ar * 0.74 + 0.10 * sin(t * 0.09), 0.58 + 0.10 * cos(t * 0.11)) + lean, 0.42);
-      float b2 = blob(w, vec2(ar * 0.88 + 0.12 * cos(t * 0.07), 0.30 + 0.12 * sin(t * 0.13)) + lean * 0.6, 0.34);
-      float b3 = blob(w, vec2(ar * 0.58 + 0.10 * sin(t * 0.12 + 1.7), 0.82 + 0.08 * cos(t * 0.08)) + lean * 1.3, 0.30);
+      vec2 warp = vec2(fbm(q * 1.6 + vec2(t * 0.06, -t * 0.045)), fbm(q * 1.6 + vec2(-t * 0.04, t * 0.07))) - 0.5;
+      vec2 w = q + warp * 0.8;
+      vec2 lean = m * vec2(0.22, 0.15);
+      float b1 = blob(w, vec2(ar * 0.74 + 0.17 * sin(t * 0.09), 0.58 + 0.15 * cos(t * 0.11)) + lean, 0.40);
+      float b2 = blob(w, vec2(ar * 0.86 + 0.18 * cos(t * 0.07), 0.32 + 0.16 * sin(t * 0.13)) + lean * 0.6, 0.33);
+      float b3 = blob(w, vec2(ar * 0.60 + 0.16 * sin(t * 0.12 + 1.7), 0.78 + 0.12 * cos(t * 0.08)) + lean * 1.3, 0.30);
+      float shift = 0.5 + 0.5 * sin(t * 0.15);                 // colours slowly trade places
       float b4 = blob(w, vec2(mp.x * ar, mp.y), 0.17) * mh;   // a bloom of light under the cursor
       float base = b1 + b2 * 0.8 + b3 * 0.7;
-      vec3 col = (c1 * b1 + c2 * b2 * 0.8 + c3 * b3 * 0.7 + c2 * b4 * 1.2) / max(base + b4 * 1.2, 0.001);
+      vec3 col = (mix(c1, c3, shift * 0.35) * b1 + c2 * b2 * 0.8 + mix(c3, c1, shift * 0.5) * b3 * 0.7 + c2 * b4 * 1.2) / max(base + b4 * 1.2, 0.001);
       float a = clamp(base * strength, 0.0, 1.0) * smoothstep(0.18, 0.62, uv.x); // fade out toward the text on the left
       a = clamp(a + b4 * 0.35, 0.0, 1.0);
       a *= smoothstep(0.0, 0.32, uv.y) * smoothstep(1.0, 0.82, uv.y); // melt into the page below and the nav above
@@ -67,7 +70,7 @@
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
   const u = name => gl.getUniformLocation(prog, name);
-  const U = { res: u("res"), t: u("t"), m: u("m"), mp: u("mp"), mh: u("mh"), c1: u("c1"), c2: u("c2"), c3: u("c3"), strength: u("strength") };
+  const U = { res: u("res"), t: u("t0"), m: u("m"), mp: u("mp"), mh: u("mh"), c1: u("c1"), c2: u("c2"), c3: u("c3"), strength: u("strength") };
 
   // Theme colours come from CSS custom properties so light and dark stay in sync.
   const probe = document.createElement("canvas").getContext("2d");
@@ -101,7 +104,7 @@
   function draw(now) {
     mx += (tx - mx) * 0.04;
     my += (ty - my) * 0.04;
-    gl.uniform1f(U.t, (now - start) / 1000 + 20);
+    gl.uniform1f(U.t, ((now - start) / 1000) * SPEED + 20);
     gl.uniform2f(U.m, mx, my);
     hx += (tx + 0.5 - hx) * 0.12;
     hy += (ty + 0.5 - hy) * 0.12;
