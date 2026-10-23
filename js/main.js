@@ -171,73 +171,32 @@
     update();
   }
 
-  /* ---------- AI playbook: tabs, each showing its stages around a loop ---------- */
-  const PLAYBOOK = {
-    fde: {
-      core: "ship", title: "Forward deployed engineering", stages: ["Discover", "Prototype", "Deploy", "Measure", "Harden"],
-      text: "I do my best work embedded with the customer — in their meetings, their codebase and their constraints — turning a fuzzy problem into software running in production.",
-      points: [
-        "Took Tulifo from a blank repo to a live production platform in three months.",
-        "Built fintech and mobility platforms for MoneySmart and Spin with teams across India, Dubai, Singapore and Spain.",
-        "Architected enterprise systems for Rosetta Stone and RPX Insight at Accenture.",
-      ],
-      stack: "Customer discovery · Rapid prototyping · Production rollout",
-    },
-    agents: {
-      core: "act", title: "Agentic AI", stages: ["Plan", "Retrieve", "Act", "Observe", "Reflect"],
-      text: "Agents that run a real workflow end to end — like a full interview — rather than a chat window.",
-      points: [
-        "Xiya runs a fully autonomous interview: it asks its own follow-ups, scores against a rubric and explains its recommendation.",
-        "Orchestration in Python and FastAPI on the Claude API and Agent SDK.",
-        "Workflow automation that turns multi-step manual processes into agent runs.",
-      ],
-      stack: "Claude Agent SDK · LiveKit · Workflow automation",
-    },
-    rag: {
-      core: "ground", title: "Retrieval-augmented generation", stages: ["Ingest", "Chunk", "Embed", "Retrieve", "Generate"],
-      text: "Answers grounded in your own data rather than the model's memory.",
-      points: [
-        "RAG over candidate and job data powers Tulifo's matching.",
-        "The verified pool matches pre-interviewed candidates to employers whose role fits.",
-      ],
-      stack: "RAG pipelines · PostgreSQL · Redis",
-    },
-    llm: {
-      core: "own", title: "LLMs in production", stages: ["Select", "Train", "Evaluate", "Deploy", "Monitor"],
-      text: "Model choice, training and cost treated as engineering decisions.",
-      points: [
-        "Own model selection at Tulifo: in-house Xiya and the open Chittu models alongside Anthropic and OpenAI.",
-        "Fine-tuned Chittu Guard from Qwen3-4B with MLX, and trained Chittu Story from scratch on 2.33M stories.",
-        "Every Chittu release ships with a model card listing its evaluations and known failures.",
-      ],
-      stack: "Hugging Face · Fine-tuning · MLX · Model cards",
-    },
-  };
-  const pb = $("[data-playbook]");
-  if (pb) {
-    const tabs = $$("[data-pb]", pb), panel = $(".playbook__panel", pb), nodesEl = $(".loop__nodes", pb);
-    const show = key => {
-      const d = PLAYBOOK[key];
-      tabs.forEach(t => { const on = t.dataset.pb === key; t.classList.toggle("is-on", on); t.setAttribute("aria-selected", String(on)); });
-      $("[data-pb-core]", pb).textContent = d.core;
-      $("[data-pb-title]", pb).textContent = d.title;
-      $("[data-pb-text]", pb).textContent = d.text;
-      $("[data-pb-points]", pb).innerHTML = d.points.map(x => `<li>${esc(x)}</li>`).join("");
-      $("[data-pb-chips]", pb).textContent = d.stack;
-      nodesEl.innerHTML = d.stages.map((st, i) => {
-        const a = (i / d.stages.length) * Math.PI * 2 - Math.PI / 2;
-        return `<span class="loop__node" style="--x:${Math.cos(a).toFixed(3)};--y:${Math.sin(a).toFixed(3)}">${esc(st)}</span>`;
+  /* ---------- How I build with AI: pillars take the spotlight as they scroll past ---------- */
+  const ai = $("[data-ai]");
+  if (ai) {
+    const pillars = $$(".pillar", ai), links = $$("[data-pillar]", ai), nodesEl = $(".loop__nodes", ai), core = $("[data-ai-core]", ai);
+    let current = -1;
+    const activate = i => {
+      if (i === current) return;
+      current = i;
+      pillars.forEach((p, k) => p.classList.toggle("is-on", k === i));
+      links.forEach((l, k) => l.classList.toggle("is-on", k === i));
+      core.textContent = pillars[i].dataset.core;
+      const stages = pillars[i].dataset.stages.split(",");
+      nodesEl.innerHTML = stages.map((st, k) => {
+        const a = (k / stages.length) * Math.PI * 2 - Math.PI / 2;
+        return `<span class="loop__node${k === 0 ? " is-on" : ""}" style="--x:${Math.cos(a).toFixed(3)};--y:${Math.sin(a).toFixed(3)};--k:${k}">${esc(st)}</span>`;
       }).join("");
-      panel.classList.remove("swap"); void panel.offsetWidth; panel.classList.add("swap");
-      nodesEl.firstElementChild.classList.add("is-on");
     };
-    tabs.forEach(t => t.addEventListener("click", () => show(t.dataset.pb)));
-    $(".playbook__tabs", pb).addEventListener("keydown", e => {
-      if (!/Arrow(Left|Right)/.test(e.key)) return;
-      const i = tabs.indexOf(document.activeElement), n = tabs[(i + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length];
-      n.focus(); show(n.dataset.pb);
-    });
-    show("fde");
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) activate(pillars.indexOf(en.target)); });
+    }, { rootMargin: "-45% 0px -45% 0px" });
+    pillars.forEach(p => io.observe(p));
+    links.forEach((l, i) => l.addEventListener("click", e => {
+      e.preventDefault();
+      pillars[i].scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+    }));
+    activate(0);
   }
 
   /* ---------- footprint: dot-matrix world map (Natural Earth 110m, 2.5° grid) ---------- */
@@ -412,11 +371,12 @@
   const open = url => () => window.open(url, "_blank", "noopener");
   const baseCommands = () => [
     { group: "Navigate", label: "At a glance", hint: "01", run: go("about") },
-    { group: "Navigate", label: "Experience", hint: "02", run: go("experience") },
-    { group: "Navigate", label: "Tulifo and AI", hint: "03", run: go("tulifo") },
-    { group: "Navigate", label: "Work and writing", hint: "04", run: go("work") },
-    { group: "Navigate", label: "Credentials", hint: "05", run: go("credentials") },
-    { group: "Navigate", label: "Contact", hint: "06", run: go("contact") },
+    { group: "Navigate", label: "How I build with AI", hint: "02", run: go("ai") },
+    { group: "Navigate", label: "Experience", hint: "03", run: go("experience") },
+    { group: "Navigate", label: "Tulifo", hint: "04", run: go("tulifo") },
+    { group: "Navigate", label: "Work and writing", hint: "05", run: go("work") },
+    { group: "Navigate", label: "Credentials", hint: "06", run: go("credentials") },
+    { group: "Navigate", label: "Contact", hint: "07", run: go("contact") },
     { group: "Actions", label: "Copy email address", hint: EMAIL, run: copyEmail },
     { group: "Actions", label: "Toggle theme", hint: "light / dark", run: () => toggleTheme() },
     ...Object.entries(LINKS).map(([k, url]) => ({ group: "Elsewhere", label: "Open " + k, hint: "↗", run: open(url) })),
