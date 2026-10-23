@@ -172,31 +172,76 @@
   }
 
   /* ---------- How I build with AI: pillars take the spotlight as they scroll past ---------- */
+  // While a pillar is active, a light runs around the loop with your scroll; the first time a
+  // pillar arrives, its points stream in word by word and its proof line decodes.
   const ai = $("[data-ai]");
   if (ai) {
     const pillars = $$(".pillar", ai), links = $$("[data-pillar]", ai), nodesEl = $(".loop__nodes", ai), core = $("[data-ai-core]", ai);
-    let current = -1;
-    const activate = i => {
-      if (i === current) return;
-      current = i;
-      pillars.forEach((p, k) => p.classList.toggle("is-on", k === i));
-      links.forEach((l, k) => l.classList.toggle("is-on", k === i));
-      core.textContent = pillars[i].dataset.core;
-      const stages = pillars[i].dataset.stages.split(",");
-      nodesEl.innerHTML = stages.map((st, k) => {
-        const a = (k / stages.length) * Math.PI * 2 - Math.PI / 2;
-        return `<span class="loop__node${k === 0 ? " is-on" : ""}" style="--x:${Math.cos(a).toFixed(3)};--y:${Math.sin(a).toFixed(3)};--k:${k}">${esc(st)}</span>`;
-      }).join("");
+    const ring = $(".loop__ring", ai), spark = $(".loop__spark", ai);
+    const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*";
+    let current = -1, nodes = [];
+    if (!reduced) pillars.forEach(p => {
+      $$(".pillar__points li", p).forEach(li => {
+        // One wrapper keeps the words in the text column of the point's grid
+        li.innerHTML = "<span>" + li.textContent.trim().split(/\s+/).map(w => `<span class="tok">${esc(w)} </span>`).join("") + "</span>";
+      });
+      const proof = $(".pillar__proof b", p);
+      proof.dataset.final = proof.textContent;
+      proof.textContent = "—";
+    });
+    const decode = el => {
+      const target = el.dataset.final, start = performance.now(), dur = 700;
+      (function tick(now) {
+        const t = Math.min(1, (now - start) / dur), fixed = Math.floor(t * target.length);
+        el.textContent = t >= 1 ? target : target.split("").map((ch, k) => (k < fixed || ch === " " ? ch : GLYPHS[(Math.random() * GLYPHS.length) | 0])).join("");
+        if (t < 1) requestAnimationFrame(tick);
+      })(start);
+    };
+    const stream = p => {
+      if (reduced || p.dataset.streamed) return;
+      p.dataset.streamed = "1";
+      const toks = $$(".tok", p);
+      toks.forEach((t, k) => setTimeout(() => t.classList.add("in"), k * 22));
+      setTimeout(() => decode($(".pillar__proof b", p)), Math.min(toks.length * 22, 800));
+    };
+    const progress = () => {
+      if (current < 0) return;
+      const r = pillars[current].getBoundingClientRect();
+      const p = reduced ? 1 : Math.min(1, Math.max(0, (innerHeight * 0.55 - r.top) / r.height));
+      ring.style.setProperty("--trail", (p * 100).toFixed(1));
+      const a = p * Math.PI * 2 - Math.PI / 2;
+      spark.setAttribute("cx", (100 + 78 * Math.cos(a)).toFixed(2));
+      spark.setAttribute("cy", (100 + 78 * Math.sin(a)).toFixed(2));
+      spark.style.opacity = p > 0.01 && p < 0.99 ? 1 : 0;
+      const act = Math.min(nodes.length - 1, Math.floor(p * nodes.length));
+      nodes.forEach((el, k) => { el.classList.toggle("is-on", k === act && p < 0.99); el.classList.toggle("is-done", k < act || p >= 0.99); });
+    };
+    const activate = (i, arrived) => {
+      if (i !== current) {
+        current = i;
+        pillars.forEach((p, k) => p.classList.toggle("is-on", k === i));
+        links.forEach((l, k) => l.classList.toggle("is-on", k === i));
+        core.textContent = pillars[i].dataset.core;
+        const stages = pillars[i].dataset.stages.split(",");
+        nodesEl.innerHTML = stages.map((st, k) => {
+          const a = (k / stages.length) * Math.PI * 2 - Math.PI / 2;
+          return `<span class="loop__node" style="--x:${Math.cos(a).toFixed(3)};--y:${Math.sin(a).toFixed(3)};--k:${k}">${esc(st)}</span>`;
+        }).join("");
+        nodes = $$(".loop__node", nodesEl);
+      }
+      if (arrived) stream(pillars[i]);
+      progress();
     };
     const io = new IntersectionObserver(entries => {
-      entries.forEach(en => { if (en.isIntersecting) activate(pillars.indexOf(en.target)); });
+      entries.forEach(en => { if (en.isIntersecting) activate(pillars.indexOf(en.target), true); });
     }, { rootMargin: "-45% 0px -45% 0px" });
     pillars.forEach(p => io.observe(p));
+    addEventListener("scroll", () => requestAnimationFrame(progress), { passive: true });
     links.forEach((l, i) => l.addEventListener("click", e => {
       e.preventDefault();
       pillars[i].scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
     }));
-    activate(0);
+    activate(0, false);
   }
 
   /* ---------- footprint: dot-matrix world map with a scroll-driven camera ---------- */
