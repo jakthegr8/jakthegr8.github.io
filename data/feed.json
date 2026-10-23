@@ -1,0 +1,1157 @@
+{
+ "generated": "2026-10-23T17:06:55.164Z",
+ "profile": {
+  "repos": 38,
+  "gists": 69,
+  "since": "2009-12-08T06:57:28Z"
+ },
+ "posts": [
+  {
+   "source": "Medium",
+   "title": "Speed up kubernetes build trigger Artifacts with cache in Google cloud",
+   "url": "https://blog.francium.tech/speed-up-kubernetes-build-trigger-artifacts-with-cache-in-google-cloud-cdfa8eff2ef0",
+   "date": "2018-05-11T10:25:31.000Z",
+   "tags": [
+    "docker",
+    "cache",
+    "build-triggers",
+    "kubernetes",
+    "cloud-computing"
+   ],
+   "excerpt": "Kubernetes is getting popular these day because of its strong community and smoother container orchestrations. If you consider moving your applications to…"
+  },
+  {
+   "source": "Medium",
+   "title": "Why choose VueJs?",
+   "url": "https://blog.francium.tech/why-choose-vuejs-8722cf88017f",
+   "date": "2018-03-24T10:11:37.000Z",
+   "tags": [
+    "react",
+    "front-end-development",
+    "single-page-applications",
+    "vuejs",
+    "javascript"
+   ],
+   "excerpt": "As part of building a scalable single page web application, we explored couple of different frontend frameworks by keeping few expectations in mind like…"
+  },
+  {
+   "source": "Medium",
+   "title": "Getting started with Flutter",
+   "url": "https://blog.francium.tech/super-star-flutter-ec936dfdef41",
+   "date": "2018-03-13T13:09:54.000Z",
+   "tags": [
+    "hybrid-app-development",
+    "flutter",
+    "mobile-sdks",
+    "android",
+    "ios"
+   ],
+   "excerpt": "Flutter is an open source beta framework by Google for mobile UI to build high-quality native (super fast) interfaces for both iOS and Android. Dart is used as…"
+  },
+  {
+   "source": "Medium",
+   "title": "Add Free Security Certificate (HTTPS) for your Nginx applications on Ubuntu",
+   "url": "https://blog.francium.tech/add-free-security-certificate-https-for-your-nginx-applications-on-ubuntu-e310cf67f749",
+   "date": "2018-03-12T09:31:25.000Z",
+   "tags": [
+    "lets-encrypt",
+    "security",
+    "nginx",
+    "ssl",
+    "https"
+   ],
+   "excerpt": "In a typical HTTP connection, all the header and other sensitive information are transferred as a ‘plain text’ and that can be read by anyone. One simple…"
+  },
+  {
+   "source": "Blog",
+   "title": "Bubble sort revised",
+   "url": "https://jak-ruby.blogspot.com/2016/11/bubble-sort-revised.html",
+   "date": "2016-11-25T08:38:00.002Z",
+   "tags": [
+    "algorithm",
+    "arrays",
+    "data structures",
+    "ruby",
+    "sort"
+   ],
+   "excerpt": "Difficulty: Easy Instructions: Implement in place sorting algorithm with a worst case time complexity of O(n2) Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Bubble Sort",
+   "url": "https://jak-ruby.blogspot.com/2016/11/bubble-sort_25.html",
+   "date": "2016-11-25T08:37:00.000Z",
+   "tags": [
+    "algorithm",
+    "arrays",
+    "data structures",
+    "Easy",
+    "sort"
+   ],
+   "excerpt": "Difficulty: Easy Instructions: Implement in place sorting algorithm with a worst case time complexity of O(n2) Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Selection Sort",
+   "url": "https://jak-ruby.blogspot.com/2016/11/selection-sort.html",
+   "date": "2016-11-23T05:00:00.001Z",
+   "tags": [
+    "algorithm",
+    "arrays",
+    "data structures",
+    "Easy",
+    "sort"
+   ],
+   "excerpt": "Difficulty: Easy Instructions: Implement in place sorting algorithm with a worst case time complexity of O(n2) Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Select Map",
+   "url": "https://jak-ruby.blogspot.com/2016/07/select-map.html",
+   "date": "2016-07-12T13:39:00.001Z",
+   "tags": [
+    "Easy",
+    "enumerables",
+    "procs",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: enumerables, procs Instructions: The Pattern object not only functions as a Regexp. For example, check out what happens if you do…"
+  },
+  {
+   "source": "Blog",
+   "title": "Pack Template UTF-8",
+   "url": "https://jak-ruby.blogspot.com/2016/07/pack-template-utf-8.html",
+   "date": "2016-07-12T13:38:00.000Z",
+   "tags": [
+    "Easy",
+    "pack",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: pack Instructions: Write pack template of UTF-8. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Simple String Substitution",
+   "url": "https://jak-ruby.blogspot.com/2016/07/simple-string-substitution.html",
+   "date": "2016-07-12T13:34:00.001Z",
+   "tags": [
+    "Easy",
+    "rubeque",
+    "ruby",
+    "strings",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: strings Instructions: One of the challenges in implementing Rubeque is performing string substitution. See how well you can do. Problem…"
+  },
+  {
+   "source": "Blog",
+   "title": "Quelle Heure Est-Il?",
+   "url": "https://jak-ruby.blogspot.com/2016/07/quelle-heure-est-il.html",
+   "date": "2016-07-12T13:31:00.001Z",
+   "tags": [
+    "dates",
+    "Easy",
+    "rubeque",
+    "ruby",
+    "strings",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: dates, strings Instructions: Write a function to parse some dates and return a standard format. Hint: the help page might be of use.…"
+  },
+  {
+   "source": "Blog",
+   "title": "Implement a Hash With Indifferent Access",
+   "url": "https://jak-ruby.blogspot.com/2016/07/implement-hash-with-indifferent-access.html",
+   "date": "2016-07-12T13:26:00.004Z",
+   "tags": [
+    "classes",
+    "Easy",
+    "hashes",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: hashes, classes Instructions: Implement a hash class which does not distinguish between symbols and strings for its keys. Problem and…"
+  },
+  {
+   "source": "Blog",
+   "title": "Unidentified X Object",
+   "url": "https://jak-ruby.blogspot.com/2016/07/unidentified-x-object.html",
+   "date": "2016-07-12T13:19:00.000Z",
+   "tags": [
+    "Easy",
+    "operators",
+    "rubeque",
+    "ruby",
+    "strings",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: strings, operators Instructions: Use comparison operators. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Join URL params",
+   "url": "https://jak-ruby.blogspot.com/2016/07/join-url-params.html",
+   "date": "2016-07-12T13:17:00.001Z",
+   "tags": [
+    "Easy",
+    "params",
+    "rubeque",
+    "ruby",
+    "url",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: url, params Instructions: Join parameters to a link. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "The Gray Area",
+   "url": "https://jak-ruby.blogspot.com/2016/07/the-gray-area.html",
+   "date": "2016-07-12T13:16:00.001Z",
+   "tags": [
+    "booleans",
+    "Easy",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: booleans Instructions: Write code that will make true equal false in the following problem. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Implement Array#interleave",
+   "url": "https://jak-ruby.blogspot.com/2016/07/implement-arrayinterleave.html",
+   "date": "2016-07-12T13:15:00.000Z",
+   "tags": [
+    "arrays",
+    "Easy",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: arrays Instructions: Implement an Array method to interleave an array with a dynamic number of arguments or an array. Problem and…"
+  },
+  {
+   "source": "Blog",
+   "title": "Counting Elements in Array",
+   "url": "https://jak-ruby.blogspot.com/2016/07/counting-elements-in-array.html",
+   "date": "2016-07-12T13:13:00.001Z",
+   "tags": [
+    "arrays",
+    "Easy",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: arrays Instructions: Count elements in an Array by returning a hash with keys of the elements and values of the amount of times they…"
+  },
+  {
+   "source": "Blog",
+   "title": "Architecting a Solution",
+   "url": "https://jak-ruby.blogspot.com/2016/07/architecting-solution.html",
+   "date": "2016-07-12T13:10:00.004Z",
+   "tags": [
+    "classes",
+    "Easy",
+    "rubeque",
+    "ruby",
+    "structs",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: structs, classes Instructions: Use a Struct to define an Architect class. Hidden Code: There is hidden code with assertions that is also…"
+  },
+  {
+   "source": "Blog",
+   "title": "A Man, A Plan, A Canal--Panama!",
+   "url": "https://jak-ruby.blogspot.com/2016/07/a-man-plan-canal-panama.html",
+   "date": "2016-07-12T13:09:00.003Z",
+   "tags": [
+    "Easy",
+    "rubeque",
+    "ruby",
+    "strings",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: strings Instructions: A palindrome is a string that is written the same forward as it is in reverse. Write a method to return the…"
+  },
+  {
+   "source": "Blog",
+   "title": "Defusing a Bomb",
+   "url": "https://jak-ruby.blogspot.com/2016/07/defusing-bomb.html",
+   "date": "2016-07-12T13:08:00.002Z",
+   "tags": [
+    "Easy",
+    "exceptions",
+    "nil",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: nil, exceptions Instructions: Prevent the following code from throwing an expection Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Related keys of Hash",
+   "url": "https://jak-ruby.blogspot.com/2016/07/related-keys-of-hash.html",
+   "date": "2016-07-12T13:06:00.003Z",
+   "tags": [
+    "Easy",
+    "hashes",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: hashes Instructions: Get keys of a hash whose values equal to given arguments. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Fixing Bad Code the Wrong Way",
+   "url": "https://jak-ruby.blogspot.com/2016/07/fixing-bad-code-wrong-way.html",
+   "date": "2016-07-12T13:05:00.001Z",
+   "tags": [
+    "classes",
+    "Easy",
+    "method_missing",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: method_missing, classes Instructions: Your coworker did a bad job defining a class. Fix it for him using #method_missing. Problem and…"
+  },
+  {
+   "source": "Blog",
+   "title": "Random Boolean",
+   "url": "https://jak-ruby.blogspot.com/2016/07/random-boolean.html",
+   "date": "2016-07-12T13:04:00.000Z",
+   "tags": [
+    "booleans",
+    "Easy",
+    "rand",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: rand, booleans Instructions: Return random booleans Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Separating Numbers with Commas",
+   "url": "https://jak-ruby.blogspot.com/2016/07/separating-numbers-with-commas.html",
+   "date": "2016-07-12T13:02:00.001Z",
+   "tags": [
+    "Easy",
+    "regular expressions",
+    "rubeque",
+    "ruby",
+    "strings",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: strings, regular expressions Instructions: Separate numbers with a comma each three digits. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "The Lambda Lambda Lambda Fraternity",
+   "url": "https://jak-ruby.blogspot.com/2016/07/the-lambda-lambda-lambda-fraternity.html",
+   "date": "2016-07-12T12:56:00.001Z",
+   "tags": [
+    "Easy",
+    "lambdas",
+    "procs",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: lambdas, procs, ruby 1.9 Instructions: Write a proc or lambda that'll take one or two numbers and return true if one or both numbers are…"
+  },
+  {
+   "source": "Blog",
+   "title": "Each With Object",
+   "url": "https://jak-ruby.blogspot.com/2016/07/each-with-object.html",
+   "date": "2016-07-12T12:53:00.001Z",
+   "tags": [
+    "Easy",
+    "enumerables",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: ruby 1.9, enumerables Instructions: ne of our favorite methods in Ruby 1.9 is each_with_object. It works much like inject. Use…"
+  },
+  {
+   "source": "Blog",
+   "title": "What's Your Area of Expertise",
+   "url": "https://jak-ruby.blogspot.com/2016/07/whats-your-area-of-expertise.html",
+   "date": "2016-07-12T12:51:00.001Z",
+   "tags": [
+    "Easy",
+    "geometry",
+    "objects",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: objects, geometry Instructions: Defining collaborating objects can be useful to solve problems. For example a rectangle object might use…"
+  },
+  {
+   "source": "Blog",
+   "title": "Method Acting",
+   "url": "https://jak-ruby.blogspot.com/2016/07/method-acting.html",
+   "date": "2016-07-12T12:50:00.000Z",
+   "tags": [
+    "Easy",
+    "metaprogramming",
+    "methods",
+    "rand",
+    "rubeque",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: methods, metaprogramming Instructions: Write code that will return the name of a method. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Constant Rule",
+   "url": "https://jak-ruby.blogspot.com/2016/07/constant-rule.html",
+   "date": "2016-07-12T12:49:00.000Z",
+   "tags": [
+    "constant",
+    "Easy",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: constant Instructions: How do you access a constant explicitly? Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Picking Lottery Numbers",
+   "url": "https://jak-ruby.blogspot.com/2016/07/picking-lottery-numbers.html",
+   "date": "2016-07-12T12:47:00.004Z",
+   "tags": [
+    "arrays",
+    "Easy",
+    "rand",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: arrays Instructions: Return a sample of five random numbers from an array. They should be unique week to week. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Including Modules",
+   "url": "https://jak-ruby.blogspot.com/2016/07/including-modules.html",
+   "date": "2016-07-12T12:46:00.002Z",
+   "tags": [
+    "classes",
+    "Easy",
+    "modules",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: classes, modules Instructions: modules are great concept for multiple inheritance Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "The Little Hash Key that Could",
+   "url": "https://jak-ruby.blogspot.com/2016/07/the-little-hash-key-that-could.html",
+   "date": "2016-07-12T12:45:00.001Z",
+   "tags": [
+    "Easy",
+    "hashes",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: hash Instructions: Given a hash with numeric values, return the key for the smallest value. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Your Favorite and Mine, Fibonacci!",
+   "url": "https://jak-ruby.blogspot.com/2016/07/your-favorite-and-mine-fibonacci.html",
+   "date": "2016-07-12T12:44:00.003Z",
+   "tags": [
+    "Fibonacci",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: arithmetic Instructions: Write a method that handles Fibonacci sequences. Have it return the nth item in the Fibonacci sequence. Hint:…"
+  },
+  {
+   "source": "Blog",
+   "title": "Generating Random Numbers",
+   "url": "https://jak-ruby.blogspot.com/2016/07/generating-random-numbers.html",
+   "date": "2016-07-12T12:43:00.001Z",
+   "tags": [
+    "rand",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: rand Instructions: Supply the needed argument to #rand to generate a random number between 100 and 500. Hint: use Ruby 1.9.3 and ranges.…"
+  },
+  {
+   "source": "Blog",
+   "title": "Class Test",
+   "url": "https://jak-ruby.blogspot.com/2016/07/class-test.html",
+   "date": "2016-07-12T12:41:00.004Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: object-oriented programming, classes Instructions: Use power of ruby object Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Reverse Each Word",
+   "url": "https://jak-ruby.blogspot.com/2016/07/difficulty-easy-tags-strings.html",
+   "date": "2016-07-12T10:05:00.001Z",
+   "tags": [
+    "reverse",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: strings, enumerables Instructions: Write a method that takes a sentence and returns it with each word reversed in place. Problem and…"
+  },
+  {
+   "source": "Blog",
+   "title": "Bigger element",
+   "url": "https://jak-ruby.blogspot.com/2016/07/bigger-element.html",
+   "date": "2016-07-12T10:03:00.001Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: array Instructions: Write a method that returns the first even element in a array of integers Hidden Code: There is hidden code…"
+  },
+  {
+   "source": "Blog",
+   "title": "Shotgun Assignment",
+   "url": "https://jak-ruby.blogspot.com/2016/07/shotgun-assignment.html",
+   "date": "2016-07-12T10:02:00.002Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: variables Instructions: There are many ways to assign variables in Ruby. But can you assign values to multiple variables at once?…"
+  },
+  {
+   "source": "Blog",
+   "title": "Phanaeng Curry",
+   "url": "https://jak-ruby.blogspot.com/2016/07/phanaeng-curry.html",
+   "date": "2016-07-12T10:01:00.003Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: lambdas, functions, functional programming Instructions: There are lot of things named curry that we like: the mathematician, the…"
+  },
+  {
+   "source": "Blog",
+   "title": "Default Encoding",
+   "url": "https://jak-ruby.blogspot.com/2016/07/default-encoding.html",
+   "date": "2016-07-12T10:00:00.001Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: encoding Instructions: What's the encoding of string literals. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "The Curious Case of the Missing Method Part 5",
+   "url": "https://jak-ruby.blogspot.com/2016/07/the-curious-case-of-missing-method-part_1.html",
+   "date": "2016-07-12T09:58:00.004Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: arrays Instructions: Before Ruby 1.9, hashes were not ordered so often times Ruby programmers used associative arrays to store…"
+  },
+  {
+   "source": "Blog",
+   "title": "The Curious Case of the Missing Method Part 4",
+   "url": "https://jak-ruby.blogspot.com/2016/07/the-curious-case-of-missing-method-part_12.html",
+   "date": "2016-07-12T09:57:00.001Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: classes Instructions: Fill in the missing class method. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Baby Got Stacks",
+   "url": "https://jak-ruby.blogspot.com/2016/07/baby-got-stacks.html",
+   "date": "2016-07-12T09:55:00.001Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: classes, stacks Instructions: I like big stacks and I cannot lie All you other developers can't deny That linked lists have too…"
+  },
+  {
+   "source": "Blog",
+   "title": "No Limit",
+   "url": "https://jak-ruby.blogspot.com/2016/07/no-limit.html",
+   "date": "2016-07-12T09:51:00.002Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: strings Instructions: Divide and split the problem Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "The Limits of Probability",
+   "url": "https://jak-ruby.blogspot.com/2016/07/the-limits-of-probability.html",
+   "date": "2016-07-12T09:46:00.001Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: arithmetic, probability, rand Instructions: Try to guess the average sum of two random values. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Object, defined?",
+   "url": "https://jak-ruby.blogspot.com/2016/07/object-defined.html",
+   "date": "2016-07-11T08:51:00.001Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: Object, defined? Instructions: If the conditional expression returns false, is the 'w' variable defined? Or not? Problem and…"
+  },
+  {
+   "source": "Blog",
+   "title": "The Curious Case of the Missing Method Part 3",
+   "url": "https://jak-ruby.blogspot.com/2016/07/the-curious-case-of-missing-method-part_11.html",
+   "date": "2016-07-11T08:49:00.004Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: methods, enumerables Instructions: Fill in the missing method. Hint: it has a rather short name. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Queue Continuum",
+   "url": "https://jak-ruby.blogspot.com/2016/07/queue-continuum.html",
+   "date": "2016-07-11T08:47:00.003Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: classes, queues Instructions: Write a queue class. A queue is a data structure where elements are added at the end and removed…"
+  },
+  {
+   "source": "Blog",
+   "title": "Ternary Operator",
+   "url": "https://jak-ruby.blogspot.com/2016/07/ternary-operator.html",
+   "date": "2016-07-11T08:46:00.004Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: operators, ternary operators Instructions: The ternary operator is like an if/else in a single line. Use a ternary below to tell…"
+  },
+  {
+   "source": "Blog",
+   "title": "Caution Case",
+   "url": "https://jak-ruby.blogspot.com/2016/07/caution-case.html",
+   "date": "2016-07-11T08:45:00.000Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: case statements, ranges Instructions: Use case statement to solve this problem Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Getters and Setters",
+   "url": "https://jak-ruby.blogspot.com/2016/07/getters-and-setters.html",
+   "date": "2016-07-11T08:43:00.002Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: classes Instructions: Remember when you wrote Java and you had to write all those getters and setters? Well, Ruby provides a…"
+  },
+  {
+   "source": "Blog",
+   "title": "Alternate Array Notation",
+   "url": "https://jak-ruby.blogspot.com/2016/07/alternate-array-notation.html",
+   "date": "2016-07-11T08:42:00.002Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: arrays Instructions: There's a set of shortcuts that are useful for defining strings, arrays, regular expressions, and even shell…"
+  },
+  {
+   "source": "Blog",
+   "title": "Set Intersection",
+   "url": "https://jak-ruby.blogspot.com/2016/07/set-intersection.html",
+   "date": "2016-07-11T08:40:00.003Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: arrays Instructions: The operator returns a new array containing elements common to the two arrays, with no duplicates. Problem…"
+  },
+  {
+   "source": "Blog",
+   "title": "Brackets and Searches",
+   "url": "https://jak-ruby.blogspot.com/2016/07/brackets-and-searches.html",
+   "date": "2016-07-11T08:38:00.005Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: brackets Instructions: Use brackets to search a string to see if it contains an \"e\". Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Subtracting Out The Sugar",
+   "url": "https://jak-ruby.blogspot.com/2016/07/subtracting-out-sugar.html",
+   "date": "2016-07-11T08:37:00.003Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: arithmetic Instructions: Everyone knows that 2 + 2 = 4 but do you know how to add and subtract without the syntactical sugar that…"
+  },
+  {
+   "source": "Blog",
+   "title": "Home on the Range",
+   "url": "https://jak-ruby.blogspot.com/2016/07/home-on-range.html",
+   "date": "2016-07-11T08:36:00.002Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: ranges Instructions: Fill in a range to complete the problem. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "There's No Way This Works Version 2",
+   "url": "https://jak-ruby.blogspot.com/2016/07/theres-no-way-this-works-version-2.html",
+   "date": "2016-07-11T08:35:00.000Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: strings Instructions: Here's another odd form of string manipulation. Notice the lack of an operator between the strings. Problem…"
+  },
+  {
+   "source": "Blog",
+   "title": "Or Equal",
+   "url": "https://jak-ruby.blogspot.com/2016/07/or-equal.html",
+   "date": "2016-07-11T08:33:00.005Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: operators Instructions: In Ruby, the combination of \"||=\" has some great uses. It also has some limitations too though. Problem…"
+  },
+  {
+   "source": "Blog",
+   "title": "Array Item Removal",
+   "url": "https://jak-ruby.blogspot.com/2016/07/array-item-removal.html",
+   "date": "2016-07-11T08:32:00.001Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: arrays Instructions: Remove some items from an array. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "&& Versus And",
+   "url": "https://jak-ruby.blogspot.com/2016/07/versus-and.html",
+   "date": "2016-07-11T08:30:00.004Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: operators, presidence Instructions: Many times new Ruby programmers will use \"and\" in place of \"&&\" because it's easier to read.…"
+  },
+  {
+   "source": "Blog",
+   "title": "There's No Way This Works",
+   "url": "https://jak-ruby.blogspot.com/2016/07/theres-no-way-this-works.html",
+   "date": "2016-07-11T08:28:00.002Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: strings Instructions: At first you think, \"There's no way this will work without curly braces.\" But after thinking about it for a…"
+  },
+  {
+   "source": "Blog",
+   "title": "Injected and Rejected",
+   "url": "https://jak-ruby.blogspot.com/2016/07/difficulty-elementary-tags.html",
+   "date": "2016-07-11T08:25:00.005Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: arithmetic, enumerables Instructions: Write a method using inject and reject that takes an array of integers and gets the sum for…"
+  },
+  {
+   "source": "Blog",
+   "title": " Temperature Robot",
+   "url": "https://jak-ruby.blogspot.com/2016/07/temperature-robot.html",
+   "date": "2016-07-11T08:25:00.003Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: case statements, ranges, ranges Instructions: Temperature bot is comfortable when it's room temperature (18-21C). Help him out by…"
+  },
+  {
+   "source": "Blog",
+   "title": "The Curious Case of the Missing Method Part 2",
+   "url": "https://jak-ruby.blogspot.com/2016/07/the-curious-case-of-missing-method-part.html",
+   "date": "2016-07-11T08:24:00.000Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: enumerables Instructions: Fill in the missing method. Hint: find the right six-letter enumerable method:&nbsp;…"
+  },
+  {
+   "source": "Blog",
+   "title": "Blackjack",
+   "url": "https://jak-ruby.blogspot.com/2016/07/blackjack.html",
+   "date": "2016-07-11T07:53:00.003Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: arithmetic, splat operator Instructions: Write a method that takes any number of integers and returns true if they sum to 21,…"
+  },
+  {
+   "source": "Blog",
+   "title": "The Curious Case of the Missing Method",
+   "url": "https://jak-ruby.blogspot.com/2016/07/the-curious-case-of-missing-method.html",
+   "date": "2016-07-11T07:53:00.001Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: enumerables, arrays Instructions: Stop this code from throwing an exception. Hint: find the right seven-letter array method:&nbsp;…"
+  },
+  {
+   "source": "Blog",
+   "title": "FizzBuzz",
+   "url": "https://jak-ruby.blogspot.com/2016/07/fizzbuzz.html",
+   "date": "2016-07-11T07:51:00.004Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: arithmetic, strings Instructions: If a number is divisible by 3, return \"Fizz\". If a number is divisible by 5, return \"Buzz\". If a…"
+  },
+  {
+   "source": "Blog",
+   "title": "Map",
+   "url": "https://jak-ruby.blogspot.com/2016/07/map.html",
+   "date": "2016-07-05T11:28:00.002Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: enumerables Instructions: How would you create an array that contains the squares of all elements in a range? Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Hello World",
+   "url": "https://jak-ruby.blogspot.com/2016/07/blog-post_4.html",
+   "date": "2016-07-04T12:37:00.002Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: strings Instructions: Use native String#method Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "String Reverse",
+   "url": "https://jak-ruby.blogspot.com/2016/07/string-reverse.html",
+   "date": "2016-07-04T12:34:00.000Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: strings Instructions: What happens when you apply reverse? Hint: don't forget to quote your strings!. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Maximum",
+   "url": "https://jak-ruby.blogspot.com/2016/07/maximum.html",
+   "date": "2016-07-04T11:31:00.000Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: numbers Instructions: Find the max in a given set of numbers Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Fixing Bad Code the Wrong Way",
+   "url": "https://jak-ruby.blogspot.com/2016/07/difficulty-easy-tags-methodmissing.html",
+   "date": "2016-07-01T11:52:00.000Z",
+   "tags": [
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Easy Tags: method_missing, classes Instructions: Your coworker did a bad job defining a class. Fix it for him using #method_missing. Problem and…"
+  },
+  {
+   "source": "Blog",
+   "title": "Random Boolean",
+   "url": "https://jak-ruby.blogspot.com/2016/07/difficulty-elementary-tags-rand.html",
+   "date": "2016-07-01T10:45:00.001Z",
+   "tags": [
+    "boolean",
+    "rubeque",
+    "ruby",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary &nbsp; Tags: rand, booleans Instructions: Return random booleans. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "The Truth",
+   "url": "https://jak-ruby.blogspot.com/2016/06/the-truth.html",
+   "date": "2016-06-30T12:09:00.002Z",
+   "tags": [
+    "rubeque",
+    "the truth",
+    "www.rubeque.com"
+   ],
+   "excerpt": "Difficulty: Elementary Tags: booleans Instructions: Here's a hint: true equals true. Problem and Solution:"
+  },
+  {
+   "source": "Blog",
+   "title": "Introduction",
+   "url": "https://jak-ruby.blogspot.com/2016/06/introduction-post.html",
+   "date": "2016-06-30T08:08:00.000Z",
+   "tags": [
+    "about",
+    "FirstPost",
+    "introduction",
+    "ruby"
+   ],
+   "excerpt": "Ruby is a dynamic scripting language. Fairly easy to code and develop applications. Due to It's agility, flexibility and support availability many of the…"
+  }
+ ],
+ "repos": [
+  {
+   "name": "leet_code_refresh",
+   "url": "https://github.com/jakthegr8/leet_code_refresh",
+   "description": "Refresh Leet Code",
+   "language": "JavaScript",
+   "stars": 0,
+   "pushed": "2024-03-14T15:59:03Z",
+   "created": "2024-03-14T10:11:47Z"
+  },
+  {
+   "name": "jakthegr8.github.io",
+   "url": "https://github.com/jakthegr8/jakthegr8.github.io",
+   "description": "My personal website",
+   "language": "HTML",
+   "stars": 0,
+   "pushed": "2021-12-28T05:36:27Z",
+   "created": "2020-03-02T11:16:50Z"
+  },
+  {
+   "name": "zero_to_mastery-data_structures",
+   "url": "https://github.com/jakthegr8/zero_to_mastery-data_structures",
+   "description": "Data Structures and Algorithms in Ruby  Resources",
+   "language": "Misc",
+   "stars": 0,
+   "pushed": "2021-07-03T06:52:07Z",
+   "created": "2021-07-03T06:11:24Z"
+  },
+  {
+   "name": "go_code",
+   "url": "https://github.com/jakthegr8/go_code",
+   "description": "Popular solution in GO lang",
+   "language": "Go",
+   "stars": 0,
+   "pushed": "2019-04-13T18:52:28Z",
+   "created": "2019-03-15T16:51:23Z"
+  },
+  {
+   "name": "flutter_base",
+   "url": "https://github.com/jakthegr8/flutter_base",
+   "description": "A flutter project with the following setup:",
+   "language": "Dart",
+   "stars": 0,
+   "pushed": "2018-10-10T15:44:08Z",
+   "created": "2018-10-10T13:56:51Z"
+  },
+  {
+   "name": "loan_packages",
+   "url": "https://github.com/jakthegr8/loan_packages",
+   "description": "",
+   "language": "Dart",
+   "stars": 0,
+   "pushed": "2018-10-05T04:31:59Z",
+   "created": "2018-10-05T18:30:25Z"
+  },
+  {
+   "name": "javascript_codes",
+   "url": "https://github.com/jakthegr8/javascript_codes",
+   "description": "",
+   "language": "JavaScript",
+   "stars": 0,
+   "pushed": "2018-06-10T16:53:33Z",
+   "created": "2018-06-08T10:08:53Z"
+  },
+  {
+   "name": "python_code",
+   "url": "https://github.com/jakthegr8/python_code",
+   "description": "",
+   "language": "Python",
+   "stars": 0,
+   "pushed": "2018-05-26T19:07:59Z",
+   "created": "2018-05-25T17:30:13Z"
+  },
+  {
+   "name": "ruby_codes",
+   "url": "https://github.com/jakthegr8/ruby_codes",
+   "description": "",
+   "language": "Ruby",
+   "stars": 0,
+   "pushed": "2018-05-25T23:10:43Z",
+   "created": "2018-05-25T22:10:37Z"
+  },
+  {
+   "name": "rest_api",
+   "url": "https://github.com/jakthegr8/rest_api",
+   "description": "",
+   "language": "Ruby",
+   "stars": 0,
+   "pushed": "2018-04-28T10:16:27Z",
+   "created": "2018-04-28T10:12:10Z"
+  },
+  {
+   "name": "konva-ext",
+   "url": "https://github.com/jakthegr8/konva-ext",
+   "description": "Konva Js with resize feature",
+   "language": "JavaScript",
+   "stars": 0,
+   "pushed": "2018-03-02T18:23:21Z",
+   "created": "2018-03-02T17:38:58Z"
+  },
+  {
+   "name": "infracity",
+   "url": "https://github.com/jakthegr8/infracity",
+   "description": "A social good application",
+   "language": "Ruby",
+   "stars": 0,
+   "pushed": "2017-01-25T11:25:19Z",
+   "created": "2016-12-15T13:52:00Z"
+  },
+  {
+   "name": "hexa-random",
+   "url": "https://github.com/jakthegr8/hexa-random",
+   "description": "It will generate random uniq Id based on combination of hexa decimal.",
+   "language": "JavaScript",
+   "stars": 0,
+   "pushed": "2013-03-30T22:47:58Z",
+   "created": "2013-03-30T22:44:17Z"
+  },
+  {
+   "name": "Express_nodejs_app",
+   "url": "https://github.com/jakthegr8/Express_nodejs_app",
+   "description": " A basic Express framework application.",
+   "language": "Misc",
+   "stars": 1,
+   "pushed": "2012-06-20T17:08:34Z",
+   "created": "2012-06-20T17:08:33Z"
+  },
+  {
+   "name": "GameOfLife",
+   "url": "https://github.com/jakthegr8/GameOfLife",
+   "description": "Game of life game in ruby.. Enjoyed a lot, while coding. !!!",
+   "language": "Ruby",
+   "stars": 1,
+   "pushed": "2012-06-20T17:04:57Z",
+   "created": "2012-04-18T20:39:17Z"
+  },
+  {
+   "name": "Sublime_and_np",
+   "url": "https://github.com/jakthegr8/Sublime_and_np",
+   "description": "sofwares",
+   "language": "Misc",
+   "stars": 1,
+   "pushed": "2012-06-20T16:53:30Z",
+   "created": "2012-06-20T16:21:48Z"
+  },
+  {
+   "name": "Rails_with_back_bone",
+   "url": "https://github.com/jakthegr8/Rails_with_back_bone",
+   "description": "Creating app with backbone",
+   "language": "Ruby",
+   "stars": 1,
+   "pushed": "2012-04-17T18:42:15Z",
+   "created": "2012-04-17T18:32:44Z"
+  },
+  {
+   "name": "MagicAccounts",
+   "url": "https://github.com/jakthegr8/MagicAccounts",
+   "description": "Just an app to learn",
+   "language": "Ruby",
+   "stars": 1,
+   "pushed": "2012-04-09T21:08:42Z",
+   "created": "2012-04-09T19:11:09Z"
+  }
+ ]
+}
