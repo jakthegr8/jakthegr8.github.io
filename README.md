@@ -1,6 +1,8 @@
 # jakthegr8.github.io
 
-Personal site of Arun Kumar Jayakodi — https://jakthegr8.github.io
+Personal site of Arun Kumar Jayakodi — https://akj.is-a.dev (also https://jakthegr8.github.io, which redirects)
+
+The custom domain comes from the `CNAME` file and the is-a.dev record in [is-a-dev/register](https://github.com/is-a-dev/register/blob/main/domains/akj.json).
 
 Plain HTML, CSS and JavaScript; no build step.
 
