@@ -6,7 +6,7 @@ The custom domain comes from the `CNAME` file and the is-a.dev record in [is-a-d
 
 Plain HTML, CSS and JavaScript; no build step.
 
-- `index.html`, `css/main.css`, `js/main.js` — the page
+- `index.html`, `css/main.css`, `js/main.js` — the page. One static page: Schibsted Grotesk + JetBrains Mono from Google Fonts, a cobalt accent, no framework
 - `scripts/stamp-assets.mjs` — run after editing `css/` or `js/`; it versions the asset links in `index.html` so browsers never mix new HTML with cached CSS/JS
 - `data/feed.json` — Medium posts, Blogspot posts and GitHub repos, rebuilt daily by `.github/workflows/feeds.yml` via `scripts/fetch-feeds.mjs`
 
