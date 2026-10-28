@@ -102,7 +102,10 @@ main > * { position: relative; }
 @media (max-width: 720px) {
   .masthead { padding: 16px 0; }
   .masthead__name { display: none; }
-  .masthead__nav { order: 3; width: 100%; gap: 8px 18px; }
+  .masthead__nav { order: 3; width: 100%; gap: 0 18px; }
+  /* 40px tap targets; the padding replaces the old row gap so the masthead barely grows */
+  .masthead__nav a { display: inline-flex; align-items: center; min-height: 40px; }
+  .masthead__brand { min-height: 40px; align-items: center; }
 }
 
 /* ---------- opener ---------- */
