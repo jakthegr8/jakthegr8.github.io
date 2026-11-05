@@ -57,19 +57,11 @@
     if (!projects.length) return;
     $("[data-projects]").innerHTML = projects.map(p => `
       <a class="item" href="${esc(p.url)}" target="_blank" rel="noopener">
-        <span class="item__top"><span class="item__name">${esc(p.name)}</span><span class="item__meta">${esc(p.language)} · ${year(p.created)}</span></span>
+        <span class="item__top"><span class="item__name">${esc(p.name)} ↗</span><span class="item__meta">${esc(p.language)} · ${year(p.created)}</span></span>
         <span class="item__text">${esc(p.description)}</span>
       </a>`).join("");
   }
 
-  function renderFeatures(posts) {
-    if (!posts.length) return;
-    $("[data-features]").innerHTML = posts.map(p => `
-      <a class="item" href="${esc(p.url)}" target="_blank" rel="noopener">
-        <span class="item__meta">${esc(p.source)} · ${fmtDate(p.date)}</span>
-        <span class="item__title">${esc(p.title)}</span>
-      </a>`).join("");
-  }
 
   fetch("data/feed.json")
     .then(r => r.json())
@@ -82,7 +74,6 @@
       const katas = data.posts.filter(p => p.source !== "Medium").length;
       if (katas) $("[data-kata-count]").textContent = katas;
       renderProjects(projects);
-      renderFeatures(data.posts.filter(p => p.source === "Medium").slice(0, 4));
     })
     .catch(() => {}); // the static lists in the HTML stay
 })();
