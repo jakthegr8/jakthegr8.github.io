@@ -1,8 +1,9 @@
-// Builds data/feed.json from Medium, Blogspot and the GitHub API.
+// Builds data/feed.json from Medium, Blogspot, the GitHub API and the public GitHub contribution calendar.
 // Runs daily in .github/workflows/feeds.yml; no dependencies, Node 20+.
 import { writeFile } from "node:fs/promises";
 
 const USER = "jakthegr8";
+const WORK_USER = "tulifo-arun"; // the account Tulifo work is committed from; its calendar counts private repos
 const MEDIUM = "https://medium.com/feed/@arun.ranush";
 const BLOGGER = "https://jak-ruby.blogspot.com/feeds/posts/default?alt=json&max-results=100";
 const UA = { "user-agent": "Mozilla/5.0 (jakthegr8.github.io feed builder)" };
@@ -65,16 +66,31 @@ async function profile() {
   return { repos: u.public_repos, gists: u.public_gists, since: u.created_at };
 }
 
+// The calendar has no API without a token, so read the public page: each day cell has an id and
+// a date, and a matching <tool-tip> holds "N contributions on …".
+async function contributions() {
+  const html = await (await fetch(`https://github.com/users/${WORK_USER}/contributions`, { headers: UA })).text();
+  const counts = Object.fromEntries([...html.matchAll(/<tool-tip[^>]*for="([^"]+)"[^>]*>([^<]*)<\/tool-tip>/g)]
+    .map(([, id, text]) => [id, /^No /.test(text) ? 0 : parseInt(text.replace(/,/g, ""), 10)]));
+  const days = [...html.matchAll(/<td[^>]*data-date="([\d-]+)"[^>]*id="([^"]+)"/g)]
+    .map(([, date, id]) => [date, counts[id] ?? 0])
+    .sort((a, z) => a[0].localeCompare(z[0]));
+  if (days.length < 300) throw new Error(`only ${days.length} calendar days found`);
+  const total = parseInt((html.replace(/\s+/g, " ").match(/([\d,]+) contributions? in the last year/) || [])[1]?.replace(/,/g, "") ?? "", 10);
+  return { user: WORK_USER, total: Number.isNaN(total) ? days.reduce((n, d) => n + d[1], 0) : total, days };
+}
+
 // A failed source keeps the site up: it just contributes nothing this run.
 const safe = async (fn, label) => {
   try { return await fn(); } catch (e) { console.warn(`${label} failed: ${e.message}`); return null; }
 };
 
-const [m, b, r, p] = await Promise.all([
+const [m, b, r, p, c] = await Promise.all([
   safe(medium, "medium"), safe(blogger, "blogger"), safe(repos, "repos"), safe(profile, "profile"),
+  safe(contributions, "contributions"),
 ]);
 
 const posts = [...(m || []), ...(b || [])].sort((a, z) => z.date.localeCompare(a.date));
-const out = { generated: new Date().toISOString(), profile: p, posts, repos: r || [] };
+const out = { generated: new Date().toISOString(), profile: p, posts, repos: r || [], contributions: c };
 await writeFile(new URL("../data/feed.json", import.meta.url), JSON.stringify(out, null, 1) + "\n");
-console.log(`posts: ${posts.length}, repos: ${out.repos.length}`);
+console.log(`posts: ${posts.length}, repos: ${out.repos.length}, contribution days: ${c?.days.length ?? 0}`);

@@ -63,6 +63,36 @@
   }
 
 
+  /* ---------- activity heatmaps: one column per week, Sunday on top; days before `from` stay blank ---------- */
+  const DAY = 864e5;
+  const utc = iso => Date.parse(iso + "T00:00:00Z");
+  function renderHeat(key, days, from, to, total, unit) {
+    const fig = $(`[data-heat="${key}"]`);
+    const counts = new Map(days);
+    const sorted = days.map(d => d[1]).filter(Boolean).sort((a, b) => a - b);
+    if (!fig || !sorted.length) return;
+    // Levels 1–4 split the active days into quarters, so a few huge days don't wash out the rest.
+    const cut = [0.25, 0.5, 0.75].map(q => sorted[Math.floor(q * (sorted.length - 1))]);
+    const level = n => (n ? 1 + cut.filter(c => n > c).length : 0);
+    // Both maps share one axis: the 53 weeks ending at `to`, so the same week sits in the same column.
+    const end = utc(to);
+    const start = end - 364 * DAY - new Date(end - 364 * DAY).getUTCDay() * DAY;
+    let html = "";
+    for (let t = start; t <= end; t += DAY) {
+      const iso = new Date(t).toISOString().slice(0, 10);
+      if (t < utc(from)) { html += "<i class=\"out\"></i>"; continue; }
+      const n = counts.get(iso) || 0;
+      html += `<i class="l${level(n)}" title="${n} ${unit} on ${fmtDate(iso)}"></i>`;
+    }
+    const cells = $("[data-heat-cells]", fig);
+    cells.innerHTML = html;
+    cells.style.setProperty("--weeks", Math.ceil((end - start + DAY) / (7 * DAY)));
+    cells.setAttribute("aria-label", `${total.toLocaleString("en-US")} ${unit}, ${fmtDate(from)} to ${fmtDate(to)}`);
+    $("[data-heat-total]", fig).textContent = total.toLocaleString("en-US");
+    fig.hidden = false;
+    $("[data-activity]").hidden = false;
+  }
+
   fetch("data/feed.json")
     .then(r => r.json())
     .then(data => {
@@ -74,6 +104,18 @@
       const katas = data.posts.filter(p => p.source !== "Medium").length;
       if (katas) $("[data-kata-count]").textContent = katas;
       renderProjects(projects);
+      if (data.contributions) {
+        const d = data.contributions.days;
+        renderHeat("github", d, d[0][0], d[d.length - 1][0], data.contributions.total, "contributions");
+      }
     })
     .catch(() => {}); // the static lists in the HTML stay
+
+  fetch("data/claude-activity.json")
+    .then(r => r.json())
+    .then(c => {
+      renderHeat("claude", c.days, c.since, c.until, c.total, "prompts");
+      $("[data-heat-since]").textContent = fmtDate(c.since);
+    })
+    .catch(() => {});
 })();
