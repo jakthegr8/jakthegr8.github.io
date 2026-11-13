@@ -66,7 +66,7 @@
   /* ---------- activity heatmaps: one column per week, Sunday on top; days before `from` stay blank ---------- */
   const DAY = 864e5;
   const utc = iso => Date.parse(iso + "T00:00:00Z");
-  function renderHeat(key, days, from, to, total, unit, active) {
+  function renderHeat(key, days, from, to, total, unit, active, grace = 0) {
     const fig = $(`[data-heat="${key}"]`);
     const counts = new Map(days);
     // A streak day is any active day; for GitHub that is any day with a contribution.
@@ -93,16 +93,22 @@
     cells.style.setProperty("--weeks", Math.ceil((end - start + DAY) / (7 * DAY)));
     cells.setAttribute("aria-label", `${total.toLocaleString("en-US")} ${unit}, ${fmtDate(from)} to ${fmtDate(to)}`);
     $("[data-heat-total]", fig).textContent = total.toLocaleString("en-US");
-    // Today with nothing yet doesn't break the current streak.
-    let run = 0, longest = 0;
+    // Today with nothing yet doesn't break the current streak. With `grace` 1 (the Claude map, matching
+    // ~/.claude/streak-recompute.py), a single missed day is skipped: it doesn't add, and doesn't break.
+    const on = t => isActive.has(new Date(t).toISOString().slice(0, 10));
+    let run = 0, longest = 0, missed = 0;
     for (let t = utc(from); t <= end; t += DAY) {
-      run = isActive.has(new Date(t).toISOString().slice(0, 10)) ? run + 1 : 0;
+      if (on(t)) { run++; missed = 0; } else if (++missed > grace) run = 0;
       longest = Math.max(longest, run);
     }
     let current = 0;
-    for (let t = isActive.has(to) ? end : end - DAY; isActive.has(new Date(t).toISOString().slice(0, 10)); t -= DAY) current++;
+    missed = 0;
+    for (let t = on(end) ? end : end - DAY; t >= utc(from); t -= DAY) {
+      if (on(t)) { current++; missed = 0; } else if (++missed > grace) break;
+    }
     const nDays = n => `${n} day${n === 1 ? "" : "s"}`;
-    $("[data-heat-streak]", fig).textContent = `Longest streak ${nDays(longest)} · current ${nDays(current)}`;
+    $("[data-heat-streak]", fig).textContent = `Longest streak ${nDays(longest)} · current ${nDays(current)}`
+      + (grace ? " (single missed days allowed)" : "");
     fig.hidden = false;
     $("[data-activity]").hidden = false;
   }
@@ -128,7 +134,7 @@
   fetch("data/claude-activity.json")
     .then(r => r.json())
     .then(c => {
-      renderHeat("claude", c.days, c.since, c.until, c.total, "prompts", c.active);
+      renderHeat("claude", c.days, c.since, c.until, c.total, "prompts", c.active, 1);
       $("[data-heat-since]").textContent = fmtDate(c.since);
     })
     .catch(() => {});
