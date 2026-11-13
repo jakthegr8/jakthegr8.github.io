@@ -174,6 +174,7 @@ main > * { position: relative; }
 .heat__cap a { color: var(--ink); }
 .heat__cells { --gap: 3px; display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, auto); grid-template-columns: repeat(var(--weeks, 53), minmax(0, 12px)); gap: var(--gap); }
 .heat__cells i, .heat__legend i { aspect-ratio: 1; background: rgba(13, 13, 12, 0.08); }
+.heat__streak { font: 400 12px/1.5 var(--mono); color: var(--ink); }
 .heat__legend { display: flex; align-items: center; gap: 3px; font: 400 11px/1 var(--mono); color: var(--muted); }
 .heat__legend i { width: 10px; }
 .heat__cells .out { background: none; }

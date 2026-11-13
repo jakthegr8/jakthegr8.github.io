@@ -89,6 +89,16 @@
     cells.style.setProperty("--weeks", Math.ceil((end - start + DAY) / (7 * DAY)));
     cells.setAttribute("aria-label", `${total.toLocaleString("en-US")} ${unit}, ${fmtDate(from)} to ${fmtDate(to)}`);
     $("[data-heat-total]", fig).textContent = total.toLocaleString("en-US");
+    // Streaks count days with at least one; today with none yet doesn't break the current streak.
+    let run = 0, longest = 0;
+    for (let t = utc(from); t <= end; t += DAY) {
+      run = counts.get(new Date(t).toISOString().slice(0, 10)) ? run + 1 : 0;
+      longest = Math.max(longest, run);
+    }
+    let current = 0;
+    for (let t = counts.get(to) ? end : end - DAY; counts.get(new Date(t).toISOString().slice(0, 10)); t -= DAY) current++;
+    const nDays = n => `${n} day${n === 1 ? "" : "s"}`;
+    $("[data-heat-streak]", fig).textContent = `Longest streak ${nDays(longest)} · current ${nDays(current)}`;
     fig.hidden = false;
     $("[data-activity]").hidden = false;
   }
