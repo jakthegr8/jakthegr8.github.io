@@ -66,9 +66,11 @@
   /* ---------- activity heatmaps: one column per week, Sunday on top; days before `from` stay blank ---------- */
   const DAY = 864e5;
   const utc = iso => Date.parse(iso + "T00:00:00Z");
-  function renderHeat(key, days, from, to, total, unit) {
+  function renderHeat(key, days, from, to, total, unit, active) {
     const fig = $(`[data-heat="${key}"]`);
     const counts = new Map(days);
+    // A streak day is any active day; for GitHub that is any day with a contribution.
+    const isActive = new Set(active || days.filter(d => d[1]).map(d => d[0]));
     const sorted = days.map(d => d[1]).filter(Boolean).sort((a, b) => a - b);
     if (!fig || !sorted.length) return;
     // Levels 1–4 split the active days into quarters, so a few huge days don't wash out the rest.
@@ -82,21 +84,23 @@
       const iso = new Date(t).toISOString().slice(0, 10);
       if (t < utc(from)) { html += "<i class=\"out\"></i>"; continue; }
       const n = counts.get(iso) || 0;
-      html += `<i class="l${level(n)}" title="${n} ${unit} on ${fmtDate(iso)}"></i>`;
+      html += n || !isActive.has(iso)
+        ? `<i class="l${level(n)}" title="${n} ${unit} on ${fmtDate(iso)}"></i>`
+        : `<i class="l1" title="Agent work, no ${unit}, on ${fmtDate(iso)}"></i>`;
     }
     const cells = $("[data-heat-cells]", fig);
     cells.innerHTML = html;
     cells.style.setProperty("--weeks", Math.ceil((end - start + DAY) / (7 * DAY)));
     cells.setAttribute("aria-label", `${total.toLocaleString("en-US")} ${unit}, ${fmtDate(from)} to ${fmtDate(to)}`);
     $("[data-heat-total]", fig).textContent = total.toLocaleString("en-US");
-    // Streaks count days with at least one; today with none yet doesn't break the current streak.
+    // Today with nothing yet doesn't break the current streak.
     let run = 0, longest = 0;
     for (let t = utc(from); t <= end; t += DAY) {
-      run = counts.get(new Date(t).toISOString().slice(0, 10)) ? run + 1 : 0;
+      run = isActive.has(new Date(t).toISOString().slice(0, 10)) ? run + 1 : 0;
       longest = Math.max(longest, run);
     }
     let current = 0;
-    for (let t = counts.get(to) ? end : end - DAY; counts.get(new Date(t).toISOString().slice(0, 10)); t -= DAY) current++;
+    for (let t = isActive.has(to) ? end : end - DAY; isActive.has(new Date(t).toISOString().slice(0, 10)); t -= DAY) current++;
     const nDays = n => `${n} day${n === 1 ? "" : "s"}`;
     $("[data-heat-streak]", fig).textContent = `Longest streak ${nDays(longest)} · current ${nDays(current)}`;
     fig.hidden = false;
@@ -124,7 +128,7 @@
   fetch("data/claude-activity.json")
     .then(r => r.json())
     .then(c => {
-      renderHeat("claude", c.days, c.since, c.until, c.total, "prompts");
+      renderHeat("claude", c.days, c.since, c.until, c.total, "prompts", c.active);
       $("[data-heat-since]").textContent = fmtDate(c.since);
     })
     .catch(() => {});

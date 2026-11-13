@@ -1,4 +1,5 @@
-// Builds data/claude-activity.json: how many prompts I sent to Claude Code each day.
+// Builds data/claude-activity.json: how many prompts I sent to Claude Code each day, plus every
+// day with any Claude Code activity (agent and subagent work included), which the streak counts.
 // The source is the local transcript folder (~/.claude/projects), so this runs on my machine,
 // not in CI:  node scripts/claude-activity.mjs   (then commit data/claude-activity.json).
 // Only dates and counts leave the machine; no prompt text, project name or path is written.
@@ -14,7 +15,7 @@ const NOT_TYPED = /^\s*(<system-reminder>|<task-notification>|<teammate-message|
 function* transcripts(dir) {
   for (const name of readdirSync(dir)) {
     const p = join(dir, name);
-    if (statSync(p).isDirectory()) { if (name !== "subagents") yield* transcripts(p); }
+    if (statSync(p).isDirectory()) yield* transcripts(p);
     else if (name.endsWith(".jsonl")) yield p;
   }
 }
@@ -33,26 +34,38 @@ const localDate = iso => new Date(iso).toLocaleDateString("en-CA"); // YYYY-MM-D
 if (import.meta.url === `file://${process.argv[1]}`) {
   const seen = new Set(); // resumed and forked sessions copy earlier lines; count each uuid once
   const perDay = {};
+  const active = new Set(); // same rule as ~/.claude/streak-recompute.py: any timestamped line, any log
   for (const file of transcripts(ROOT)) {
+    const sub = file.includes("/subagents/");
     for (const line of readFileSync(file, "utf8").split("\n")) {
       if (!line) continue;
       let o;
       try { o = JSON.parse(line); } catch { continue; }
-      if (!o.timestamp || !isPrompt(o) || seen.has(o.uuid)) continue;
+      if (!o.timestamp) continue;
+      active.add(localDate(o.timestamp));
+      if (sub || !isPrompt(o) || seen.has(o.uuid)) continue;
       seen.add(o.uuid);
       const d = localDate(o.timestamp);
       perDay[d] = (perDay[d] || 0) + 1;
     }
   }
+  // history.jsonl keeps typed prompts (ms epoch) even when a session log is gone.
+  try {
+    for (const line of readFileSync(join(ROOT, "..", "history.jsonl"), "utf8").split("\n")) {
+      const t = line && JSON.parse(line).timestamp;
+      if (t) active.add(localDate(new Date(t).toISOString()));
+    }
+  } catch {}
   const days = Object.entries(perDay).sort((a, z) => a[0].localeCompare(z[0]));
   if (!days.length) throw new Error(`no prompts found under ${ROOT}`);
   const out = {
     generated: new Date().toISOString(),
-    since: days[0][0],
+    since: [...active].sort()[0],
     until: localDate(new Date().toISOString()),
     total: days.reduce((n, d) => n + d[1], 0),
     days,
+    active: [...active].sort(),
   };
   writeFileSync(new URL("../data/claude-activity.json", import.meta.url), JSON.stringify(out) + "\n");
-  console.log(`prompts: ${out.total} on ${days.length} days, ${out.since} to ${out.until}`);
+  console.log(`prompts: ${out.total} on ${days.length} days, active days: ${out.active.length}, ${out.since} to ${out.until}`);
 }
