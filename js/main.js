@@ -112,7 +112,7 @@
     $("[data-activity]").hidden = false;
   }
 
-  fetch("data/feed.json")
+  fetch("data/feed.json", { cache: "no-cache" }) // revalidate: Pages lets browsers reuse JSON for 10 min
     .then(r => r.json())
     .then(data => {
       const names = Object.keys(HIGHLIGHTS);
@@ -130,7 +130,7 @@
     })
     .catch(() => {}); // the static lists in the HTML stay
 
-  fetch("data/claude-activity.json")
+  fetch("data/claude-activity.json", { cache: "no-cache" })
     .then(r => r.json())
     .then(c => {
       renderHeat("claude", c.days, c.since, c.until, c.total, "prompts", c.active, 1);
