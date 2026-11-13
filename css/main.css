@@ -167,6 +167,24 @@ main > * { position: relative; }
 .steps__t { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
 @media (max-width: 720px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
+/* activity heatmaps */
+.heat { display: flex; flex-direction: column; gap: 12px; border-top: 1px solid var(--ink); padding-top: 14px; }
+.heat__cap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; font: 400 12px/1.5 var(--mono); color: var(--muted); }
+.heat__total { font: 600 28px/1 var(--sans); letter-spacing: -0.03em; color: var(--ink); }
+.heat__cap a { color: var(--ink); }
+.heat__cells { --gap: 3px; display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, auto); grid-template-columns: repeat(var(--weeks, 53), minmax(0, 12px)); gap: var(--gap); }
+.heat__cells i, .heat__legend i { aspect-ratio: 1; background: rgba(13, 13, 12, 0.08); }
+.heat__streak { font: 400 12px/1.5 var(--mono); color: var(--ink); }
+.heat__streak b { font-weight: 700; }
+.heat__legend { display: flex; align-items: center; gap: 3px; font: 400 11px/1 var(--mono); color: var(--muted); }
+.heat__legend i { width: 10px; }
+.heat__cells .out { background: none; }
+.heat .l1, .heat__legend .l1 { background: rgba(31, 59, 255, 0.28); }
+.heat .l2, .heat__legend .l2 { background: rgba(31, 59, 255, 0.5); }
+.heat .l3, .heat__legend .l3 { background: rgba(31, 59, 255, 0.75); }
+.heat .l4, .heat__legend .l4 { background: var(--accent); }
+@media (max-width: 720px) { .heat__cells { --gap: 2px; } }
+
 /* products */
 .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 24px 32px; }
 .product { border-top: 1px solid var(--ink); padding: 16px 0 8px; display: flex; flex-direction: column; gap: 8px; }
