@@ -107,8 +107,7 @@
       if (on(t)) { current++; missed = 0; } else if (++missed > grace) break;
     }
     const nDays = n => `<b>${n}</b> day${n === 1 ? "" : "s"}`; // n is a number, safe as HTML
-    $("[data-heat-streak]", fig).innerHTML = `Longest streak ${nDays(longest)} · current ${nDays(current)}`
-      + (grace ? " (single missed days allowed)" : "");
+    $("[data-heat-streak]", fig).innerHTML = `Longest streak ${nDays(longest)} · current ${nDays(current)}`;
     fig.hidden = false;
     $("[data-activity]").hidden = false;
   }
