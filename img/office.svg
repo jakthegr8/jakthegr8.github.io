@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="800" height="400" shape-rendering="crispEdges">
   <title>Tulifo agent office</title>
-  <desc>Pixel-art office: two agents type at their desks, one walks to the meeting room and back, one sits at the meeting table. Drawn by hand, not live data.</desc>
+  <desc>Pixel-art office: six agents type at their desks, one walks to the meeting room and back, three meet at the whiteboard and table, a dog patrols the hall and a cat sleeps. Drawn by hand, not live data.</desc>
   <style>
     .arm-l { animation: type .5s steps(1) infinite; }
     .arm-r { animation: type .5s steps(1) -.25s infinite; }
@@ -33,6 +33,18 @@
     @keyframes done { 0% { opacity: 0; } 80% { opacity: 1; } }
     .steam { animation: steam 1.6s steps(1) infinite; }
     @keyframes steam { 50% { transform: translate(1px, -1px); } }
+    .dog { animation: dog 12s linear infinite; }
+    @keyframes dog { 0%, 100% { transform: translate(14px, 79px); } 50% { transform: translate(60px, 79px); } }
+    .dog-face { transform-box: fill-box; transform-origin: center; animation: face 12s steps(1) infinite; }
+    @keyframes face { 50% { transform: scaleX(-1); } }
+    .wag { animation: step .3s steps(1) infinite; }
+    .tail { transform-box: fill-box; transform-origin: right; animation: swish 3s steps(1) infinite; }
+    @keyframes swish { 70% { transform: translateY(-1px); } 85% { transform: translateY(-2px); } }
+    .zz { animation: zz 3s linear infinite; }
+    .zz.b { animation-delay: -1.5s; }
+    @keyframes zz { 0% { transform: translate(0, 0); opacity: 0; } 20% { opacity: 1; } 100% { transform: translate(2px, -6px); opacity: 0; } }
+    .lamp { animation: lamp 4s steps(1) infinite; }
+    @keyframes lamp { 90% { opacity: .6; } }
     @media (prefers-reduced-motion: reduce) {
       * { animation: none !important; }
       .walker { transform: translate(156px, 50px); }
@@ -63,7 +75,7 @@
     </g>
     <!-- seen from behind, sitting: arms are separate so they can type -->
     <g id="back-head">
-      <rect x="2" y="0" width="4" height="1" fill="#2a1d14"/><rect x="1" y="1" width="6" height="4" fill="#2a1d14"/>
+      <rect x="2" y="0" width="4" height="1"/><rect x="1" y="1" width="6" height="4"/>
     </g>
     <g id="bubble">
       <rect x="0" y="0" width="9" height="6" fill="#ffffff"/><rect x="1" y="6" width="2" height="1" fill="#ffffff"/>
@@ -97,7 +109,7 @@
   <rect x="15" y="19" width="6" height="4" fill="#2f63c9"/>
   <rect class="code" x="16" y="20" width="3" height="1" fill="#a9d6ff"/><rect class="code b" x="16" y="22" width="4" height="1" fill="#a9d6ff"/>
   <g>
-    <use href="#back-head" x="14" y="26"/>
+    <use href="#back-head" x="14" y="26" fill="#2a1d14"/>
     <rect x="15" y="31" width="6" height="4" fill="#c0392b"/>
     <rect class="arm-l" x="14" y="31" width="1" height="3" fill="#9e2e22"/>
     <rect class="arm-r" x="21" y="31" width="1" height="3" fill="#9e2e22"/>
@@ -110,7 +122,7 @@
   <rect x="108" y="45" width="6" height="4" fill="#2f63c9"/>
   <rect class="code b" x="109" y="46" width="4" height="1" fill="#a9d6ff"/><rect class="code" x="109" y="48" width="2" height="1" fill="#a9d6ff"/>
   <g>
-    <use href="#back-head" x="107" y="52"/>
+    <use href="#back-head" x="107" y="52" fill="#2a1d14"/>
     <rect x="108" y="57" width="6" height="4" fill="#1f3bff"/>
     <rect class="arm-l" x="107" y="57" width="1" height="3" fill="#1730cc"/>
     <rect class="arm-r" x="114" y="57" width="1" height="3" fill="#1730cc"/>
@@ -119,6 +131,36 @@
     <use href="#bubble"/><rect x="3" y="2" width="3" height="1" fill="#e09f3e"/><rect x="5" y="3" width="1" height="1" fill="#e09f3e"/><rect x="4" y="4" width="1" height="1" fill="#e09f3e"/>
   </g>
 
+
+  <!-- more agents at their desks -->
+  <rect x="56" y="19" width="6" height="4" fill="#2f63c9"/>
+  <rect class="code" x="57" y="20" width="3" height="1" fill="#a9d6ff"/><rect class="code b" x="57" y="22" width="4" height="1" fill="#a9d6ff"/>
+  <use href="#back-head" x="55" y="26" fill="#d9a441"/>
+  <rect x="56" y="31" width="6" height="4" fill="#8e44ad"/>
+  <rect class="arm-l" x="55" y="31" width="1" height="3" fill="#6f3589"/><rect class="arm-r" x="62" y="31" width="1" height="3" fill="#6f3589"/>
+  <rect x="97" y="19" width="6" height="4" fill="#2f63c9"/>
+  <rect class="code" x="98" y="20" width="3" height="1" fill="#a9d6ff"/><rect class="code b" x="98" y="22" width="4" height="1" fill="#a9d6ff"/>
+  <use href="#back-head" x="96" y="26" fill="#6b3e1e"/>
+  <rect x="97" y="31" width="6" height="4" fill="#e67e22"/>
+  <rect class="arm-l" x="96" y="31" width="1" height="3" fill="#c0661a"/><rect class="arm-r" x="103" y="31" width="1" height="3" fill="#c0661a"/>
+  <rect x="15" y="45" width="6" height="4" fill="#2f63c9"/>
+  <rect class="code" x="16" y="46" width="3" height="1" fill="#a9d6ff"/><rect class="code b" x="16" y="48" width="4" height="1" fill="#a9d6ff"/>
+  <use href="#back-head" x="14" y="52" fill="#1b1b1b"/>
+  <rect x="15" y="57" width="6" height="4" fill="#16a085"/>
+  <rect class="arm-l" x="14" y="57" width="1" height="3" fill="#11806a"/><rect class="arm-r" x="21" y="57" width="1" height="3" fill="#11806a"/>
+  <rect x="45" y="45" width="6" height="4" fill="#2f63c9"/>
+  <rect class="code" x="46" y="46" width="3" height="1" fill="#a9d6ff"/><rect class="code b" x="46" y="48" width="4" height="1" fill="#a9d6ff"/>
+  <use href="#back-head" x="44" y="52" fill="#a33b2b"/>
+  <rect x="45" y="57" width="6" height="4" fill="#34495e"/>
+  <rect class="arm-l" x="44" y="57" width="1" height="3" fill="#22313f"/><rect class="arm-r" x="51" y="57" width="1" height="3" fill="#22313f"/>
+
+  <!-- work room furniture -->
+  <rect x="66" y="3" width="16" height="9" fill="#7d522a"/><rect x="67" y="4" width="14" height="3" fill="#5a3b22"/><rect x="67" y="8" width="14" height="3" fill="#5a3b22"/>
+  <rect x="67" y="4" width="2" height="3" fill="#c0392b"/><rect x="69" y="5" width="2" height="2" fill="#1f3bff"/><rect x="72" y="4" width="1" height="3" fill="#e09f3e"/><rect x="74" y="4" width="2" height="3" fill="#16a085"/><rect x="78" y="5" width="2" height="2" fill="#f7f7f3"/>
+  <rect x="67" y="8" width="3" height="3" fill="#e09f3e"/><rect x="71" y="8" width="2" height="3" fill="#8e44ad"/><rect x="75" y="9" width="5" height="2" fill="#c0392b"/>
+  <rect x="119" y="34" width="4" height="3" fill="#a9d6ff"/><rect x="119" y="37" width="4" height="6" fill="#e4e4de"/><rect x="120" y="39" width="1" height="1" fill="#1f3bff"/>
+  <rect x="84" y="39" width="7" height="5" fill="#9a9a95"/><rect x="84" y="37" width="7" height="3" fill="#d9d9d2"/><rect x="85" y="36" width="4" height="1" fill="#f7f7f3"/><rect x="89" y="38" width="1" height="1" fill="#2e9b4f"/>
+
   <!-- meeting room -->
   <rect x="148" y="22" width="6" height="4" fill="#7d522a"/><rect x="168" y="22" width="6" height="4" fill="#7d522a"/>
   <g>
@@ -126,20 +168,61 @@
     <rect x="167" y="19" width="6" height="3" fill="#f1c27d"/><rect x="168" y="20" width="1" height="1" fill="#1b1b1b"/><rect x="171" y="20" width="1" height="1" fill="#1b1b1b"/>
     <rect x="167" y="22" width="6" height="6" fill="#e09f3e"/>
   </g>
-  <rect x="140" y="27" width="44" height="12" fill="#a8723f"/><rect x="140" y="38" width="44" height="2" fill="#7d522a"/>
+  <rect x="148" y="42" width="6" height="4" fill="#7d522a"/><rect x="168" y="42" width="6" height="4" fill="#7d522a"/>
+  <g>
+    <rect x="146" y="16" width="8" height="1" fill="#d9a441"/><rect x="147" y="17" width="6" height="2" fill="#d9a441"/><rect x="146" y="17" width="1" height="5" fill="#d9a441"/><rect x="153" y="17" width="1" height="5" fill="#d9a441"/>
+    <rect x="147" y="19" width="6" height="3" fill="#c68b59"/><rect x="148" y="20" width="1" height="1" fill="#1b1b1b"/><rect x="151" y="20" width="1" height="1" fill="#1b1b1b"/>
+    <rect x="147" y="22" width="6" height="6" fill="#2e9b4f"/>
+  </g>
+  <rect x="140" y="27" width="44" height="12" fill="#a8723f"/>
+  <rect x="140" y="38" width="44" height="2" fill="#7d522a"/>
   <rect x="150" y="31" width="7" height="5" fill="#f7f7f3"/><rect x="151" y="32" width="5" height="1" fill="#9a9a95"/><rect x="151" y="34" width="4" height="1" fill="#9a9a95"/>
   <rect x="168" y="31" width="3" height="3" fill="#f7f7f3"/><rect x="171" y="32" width="1" height="1" fill="#f7f7f3"/>
   <rect class="steam" x="169" y="29" width="1" height="1" fill="#ffffff" opacity=".8"/>
-  <rect x="148" y="42" width="6" height="4" fill="#7d522a"/><rect x="168" y="42" width="6" height="4" fill="#7d522a"/>
+  <use href="#back-head" x="157" y="36" fill="#3b2a1e"/><rect x="158" y="41" width="6" height="4" fill="#c0392b"/>
+  <g>
+    <rect x="133" y="12" width="4" height="1" fill="#1b1b1b"/><rect x="132" y="13" width="6" height="2" fill="#1b1b1b"/>
+    <rect x="132" y="15" width="6" height="3" fill="#f1c27d"/><rect x="133" y="16" width="1" height="1" fill="#1b1b1b"/><rect x="136" y="16" width="1" height="1" fill="#1b1b1b"/>
+    <rect x="132" y="18" width="6" height="4" fill="#1f3bff"/><rect x="138" y="17" width="5" height="1" fill="#1730cc"/><rect x="143" y="16" width="2" height="1" fill="#8a5a3a"/>
+    <rect x="133" y="22" width="2" height="2" fill="#33333a"/><rect x="135" y="22" width="2" height="2" fill="#33333a"/>
+  </g>
+  <rect x="176" y="3" width="14" height="9" fill="#7d522a"/><rect x="177" y="4" width="12" height="3" fill="#5a3b22"/><rect x="177" y="8" width="12" height="3" fill="#5a3b22"/>
+  <rect x="177" y="4" width="2" height="3" fill="#1f3bff"/><rect x="180" y="5" width="3" height="2" fill="#e09f3e"/><rect x="184" y="4" width="1" height="3" fill="#c0392b"/><rect x="178" y="8" width="4" height="3" fill="#16a085"/><rect x="185" y="9" width="3" height="2" fill="#f7f7f3"/>
+  <rect x="186" y="46" width="7" height="5" fill="#7d522a"/><rect x="189" y="40" width="1" height="6" fill="#5a3b22"/><rect class="lamp" x="187" y="37" width="5" height="3" fill="#f6d77a"/>
+  <rect x="180" y="52" width="14" height="9" fill="#8e44ad"/><rect x="180" y="52" width="14" height="3" fill="#6f3589"/><rect x="180" y="52" width="2" height="9" fill="#6f3589"/><rect x="192" y="52" width="2" height="9" fill="#6f3589"/>
   <use href="#plant" x="186" y="13"/><use href="#plant" x="130" y="62"/>
   <g class="talk" transform="translate(176 12)">
     <use href="#bubble"/><rect x="2" y="3" width="1" height="1" fill="#474b68"/><rect x="4" y="3" width="1" height="1" fill="#474b68"/><rect x="6" y="3" width="1" height="1" fill="#474b68"/>
   </g>
 
+  <!-- hall furniture -->
+  <rect x="22" y="87" width="20" height="8" fill="#b8434f"/><rect x="22" y="87" width="20" height="3" fill="#963440"/><rect x="22" y="87" width="2" height="8" fill="#963440"/><rect x="40" y="87" width="2" height="8" fill="#963440"/>
+  <rect x="140" y="87" width="20" height="8" fill="#b8434f"/><rect x="140" y="87" width="20" height="3" fill="#963440"/><rect x="140" y="87" width="2" height="8" fill="#963440"/><rect x="158" y="87" width="2" height="8" fill="#963440"/>
+  <rect x="164" y="89" width="6" height="5" fill="#a8723f"/><rect x="165" y="87" width="3" height="2" fill="#f7f7f3"/>
+
   <!-- hall sign -->
   <rect x="84" y="88" width="34" height="8" fill="#ffffff"/><rect x="84" y="88" width="34" height="1" fill="#1f2a7a"/><rect x="84" y="95" width="34" height="1" fill="#1f2a7a"/>
   <text x="101" y="94.5" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-weight="700" font-size="6.5" fill="#1f2a7a" shape-rendering="auto">tulifo</text>
   <use href="#plant" x="188" y="84"/><use href="#plant" x="6" y="84"/>
+
+
+  <!-- the office cat, asleep in the meeting room -->
+  <g transform="translate(166 64)">
+    <rect class="tail" x="-3" y="3" width="3" height="1" fill="#7a7a7a"/>
+    <rect x="0" y="1" width="7" height="3" fill="#9a9a9a"/><rect x="2" y="1" width="1" height="3" fill="#7a7a7a"/><rect x="4" y="1" width="1" height="3" fill="#7a7a7a"/>
+    <rect x="5" y="0" width="3" height="3" fill="#9a9a9a"/><rect x="5" y="-1" width="1" height="1" fill="#9a9a9a"/><rect x="7" y="-1" width="1" height="1" fill="#9a9a9a"/><rect x="6" y="1" width="1" height="1" fill="#4a4a4a"/>
+    <g class="zz"><rect x="8" y="-3" width="2" height="1" fill="#474b68"/><rect x="9" y="-2" width="1" height="1" fill="#474b68"/><rect x="8" y="-1" width="2" height="1" fill="#474b68"/></g>
+    <g class="zz b"><rect x="8" y="-3" width="2" height="1" fill="#474b68"/><rect x="9" y="-2" width="1" height="1" fill="#474b68"/><rect x="8" y="-1" width="2" height="1" fill="#474b68"/></g>
+  </g>
+
+  <!-- the office dog, patrolling the hall -->
+  <g class="dog"><g class="dog-face">
+    <rect x="1" y="2" width="6" height="2" fill="#a0662f"/><rect x="6" y="0" width="3" height="3" fill="#a0662f"/><rect x="6" y="0" width="1" height="2" fill="#6e4520"/>
+    <rect x="8" y="1" width="1" height="1" fill="#1b1b1b"/><rect x="9" y="2" width="1" height="1" fill="#1b1b1b"/>
+    <rect class="wag" x="0" y="1" width="1" height="2" fill="#6e4520"/>
+    <g class="legs-a"><rect x="1" y="4" width="1" height="2" fill="#6e4520"/><rect x="6" y="4" width="1" height="2" fill="#6e4520"/></g>
+    <g class="legs-b"><rect x="2" y="4" width="1" height="2" fill="#6e4520"/><rect x="5" y="4" width="1" height="2" fill="#6e4520"/></g>
+  </g></g>
 
   <!-- the agent who walks to the meeting room and back -->
   <g class="walker">
