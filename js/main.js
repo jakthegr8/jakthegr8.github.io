@@ -55,7 +55,9 @@
 
   function renderProjects(projects) {
     if (!projects.length) return;
-    $("[data-projects]").innerHTML = projects.map(p => `
+    // Items marked data-pinned in the HTML (repos outside jakthegr8, so not in the feed) stay on top.
+    const pinned = $$("[data-projects] [data-pinned]").map(a => a.outerHTML).join("");
+    $("[data-projects]").innerHTML = pinned + projects.map(p => `
       <a class="item" href="${esc(p.url)}" target="_blank" rel="noopener">
         <span class="item__top"><span class="item__name">${esc(p.name)} ↗</span><span class="item__meta">${esc(p.language)} · ${year(p.created)}</span></span>
         <span class="item__text">${esc(p.description)}</span>
