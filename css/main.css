@@ -184,6 +184,7 @@ main > * { position: relative; }
 .heat .l3, .heat__legend .l3 { background: rgba(31, 59, 255, 0.75); }
 .heat .l4, .heat__legend .l4 { background: var(--accent); }
 @media (max-width: 720px) { .heat__cells { --gap: 2px; } }
+.office__img { display: block; width: 100%; max-width: 800px; height: auto; }
 
 /* products */
 .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 24px 32px; }
