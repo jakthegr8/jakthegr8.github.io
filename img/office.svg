@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="800" height="400" shape-rendering="crispEdges">
+  <title>Tulifo agent office</title>
+  <desc>Pixel-art office: two agents type at their desks, one walks to the meeting room and back, one sits at the meeting table. Drawn by hand, not live data.</desc>
+  <style>
+    .arm-l { animation: type .5s steps(1) infinite; }
+    .arm-r { animation: type .5s steps(1) -.25s infinite; }
+    @keyframes type { 50% { transform: translateY(-1px); } }
+    .code { animation: code 2.4s steps(1) infinite; }
+    .code.b { animation-delay: -1.2s; }
+    @keyframes code { 25% { transform: translateX(1px); } 50% { transform: translateX(-1px); } 75% { transform: translateX(2px); } }
+    .walker { animation: walk 16s linear infinite; }
+    @keyframes walk {
+      0% { transform: translate(74px, 32px); }
+      10% { transform: translate(74px, 76px); }
+      34% { transform: translate(156px, 76px); }
+      42%, 62% { transform: translate(156px, 50px); }
+      70% { transform: translate(156px, 76px); }
+      92% { transform: translate(74px, 76px); }
+      100% { transform: translate(74px, 32px); }
+    }
+    .legs-a { animation: step .36s steps(1) infinite; }
+    .legs-b { animation: step .36s steps(1) -.18s infinite; }
+    @keyframes step { 50% { opacity: 0; } }
+    .moving { animation: moving 16s steps(1) infinite; }
+    .still { animation: still 16s steps(1) infinite; }
+    @keyframes moving { 42% { visibility: hidden; } 62% { visibility: visible; } }
+    @keyframes still { 0% { visibility: hidden; } 42% { visibility: visible; } 62% { visibility: hidden; } }
+    .talk { animation: talk 16s steps(1) infinite; }
+    @keyframes talk { 0% { opacity: 0; } 44% { opacity: 1; } 50% { opacity: 0; } 53% { opacity: 1; } 60% { opacity: 0; } }
+    .wait { animation: wait 6s steps(1) infinite; }
+    @keyframes wait { 0% { opacity: 0; } 60% { opacity: 1; } }
+    .done { animation: done 9s steps(1) -4s infinite; }
+    @keyframes done { 0% { opacity: 0; } 80% { opacity: 1; } }
+    .steam { animation: steam 1.6s steps(1) infinite; }
+    @keyframes steam { 50% { transform: translate(1px, -1px); } }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; }
+      .walker { transform: translate(156px, 50px); }
+      .moving { visibility: hidden; }
+    }
+  </style>
+  <defs>
+    <pattern id="tiles" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#efe6d2"/><rect width="4" height="4" fill="#f6efdf"/><rect x="4" y="4" width="4" height="4" fill="#f6efdf"/>
+    </pattern>
+    <pattern id="lilac" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#ccd0f2"/><rect width="8" height="1" fill="#c2c6ea"/><rect width="1" height="8" fill="#c2c6ea"/>
+    </pattern>
+    <pattern id="hall" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#f7f7f3"/><rect width="6" height="1" fill="#e4e4de"/><rect width="1" height="6" fill="#e4e4de"/>
+    </pattern>
+    <g id="desk">
+      <rect x="0" y="6" width="26" height="6" fill="#a8723f"/>
+      <rect x="0" y="11" width="26" height="2" fill="#7d522a"/>
+      <rect x="4" y="0" width="8" height="6" fill="#d9d9d2"/><rect x="5" y="1" width="6" height="4" fill="#2b2f4a"/><rect x="7" y="6" width="2" height="1" fill="#8a8a85"/>
+      <rect x="15" y="0" width="8" height="6" fill="#d9d9d2"/><rect x="16" y="1" width="6" height="4" fill="#2b2f4a"/><rect x="18" y="6" width="2" height="1" fill="#8a8a85"/>
+      <rect x="5" y="15" width="6" height="4" fill="#3f7f4a"/><rect x="5" y="18" width="6" height="1" fill="#2f5f38"/>
+      <rect x="16" y="15" width="6" height="4" fill="#3f7f4a"/><rect x="16" y="18" width="6" height="1" fill="#2f5f38"/>
+    </g>
+    <g id="plant">
+      <rect x="2" y="0" width="2" height="2" fill="#4c9a52"/><rect x="0" y="2" width="6" height="2" fill="#3c8044"/><rect x="1" y="4" width="4" height="1" fill="#4c9a52"/>
+      <rect x="1" y="5" width="4" height="3" fill="#8a5a3a"/><rect x="1" y="5" width="4" height="1" fill="#6e4529"/>
+    </g>
+    <!-- seen from behind, sitting: arms are separate so they can type -->
+    <g id="back-head">
+      <rect x="2" y="0" width="4" height="1" fill="#2a1d14"/><rect x="1" y="1" width="6" height="4" fill="#2a1d14"/>
+    </g>
+    <g id="bubble">
+      <rect x="0" y="0" width="9" height="6" fill="#ffffff"/><rect x="1" y="6" width="2" height="1" fill="#ffffff"/>
+      <rect x="0" y="0" width="9" height="1" fill="#d9d9d2"/>
+    </g>
+  </defs>
+
+  <!-- building -->
+  <rect width="200" height="100" fill="#474b68"/>
+  <rect x="4" y="4" width="120" height="8" fill="#e9e3d3"/><rect x="4" y="11" width="120" height="1" fill="#cfc6ad"/>
+  <rect x="4" y="12" width="120" height="60" fill="url(#tiles)"/>
+  <rect x="128" y="4" width="68" height="8" fill="#dcdff5"/><rect x="128" y="11" width="68" height="1" fill="#bfc3e6"/>
+  <rect x="128" y="12" width="68" height="60" fill="url(#lilac)"/>
+  <rect x="4" y="76" width="192" height="20" fill="url(#hall)"/>
+  <rect x="70" y="72" width="16" height="4" fill="url(#hall)"/>
+  <rect x="150" y="72" width="16" height="4" fill="url(#hall)"/>
+
+  <!-- wall decor -->
+  <rect x="58" y="5" width="5" height="5" fill="#f4f4f0"/><rect x="58" y="5" width="5" height="1" fill="#8a8a85"/><rect x="60" y="6" width="1" height="2" fill="#333"/><rect x="61" y="7" width="1" height="1" fill="#333"/>
+  <rect x="20" y="5" width="14" height="5" fill="#9a7b56"/><rect x="21" y="6" width="12" height="3" fill="#7fb2a0"/>
+  <rect x="88" y="5" width="14" height="5" fill="#9a7b56"/><rect x="89" y="6" width="12" height="3" fill="#d9b36c"/>
+  <rect x="146" y="5" width="24" height="6" fill="#f7f7f3"/><rect x="146" y="10" width="24" height="1" fill="#9a9a95"/>
+  <rect x="148" y="6" width="9" height="1" fill="#1f3bff"/><rect x="148" y="8" width="14" height="1" fill="#1f3bff"/><rect x="160" y="6" width="6" height="1" fill="#d24c3a"/>
+
+  <!-- work room -->
+  <use href="#desk" x="10" y="18"/><use href="#desk" x="40" y="18"/><use href="#desk" x="92" y="18"/>
+  <use href="#desk" x="10" y="44"/><use href="#desk" x="40" y="44"/><use href="#desk" x="92" y="44"/>
+  <use href="#plant" x="114" y="13"/><use href="#plant" x="6" y="62"/>
+
+  <!-- agent at desk 1: screen on, typing -->
+  <rect x="15" y="19" width="6" height="4" fill="#2f63c9"/>
+  <rect class="code" x="16" y="20" width="3" height="1" fill="#a9d6ff"/><rect class="code b" x="16" y="22" width="4" height="1" fill="#a9d6ff"/>
+  <g>
+    <use href="#back-head" x="14" y="26"/>
+    <rect x="15" y="31" width="6" height="4" fill="#c0392b"/>
+    <rect class="arm-l" x="14" y="31" width="1" height="3" fill="#9e2e22"/>
+    <rect class="arm-r" x="21" y="31" width="1" height="3" fill="#9e2e22"/>
+  </g>
+  <g class="done" transform="translate(23 19)">
+    <use href="#bubble"/><rect x="5" y="2" width="1" height="1" fill="#2e9b4f"/><rect x="2" y="3" width="1" height="1" fill="#2e9b4f"/><rect x="3" y="4" width="1" height="1" fill="#2e9b4f"/><rect x="4" y="3" width="1" height="1" fill="#2e9b4f"/><rect x="6" y="1" width="1" height="1" fill="#2e9b4f"/>
+  </g>
+
+  <!-- agent at desk 6: screen on, typing, sometimes waits for an answer -->
+  <rect x="108" y="45" width="6" height="4" fill="#2f63c9"/>
+  <rect class="code b" x="109" y="46" width="4" height="1" fill="#a9d6ff"/><rect class="code" x="109" y="48" width="2" height="1" fill="#a9d6ff"/>
+  <g>
+    <use href="#back-head" x="107" y="52"/>
+    <rect x="108" y="57" width="6" height="4" fill="#1f3bff"/>
+    <rect class="arm-l" x="107" y="57" width="1" height="3" fill="#1730cc"/>
+    <rect class="arm-r" x="114" y="57" width="1" height="3" fill="#1730cc"/>
+  </g>
+  <g class="wait" transform="translate(116 45)">
+    <use href="#bubble"/><rect x="3" y="2" width="3" height="1" fill="#e09f3e"/><rect x="5" y="3" width="1" height="1" fill="#e09f3e"/><rect x="4" y="4" width="1" height="1" fill="#e09f3e"/>
+  </g>
+
+  <!-- meeting room -->
+  <rect x="148" y="22" width="6" height="4" fill="#7d522a"/><rect x="168" y="22" width="6" height="4" fill="#7d522a"/>
+  <g>
+    <rect x="166" y="16" width="8" height="1" fill="#5a3b22"/><rect x="167" y="17" width="6" height="2" fill="#5a3b22"/>
+    <rect x="167" y="19" width="6" height="3" fill="#f1c27d"/><rect x="168" y="20" width="1" height="1" fill="#1b1b1b"/><rect x="171" y="20" width="1" height="1" fill="#1b1b1b"/>
+    <rect x="167" y="22" width="6" height="6" fill="#e09f3e"/>
+  </g>
+  <rect x="140" y="27" width="44" height="12" fill="#a8723f"/><rect x="140" y="38" width="44" height="2" fill="#7d522a"/>
+  <rect x="150" y="31" width="7" height="5" fill="#f7f7f3"/><rect x="151" y="32" width="5" height="1" fill="#9a9a95"/><rect x="151" y="34" width="4" height="1" fill="#9a9a95"/>
+  <rect x="168" y="31" width="3" height="3" fill="#f7f7f3"/><rect x="171" y="32" width="1" height="1" fill="#f7f7f3"/>
+  <rect class="steam" x="169" y="29" width="1" height="1" fill="#ffffff" opacity=".8"/>
+  <rect x="148" y="42" width="6" height="4" fill="#7d522a"/><rect x="168" y="42" width="6" height="4" fill="#7d522a"/>
+  <use href="#plant" x="186" y="13"/><use href="#plant" x="130" y="62"/>
+  <g class="talk" transform="translate(176 12)">
+    <use href="#bubble"/><rect x="2" y="3" width="1" height="1" fill="#474b68"/><rect x="4" y="3" width="1" height="1" fill="#474b68"/><rect x="6" y="3" width="1" height="1" fill="#474b68"/>
+  </g>
+
+  <!-- hall sign -->
+  <rect x="84" y="88" width="34" height="8" fill="#ffffff"/><rect x="84" y="88" width="34" height="1" fill="#1f2a7a"/><rect x="84" y="95" width="34" height="1" fill="#1f2a7a"/>
+  <text x="101" y="94.5" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-weight="700" font-size="6.5" fill="#1f2a7a" shape-rendering="auto">tulifo</text>
+  <use href="#plant" x="188" y="84"/><use href="#plant" x="6" y="84"/>
+
+  <!-- the agent who walks to the meeting room and back -->
+  <g class="walker">
+    <rect x="2" y="0" width="4" height="1" fill="#2a1d14"/><rect x="1" y="1" width="6" height="2" fill="#2a1d14"/>
+    <rect x="1" y="3" width="6" height="3" fill="#f1c27d"/><rect x="2" y="4" width="1" height="1" fill="#1b1b1b"/><rect x="5" y="4" width="1" height="1" fill="#1b1b1b"/>
+    <rect x="1" y="6" width="6" height="3" fill="#2e8b57"/><rect x="0" y="6" width="1" height="3" fill="#256f46"/><rect x="7" y="6" width="1" height="3" fill="#256f46"/>
+    <g class="moving">
+      <g class="legs-a"><rect x="2" y="9" width="2" height="2" fill="#33333a"/><rect x="4" y="9" width="2" height="1" fill="#33333a"/></g>
+      <g class="legs-b"><rect x="2" y="9" width="2" height="1" fill="#33333a"/><rect x="4" y="9" width="2" height="2" fill="#33333a"/></g>
+    </g>
+    <g class="still"><rect x="2" y="9" width="2" height="2" fill="#33333a"/><rect x="4" y="9" width="2" height="2" fill="#33333a"/></g>
+  </g>
+</svg>
