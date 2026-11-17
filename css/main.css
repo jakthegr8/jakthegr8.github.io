@@ -199,7 +199,7 @@ main > * { position: relative; }
 }
 
 /* products */
-.products { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 24px 32px; }
+.products { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 24px 32px; }
 .product { border-top: 1px solid var(--ink); padding: 16px 0 8px; display: flex; flex-direction: column; gap: 8px; }
 .product:hover { text-decoration: none; }
 .product:hover .product__name { color: var(--accent); }
